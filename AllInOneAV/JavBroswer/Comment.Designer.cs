@@ -45,7 +45,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 41);
             this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
+            this.button1.Text = "复制";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -58,7 +58,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Name = "Comment";
-            this.Size = new System.Drawing.Size(630, 86);
+            this.Size = new System.Drawing.Size(635, 86);
             this.Load += new System.EventHandler(this.Comment_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

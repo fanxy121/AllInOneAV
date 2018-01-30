@@ -37,7 +37,28 @@ namespace DataBaseManager.ScanDataBaseHelper
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
         }
 
-        public static int SaveMatch(Scan scan, AV av)
+        public static int DeleteMatch(int matchid)
+        {
+            var sql = @"DELETE FROM Match WHERE matchid = " + matchid;
+
+            return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
+        }
+
+        public static List<Match> GetAllMatch()
+        {
+            var sql = @"SELECT * FROM Match";
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<Match>();
+        }
+
+        public static bool HasMatch(string id)
+        {
+            var sql = string.Format("SELECT * FROM Match WHERE AvID = '{0}'", id);
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<Match>().Count > 0 ? true : false;
+        }
+
+        public static int SaveMatch(Match match)
         {
             var sql = @"INSERT INTO Match (AvID, Name, Location, CreateTime) VALUES (@avID, @name, @location, @createTime)";
 
@@ -48,9 +69,9 @@ namespace DataBaseManager.ScanDataBaseHelper
                 new SqlParameter("@createTime",SqlDbType.DateTime),
             };
 
-            paras[0].Value = av.ID;
-            paras[1].Value = scan.FileName;
-            paras[2].Value = scan.Location;
+            paras[0].Value = match.AvID;
+            paras[1].Value = match.Name;
+            paras[2].Value = match.Location;
             paras[3].Value = DateTime.Now;
 
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql, paras);
@@ -72,7 +93,7 @@ namespace DataBaseManager.ScanDataBaseHelper
 
         public static bool IsFinish()
         {
-            var sql = @"SELECT COUNT(1) FROM Finish";
+            var sql = @"SELECT * FROM Finish";
 
             return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToModel<Finish>().IsFinish == 0 ? false : true;
         }

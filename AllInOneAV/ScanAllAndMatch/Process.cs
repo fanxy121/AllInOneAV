@@ -19,10 +19,9 @@ namespace ScanAllAndMatch
 
         public static void Start()
         {
-            ScanDataBaseManager.ClearMatch();
-            ScanDataBaseManager.DeleteFinish();
             var drivers = Environment.GetLogicalDrives().Skip(1).ToList();
             List<FileInfo> fi = new List<FileInfo>();
+            List<Match> temp = new List<Match>();
 
             foreach(var driver in drivers)
             {
@@ -43,21 +42,52 @@ namespace ScanAllAndMatch
 
                 var possibleIDs = FileUtility.GetPossibleID(scan, prefix);
 
-                MatchAndSave(scan, possibleIDs);
+                AddTemp(scan, possibleIDs, temp);
+            }
+
+            var currentMatchs = ScanDataBaseManager.GetAllMatch();
+
+            foreach (var m in currentMatchs)
+            {
+                m.AvID = m.AvID.Trim();
+                m.Location = m.Location.Trim();
+                m.Name = m.Name.Trim();
+            }
+
+            var shouldDelete = currentMatchs.Except(temp, new MatchComparer());
+            var shouldAdd = temp.Except(currentMatchs, new MatchComparer());
+
+            var cd = shouldDelete.Count();
+            var ca = shouldAdd.Count();
+
+
+            foreach (var m in shouldDelete)
+            {
+                ScanDataBaseManager.DeleteMatch(m.AvID);
+            }
+
+            foreach (var m in shouldAdd)
+            {
+                ScanDataBaseManager.SaveMatch(m);
             }
 
             ScanDataBaseManager.InsertFinish();
         }
 
-        private static void MatchAndSave(Scan scan, List<string> possibleIDs)
+        private static void AddTemp(Scan scan, List<string> possibleIDs, List<Match> temp)
         {
             foreach (var id in possibleIDs)
             {
                 var avs = JavDataBaseManager.GetAllAV(id);
 
                 foreach(var av in avs)
-                { 
-                    ScanDataBaseManager.SaveMatch(scan, av);
+                {
+                    temp.Add(new Match
+                    {
+                        AvID = av.ID,
+                        Location = scan.Location,
+                        Name = scan.FileName
+                    });
                 }
             }
         }

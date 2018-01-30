@@ -34,7 +34,14 @@ namespace JavBroswer
         {
             if (!string.IsNullOrEmpty(textBox1.Text))
             {
-                Clipboard.SetDataObject(textBox1.Text);
+                if (textBox1.Text.StartsWith("http"))
+                {
+                    System.Diagnostics.Process.Start("chrome.exe", textBox1.Text);
+                }
+                else
+                {
+                    Clipboard.SetDataObject(textBox1.Text);
+                }
             }
         }
     }

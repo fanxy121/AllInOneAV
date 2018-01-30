@@ -1,4 +1,5 @@
 ﻿using DataBaseManager.JavDataBaseHelper;
+using DataBaseManager.ScanDataBaseHelper;
 using Model.JavModels;
 using Newtonsoft.Json;
 using System;
@@ -9,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Utils;
@@ -66,7 +68,15 @@ namespace JavBroswer
             var index = 0;
             foreach (var com in comment)
             {
-                Comment c = new Comment(com.Comment);
+                var tempComment = com.Comment;
+
+                if (com.Comment.StartsWith("[") && com.Comment.Contains("http"))
+                {
+                    com.Comment = com.Comment.Substring(com.Comment.IndexOf("http"));
+                    tempComment = com.Comment.Substring(0, com.Comment.IndexOf("]"));
+                }
+
+                Comment c = new Comment(tempComment);
                 c.Location = new Point(0, index * 70 + 1);
                 c.Size = new Size(panel3.Width - 50, 70);
                 panel3.Controls.Add(c);
@@ -88,6 +98,15 @@ namespace JavBroswer
                 }
 
                 var comments = JavDataBaseManager.GetComment(json[index].ID, FileUtility.ReplaceInvalidChar(json[index].Title));
+
+                if (ScanDataBaseManager.HasMatch(json[index].ID))
+                {
+                    labelMark.BackColor = Color.Green;
+                }
+                else
+                {
+                    labelMark.BackColor = Color.Red;
+                }
 
                 ShowContent(comments);
             }

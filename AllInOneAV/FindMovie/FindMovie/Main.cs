@@ -124,15 +124,7 @@ namespace FindMovie
 
         private void RefreshCache()
         {
-            if (ScanDataBaseManager.IsFinish())
-            {
-                cacheMovies = FindDataBaseManager.GetAllMovies().OrderBy(x => x.AvID).ToList();
-            }
-            else
-            {
-                MessageBox.Show("Data is not ready to search.");
-                return;
-            }
+            cacheMovies = FindDataBaseManager.GetAllMovies().OrderBy(x => x.AvID).ToList();
         }
 
         private void initButton_Click(object sender, EventArgs e)
