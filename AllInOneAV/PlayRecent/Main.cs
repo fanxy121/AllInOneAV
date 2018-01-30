@@ -129,7 +129,7 @@ namespace PlayRecent
                 lvi.SubItems.Add(FileSize.GetAutoSizeString(file.Length, 1));
                 lvi.Tag = file.FullName;
 
-                if (ScanDataBaseManager.ViewedFile(file.FullName))
+                if (ScanDataBaseManager.ViewedFile(FileUtility.ReplaceInvalidChar(file.FullName)))
                 {
                     lvi.BackColor = Color.Green;
                 }
@@ -171,7 +171,7 @@ namespace PlayRecent
             {
                 System.Diagnostics.Process.Start(@"" + current.Tag);
                 current.BackColor = Color.Green;
-                ScanDataBaseManager.InsertViewHistory(current.Tag + "");
+                ScanDataBaseManager.InsertViewHistory(FileUtility.ReplaceInvalidChar(current.Tag + ""));
             }
         }
 

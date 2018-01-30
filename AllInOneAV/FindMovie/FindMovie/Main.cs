@@ -102,7 +102,7 @@ namespace FindMovie
                     if (result == DialogResult.Yes)
                     {
                         File.Delete(info.Item.SubItems[2].Text);
-                        ScanDataBaseManager.DeleteMatch(info.Item.SubItems[2].Text);
+                        ScanDataBaseManager.DeleteMatch(FileUtility.ReplaceInvalidChar(info.Item.SubItems[2].Text));
                         RefreshCache();
                     }
                 }
