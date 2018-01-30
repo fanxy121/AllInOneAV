@@ -20,7 +20,7 @@ namespace Utils
             {
                 var f = new FileInfo(file);
 
-                if (formats.Contains(f.Extension))
+                if (formats.Contains(f.Extension.ToLower()))
                 {
                     if (minSize > 0)
                     {

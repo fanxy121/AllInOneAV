@@ -76,5 +76,19 @@ namespace DataBaseManager.ScanDataBaseHelper
 
             return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToModel<Finish>().IsFinish == 0 ? false : true;
         }
+
+        public static int InsertViewHistory(string file)
+        {
+            var sql = string.Format("INSERT INTO ViewHistory (FileName) VALUES ('{0}')", file);
+
+            return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
+        }
+
+        public static bool ViewedFile(string file)
+        {
+            var sql = string.Format("SELECT * FROM ViewHistory WHERE FileName = '{0}'", file);
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToModel<ViewHistory>() == null ? false : true;
+        }
     }
 }

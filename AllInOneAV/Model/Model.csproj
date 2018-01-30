@@ -57,6 +57,7 @@
     <Compile Include="ScanModels\Finish.cs" />
     <Compile Include="ScanModels\Match.cs" />
     <Compile Include="ScanModels\Scan.cs" />
+    <Compile Include="ScanModels\ViewHistory.cs" />
     <Compile Include="SisModels\LastOperationEndDate.cs" />
     <Compile Include="SisModels\ScanThread.cs" />
     <Compile Include="SisModels\SisLogger.cs" />
