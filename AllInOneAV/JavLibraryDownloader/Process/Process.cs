@@ -114,6 +114,7 @@ namespace JavLibraryDownloader.Process
             foreach (var item in second)
             {
                 DownloadHelper.DownloadManager.Download(item.Url, currentItems, second.Count());
+                currentItems++;
             }
         }
 

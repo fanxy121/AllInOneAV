@@ -104,6 +104,8 @@ namespace FindMovie
                         File.Delete(info.Item.SubItems[2].Text);
                         ScanDataBaseManager.DeleteMatch(FileUtility.ReplaceInvalidChar(info.Item.SubItems[2].Text));
                         RefreshCache();
+
+                        listView1.Items.Remove(info.Item);
                     }
                 }
             }

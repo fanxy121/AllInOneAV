@@ -43,7 +43,7 @@ namespace JavLibraryDownloader.DownloadHelper
 
             try
             {
-                StartDownload(prefix + url, url);
+                StartDownload(prefix + url, url, currentItem, totalItem);
             }
             catch (Exception e)
             {
@@ -51,7 +51,7 @@ namespace JavLibraryDownloader.DownloadHelper
             }
         }
 
-        public static void StartDownload(string url, string oriURL, bool updateComment = false)
+        public static void StartDownload(string url, string oriURL, int currentItem, int totalItem)
         {
             var res = HtmlManager.GetHtmlContentViaUrl(url);
 
@@ -59,6 +59,8 @@ namespace JavLibraryDownloader.DownloadHelper
             {
                 if (res.Success)
                 {
+                    Console.WriteLine(string.Format("Start to download {0}, {1}/{2}", oriURL, currentItem, totalItem));
+
                     AV av = new AV();
 
                     var m = Regex.Matches(res.Content, detailIDPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);

@@ -47,9 +47,11 @@ namespace JavLibraryDownloader.ScanHelper
 
                 FileUtility.WriteFile(json, folder + "Update.json");
 
+                int current = 1;
                 foreach (var update in ForUpdate)
                 {
-                    DownloadHelper.DownloadManager.Download(update.URL, 1, ForUpdate.Count);
+                    DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count);
+                    current++;
                 }
 
             }
