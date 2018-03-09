@@ -46,6 +46,7 @@
     <Compile Include="FileUtility.cs" />
     <Compile Include="HtmlManager.cs" />
     <Compile Include="JavINIClass.cs" />
+    <Compile Include="LogHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -31,11 +31,6 @@ namespace AvManager
 
         }
 
-        private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtMoveSrc_Click(object sender, EventArgs e)
         {
             MoveSrcClick();
@@ -94,42 +89,57 @@ namespace AvManager
         {
             if (srcFi.Count > 0 && !string.IsNullOrEmpty(txtMoveDes.Text))
             {
+                var logFile = "MoveLog" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
                 var des = txtMoveDes.Text;
                 DateTime now = DateTime.Now;
 
-                if (cbAutoReplace.Checked)
+                foreach (var fi in srcFi)
                 {
-                    foreach(var fi in srcFi)
-                    {
-                        var newFi = "";
+                    var newFi = "";
 
-                        if (desFi.Exists(x => x.Name == fi.Name))
+                    if (desFi.Exists(x => x.Name == fi.Name))
+                    {
+                        LogHelper.WriteLog(logFile, "找到重复的文件");
+
+                        var desF = desFi.Find(x => x.Name == fi.Name);
+
+                        if (cbAutoReplace.Checked)
                         {
-                            var desF = desFi.Find(x => x.Name == fi.Name);
+                            LogHelper.WriteLog(logFile, "自动模式");
 
                             if (fi.Length >= desF.Length)
                             {
                                 newFi = des + "/" + fi.Name;
                                 File.Delete(desF.FullName);
                                 MoveFile(fi.FullName, newFi, now);
+
+                                LogHelper.WriteLog(logFile, "删除 -> " + desF.FullName + " 移动 " + fi.FullName + " -> " + newFi);
                             }
                             else
                             {
                                 File.Delete(fi.FullName);
+
+                                LogHelper.WriteLog(logFile, "删除 -> " + fi.FullName);
                             }
                         }
                         else
                         {
-                            newFi = des + "/" + fi.Name;
-                            MoveFile(fi.FullName, newFi, now);
+                            LogHelper.WriteLog(logFile, "手动模式");
+
+                            CompareMove cm = new AvManager.CompareMove();
+                            cm.oriFile = fi;
+                            cm.desFile = desF;
+                            cm.desPath = desF.DirectoryName;
+                            cm.logFile = logFile;
                         }
+                    }
+                    else
+                    {
+                        newFi = des + "/" + fi.Name;
+                        MoveFile(fi.FullName, newFi, now);
 
                         desFi.Add(new FileInfo(newFi));
                     }
-                }
-                else
-                {
-
                 }
             }
         }

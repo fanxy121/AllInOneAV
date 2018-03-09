@@ -276,10 +276,6 @@
             this.tabPage2.Text = "Rename";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // fdMoveSrc
-            // 
-            this.fdMoveSrc.HelpRequest += new System.EventHandler(this.folderBrowserDialog1_HelpRequest);
-            // 
             // cbAutoReplace
             // 
             this.cbAutoReplace.AutoSize = true;
