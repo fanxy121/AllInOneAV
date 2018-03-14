@@ -26,7 +26,7 @@ namespace DataBaseManager.AvManagerDataBaseManager
 
         public static int InserMoveLog(string src, string des, DateTime time)
         {
-            var sql = string.Format("INSERT INTO MoveLog (Src, Des, CreateTime) VALUES ('{0}','{1}',{2})", src, des, time);
+            var sql = string.Format("INSERT INTO MoveLog (Src, Des, CreateTime) VALUES ('{0}','{1}','{2}')", src, des, time);
 
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
         }

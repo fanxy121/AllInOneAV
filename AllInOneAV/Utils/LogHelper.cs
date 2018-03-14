@@ -18,12 +18,12 @@ namespace Utils
                 Directory.CreateDirectory(root);
             }
 
-            if (!File.Exists(logFile))
+            if (!File.Exists(root + logFile))
             {
-                File.Create(logFile);
+                File.Create(root + logFile).Close();
             }
 
-            StreamWriter sw = new StreamWriter(logFile, true);
+            StreamWriter sw = new StreamWriter(root + logFile, true);
             sw.WriteLine(content);
             sw.Close();
         }

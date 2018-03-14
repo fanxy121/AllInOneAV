@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Utils;
@@ -43,7 +44,8 @@ namespace AvManager
 
         private void btnMoveMove_Click(object sender, EventArgs e)
         {
-            MoveBtnClick();
+            Thread thread = new Thread(MoveBtnClick);
+            thread.Start();
         }
 
         private void btnMoveStart_Click(object sender, EventArgs e)
@@ -64,7 +66,7 @@ namespace AvManager
                 FileUtility.GetFilesRecursive(txtMoveSrc.Text, formats, excludes, srcFi, 200);
 
                 lvMoveSrc.BeginUpdate();
-                foreach (var f in desFi)
+                foreach (var f in srcFi)
                 {
                     ListViewItem lvi = new ListViewItem(f.Name);
                     lvi.SubItems.Add(FileSize.GetAutoSizeString(f.Length, 1));
@@ -89,6 +91,10 @@ namespace AvManager
         {
             if (srcFi.Count > 0 && !string.IsNullOrEmpty(txtMoveDes.Text))
             {
+                pbMove.Maximum = srcFi.Count;
+                pbMove.Minimum = 0;
+                pbMove.Step = 1;
+
                 var logFile = "MoveLog" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
                 var des = txtMoveDes.Text;
                 DateTime now = DateTime.Now;
@@ -97,11 +103,11 @@ namespace AvManager
                 {
                     var newFi = "";
 
-                    if (desFi.Exists(x => x.Name == fi.Name))
+                    if (desFi.Exists(x => x.Name.ToLower() == fi.Name.ToLower()))
                     {
                         LogHelper.WriteLog(logFile, "找到重复的文件");
 
-                        var desF = desFi.Find(x => x.Name == fi.Name);
+                        var desF = desFi.Find(x => x.Name.ToLower() == fi.Name.ToLower());
 
                         if (cbAutoReplace.Checked)
                         {
@@ -131,29 +137,47 @@ namespace AvManager
                             cm.desFile = desF;
                             cm.desPath = desF.DirectoryName;
                             cm.logFile = logFile;
+
+                            cm.ShowDialog();
                         }
                     }
                     else
                     {
+                        LogHelper.WriteLog(logFile, "没找到重复的文件");
+
                         newFi = des + "/" + fi.Name;
                         MoveFile(fi.FullName, newFi, now);
 
+                        LogHelper.WriteLog(logFile, "删除 -> " + fi.FullName + " 移动 -> " + newFi);
+
                         desFi.Add(new FileInfo(newFi));
                     }
+
+
+                    var item = lvMoveSrc.FindItemWithText(fi.Name);
+
+                    if (item != null)
+                    {
+                        lvMoveSrc.Items.Remove(item);
+                    }
+                    pbMove.PerformStep();
                 }
+
+                MessageBox.Show("Finished!");
             }
         }
 
         private void MoveFile(string src, string des, DateTime time)
         {
             File.Move(src, des);
-            AvManagerDataBaseManager.InserMoveLog(src, des, time);
+            AvManagerDataBaseManager.InserMoveLog(FileUtility.ReplaceInvalidChar(src), FileUtility.ReplaceInvalidChar(des), time);
         }
 
         private void MoveDesClick()
         {
             InitFD(fdMoveDes, txtMoveDes);
             desFi = new List<FileInfo>();
+            lvMoveDes.Items.Clear();
 
             if (!string.IsNullOrEmpty(txtMoveDes.Text))
             {
@@ -178,7 +202,9 @@ namespace AvManager
         {
             fd.RootFolder = Environment.SpecialFolder.MyComputer;
 
-            if (fd.ShowDialog() == DialogResult.Yes || fd.ShowDialog() == DialogResult.OK)
+            var result = fd.ShowDialog();
+
+            if (result == DialogResult.Yes || result == DialogResult.OK)
             {
                 tb.Text = fd.SelectedPath;
             }
