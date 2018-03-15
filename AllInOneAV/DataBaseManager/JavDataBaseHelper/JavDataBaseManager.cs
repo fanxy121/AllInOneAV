@@ -134,6 +134,13 @@ namespace DataBaseManager.JavDataBaseHelper
             return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<AV>();
         }
 
+        public static List<AV> GetAllAV(List<string> ids)
+        {
+            var sql = @"SELECT * FROM AV WHERE ID in ('" + string.Join("','", ids) + "')";
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<AV>();
+        }
+
         public static int InsertCompany(Company c)
         {
             var sql = @"INSERT INTO Company (Name, URL, CreateTime) VALUES (@name, @url, @createTime)";

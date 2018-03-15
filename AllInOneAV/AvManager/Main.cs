@@ -1,4 +1,7 @@
 ﻿using DataBaseManager.AvManagerDataBaseManager;
+using DataBaseManager.JavDataBaseHelper;
+using Model.JavModels;
+using Model.ScanModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,11 +19,24 @@ namespace AvManager
 {
     public partial class Main : Form
     {
+        #region GlobalVar
         private static List<string> formats = JavINIClass.IniReadValue("Scan", "Format").Split(',').ToList();
         private static List<string> excludes = JavINIClass.IniReadValue("Scan", "Exclude").Split(',').ToList();
+        private static readonly string imageFolder = JavINIClass.IniReadValue("Jav", "imageFolder");
         private static List<FileInfo> srcFi = new List<FileInfo>();
         private static List<FileInfo> desFi = new List<FileInfo>();
+        private static List<FileInfo> renameFi = new List<FileInfo>();
+        private static int indexOfRename = 0;
+        private static int indexOfCurrentAV = 0;
+        private static string renameTotal = "{0}/{1}   {2}";
+        private List<AV> avs = new List<AV>();
+        private List<AV> currentAVS = new List<AV>();
+        private List<string> prefixs = new List<string>();
+        private static FileInfo currentFi;
+        private static string currentFolder = "";
+        #endregion
 
+        #region System
         public Main()
         {
             Control.CheckForIllegalCrossThreadCalls = false;
@@ -31,7 +47,9 @@ namespace AvManager
         {
 
         }
+        #endregion
 
+        #region Move
         private void txtMoveSrc_Click(object sender, EventArgs e)
         {
             MoveSrcClick();
@@ -197,7 +215,309 @@ namespace AvManager
                 lvMoveDes.EndUpdate();
             }
         }
+        #endregion
 
+        #region Rename
+        private void btRenameStart_Click(object sender, EventArgs e)
+        {
+            ShowRenameFiles(txtRename.Text);
+        }
+
+        private void txtRename_Click(object sender, EventArgs e)
+        {
+            InitFD(fdRename, txtRename);
+        }
+
+        private void btnRenameNext_Click(object sender, EventArgs e)
+        {
+            RenameNext();
+        }
+
+        private void btnRenamePre_Click(object sender, EventArgs e)
+        {
+            RenamePre();
+        }
+
+        private void btRenameLeft_Click(object sender, EventArgs e)
+        {
+            RenameLeft();
+        }
+
+        private void btRenameRight_Click(object sender, EventArgs e)
+        {
+            RenameRight();
+        }
+
+        private void btnRenameSearch_Click(object sender, EventArgs e)
+        {
+            currentAVS = new List<AV>();
+            currentAVS.AddRange(JavDataBaseManager.GetAllAV(txtKeyword.Text));
+
+            if (currentAVS.Count > 0)
+            {
+                indexOfCurrentAV = 0;
+                ShowRenameInfo();
+            }
+            else
+            {
+                //MessageBox.Show("Not found, please add manually.");
+            }
+        }
+
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtRenameFinal.Text))
+            {
+                var des = currentFolder + txtRenameFinal.Text;
+                if (!Directory.Exists(currentFolder))
+                {
+                    Directory.CreateDirectory(currentFolder);
+                }
+
+                MessageBox.Show("Move to " + des);
+                try
+                {
+                    //currentFi.MoveTo(des);
+                }
+                catch (Exception ee)
+                {
+
+                }
+            }
+        }
+
+        private void rbCensor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtRename.Text))
+            {
+                SetFinalFilePath();
+            }
+        }
+
+        private void rbEnglish_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtRename.Text))
+            {
+                SetFinalFilePath();
+            }
+        }
+
+        private void rbUncensor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtRename.Text))
+            {
+                SetFinalFilePath();
+            }
+        }
+
+        private void rbNoteFound_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtRename.Text))
+            {
+                SetFinalFilePath();
+            }
+        }
+
+        private void ShowRenameFiles(string folder)
+        {
+            RenameInit();
+            currentFolder = folder + "/";
+            renameFi = new List<FileInfo>();
+            FileUtility.GetFilesRecursive(folder, formats, excludes, renameFi);
+            avs = JavDataBaseManager.GetAllAV();
+            prefixs = FileUtility.GetPrefix(avs);
+            pbRename.Minimum = 0;
+            pbRename.Maximum = renameFi.Count;
+            pbRename.Step = 1;
+
+            if (renameFi.Count > 0)
+            {
+                indexOfRename = 0;
+                lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, renameFi[indexOfRename].FullName);
+                btnRenamePre.Enabled = true;
+                btnRenameNext.Enabled = true;
+
+                ShowRenameDetail();
+            }
+        }
+
+        private void ShowRenameDetail()
+        {
+            RenameInitPartial();
+            var file = renameFi[indexOfRename];
+            currentFi = file;
+            var scan = new Scan() {
+                FileName = file.FullName,
+                Location = file.DirectoryName,
+                Size = Utils.FileSize.GetAutoSizeString(file.Length, 1)
+            };
+            txtRenameFinal.Text = "";
+            pbRename.Value = indexOfRename;
+            txtRenameOri.Text = currentFi.FullName;
+
+            if (file != null)
+            {
+                var ids = FileUtility.GetPossibleID(scan, prefixs);
+
+                if (ids.Count > 0)
+                {
+                    currentAVS = new List<AV>();
+
+                    currentAVS.AddRange(JavDataBaseManager.GetAllAV(ids));
+
+                    if (currentAVS.Count > 0)
+                    {
+                        indexOfCurrentAV = 0;
+                        ShowRenameInfo();
+                    }
+                    else
+                    {
+                        //MessageBox.Show("Not found, please add manually.");
+                    }
+                }
+                else
+                {
+                    //MessageBox.Show("Not found, please add manually.");
+                }
+            }
+        }
+
+        private void ShowRenamePic(AV av)
+        {
+            var file = FileUtility.GetImageFile(imageFolder, av);
+
+            if (!string.IsNullOrEmpty(file))
+            {
+                pictureRename.Image = Image.FromFile(file);
+            }
+        }
+
+        private void ShowRenameInfo(AV av = null)
+        {
+            if (currentFi != null)
+            {
+                if (av == null)
+                {
+                    av = currentAVS[indexOfCurrentAV];
+                }
+
+                txtRenameID.Text = av.ID;
+                txtRenameTitle.Text = av.Name;
+                txtRenameCategory.Text = av.Category;
+                txtRenameCompany.Text = av.Company;
+                txtRenameYear.Text = av.ReleaseDate.ToString("yyyy-MM-dd");
+                txtRenameActress.Text = av.Actress;
+                txtReanmeLength.Text = av.AvLength + "";
+
+                ShowRenamePic(av);
+
+                txtRenameFinal.Text = av.ID + av.Name + "-fin" + currentFi.Extension;
+                btnConfirm.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("No file selected.");
+            }
+        }
+
+        private void RenameNext()
+        {
+            if (indexOfRename + 1 < renameFi.Count)
+            {
+                indexOfRename++;
+                lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
+                ShowRenameDetail();
+            }
+        }
+
+        private void RenamePre()
+        {
+            if (indexOfRename - 1 >= 0)
+            {
+                indexOfRename--;
+                lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
+                ShowRenameDetail();
+            }
+        }
+
+        private void RenameLeft()
+        {
+            if (indexOfCurrentAV - 1 >= 0)
+            {
+                indexOfCurrentAV--;
+                ShowRenameInfo();
+            }
+        }
+
+        private void RenameRight()
+        {
+            if (indexOfCurrentAV + 1 < currentAVS.Count)
+            {
+                indexOfCurrentAV++;
+                ShowRenameInfo();
+            }
+        }
+
+        private void SetFinalFilePath()
+        {
+            currentFolder = txtRename.Text + "/";
+
+            if (rbEnglish.Checked)
+            {
+                currentFolder += "欧美/";
+            }
+
+            if (rbNoteFound.Checked)
+            {
+                currentFolder += "没找到/";
+            }
+
+            if (rbUncensor.Checked)
+            {
+                currentFolder += "无码/";
+            }
+        }
+
+        private void RenameInit()
+        {
+            btRenameLeft.Enabled = false;
+            btRenameRight.Enabled = false;
+            btnRenamePre.Enabled = false;
+            btnRenameNext.Enabled = false;
+            btnConfirm.Enabled = false;
+
+            currentFolder = "";
+            txtRenameID.Text = "";
+            txtRenameTitle.Text = "";
+            txtRenameCategory.Text = "";
+            txtRenameCompany.Text = "";
+            txtRenameYear.Text = "";
+            txtRenameActress.Text = "";
+            txtReanmeLength.Text = "";
+            pictureRename.Image = null;
+            txtRenameOri.Text = "";
+            txtRenameFinal.Text = "";
+            txtKeyword.Text = "";
+        }
+
+        private void RenameInitPartial()
+        {
+            btRenameLeft.Enabled = false;
+            btRenameRight.Enabled = false;
+            btnConfirm.Enabled = false;
+
+            txtRenameID.Text = "";
+            txtRenameTitle.Text = "";
+            txtRenameCategory.Text = "";
+            txtRenameCompany.Text = "";
+            txtRenameYear.Text = "";
+            txtRenameActress.Text = "";
+            txtReanmeLength.Text = "";
+            pictureRename.Image = null;
+        }
+        #endregion
+
+        #region Common
         private void InitFD(FolderBrowserDialog fd, TextBox tb)
         {
             fd.RootFolder = Environment.SpecialFolder.MyComputer;
@@ -209,5 +529,6 @@ namespace AvManager
                 tb.Text = fd.SelectedPath;
             }
         }
+        #endregion
     }
 }

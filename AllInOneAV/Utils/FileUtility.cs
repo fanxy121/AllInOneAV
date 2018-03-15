@@ -155,7 +155,6 @@ namespace Utils
             return possibleID;
         }
 
-
         public static void GetSupportFiles(string folder, List<string> excludes, List<string> formats, List<FileInfo> res)
         {
             var files = Directory.GetFiles(folder);
@@ -183,6 +182,20 @@ namespace Utils
         public static string ReplaceInvalidChar(string str)
         {
             return str.Replace("/", "").Replace("\\", "").Replace("\"", "").Replace("?", "").Replace("*", "").Replace(":", "").Replace("<", "").Replace(">", "").Replace("|", "").Replace("'","");
+        }
+
+        public static string GetImageFile(string folder, AV av)
+        {
+            var file = folder + av.ID + av.Name + ".jpg";
+
+            if (File.Exists(file))
+            {
+                return file;
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }
