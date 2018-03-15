@@ -341,6 +341,7 @@ namespace AvManager
                 Size = Utils.FileSize.GetAutoSizeString(file.Length, 1)
             };
             txtRenameFinal.Text = "";
+            pbRename.Maximum = renameFi.Count;
             pbRename.Value = indexOfRename;
             txtRenameOri.Text = currentFi.FullName;
             txtRenameFinal.Text = currentFi.FullName;
@@ -415,8 +416,8 @@ namespace AvManager
             if (indexOfRename + 1 < renameFi.Count)
             {
                 indexOfRename++;
-                lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
                 ShowRenameDetail();
+                lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
             }
         }
 
@@ -425,8 +426,8 @@ namespace AvManager
             if (indexOfRename - 1 >= 0)
             {
                 indexOfRename--;
-                lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
                 ShowRenameDetail();
+                lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
             }
         }
 
@@ -528,6 +529,13 @@ namespace AvManager
                 try
                 {
                     //currentFi.MoveTo(des);
+                    renameFi.RemoveAt(indexOfRename);
+                    //if (indexOfRename > 0)
+                    //{
+                    //    indexOfRename--;
+                    //}
+                    ShowRenameDetail();
+                    lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
                 }
                 catch (Exception ee)
                 {
