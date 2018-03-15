@@ -53,54 +53,55 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.fdMoveSrc = new System.Windows.Forms.FolderBrowserDialog();
-            this.fdMoveDes = new System.Windows.Forms.FolderBrowserDialog();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.txtRename = new System.Windows.Forms.TextBox();
-            this.cbRenameAuto = new System.Windows.Forms.CheckBox();
-            this.btRenameStart = new System.Windows.Forms.Button();
-            this.pbRename = new System.Windows.Forms.ProgressBar();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.pictureRename = new System.Windows.Forms.PictureBox();
-            this.btRenameLeft = new System.Windows.Forms.Button();
-            this.btRenameRight = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtRenameID = new System.Windows.Forms.TextBox();
-            this.txtRenameTitle = new System.Windows.Forms.TextBox();
-            this.txtRenameCompany = new System.Windows.Forms.TextBox();
-            this.txtRenameActress = new System.Windows.Forms.TextBox();
-            this.txtRenameCategory = new System.Windows.Forms.TextBox();
-            this.txtReanmeLength = new System.Windows.Forms.TextBox();
-            this.txtRenameYear = new System.Windows.Forms.TextBox();
-            this.lbRenameTotal = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtRenameFinal = new System.Windows.Forms.TextBox();
-            this.btnConfirm = new System.Windows.Forms.Button();
-            this.txtRenameOri = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.fdRename = new System.Windows.Forms.FolderBrowserDialog();
+            this.rbCensor = new System.Windows.Forms.RadioButton();
+            this.rbNoteFound = new System.Windows.Forms.RadioButton();
+            this.rbUncensor = new System.Windows.Forms.RadioButton();
+            this.rbEnglish = new System.Windows.Forms.RadioButton();
+            this.btnRenameSearch = new System.Windows.Forms.Button();
             this.txtKeyword = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.btnRenameSearch = new System.Windows.Forms.Button();
+            this.txtRenameOri = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnConfirm = new System.Windows.Forms.Button();
+            this.txtRenameFinal = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btRenameRight = new System.Windows.Forms.Button();
+            this.btRenameLeft = new System.Windows.Forms.Button();
+            this.pictureRename = new System.Windows.Forms.PictureBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnRenamePlay = new System.Windows.Forms.Button();
             this.btnRenameNext = new System.Windows.Forms.Button();
+            this.lbRenameTotal = new System.Windows.Forms.Label();
             this.btnRenamePre = new System.Windows.Forms.Button();
-            this.rbEnglish = new System.Windows.Forms.RadioButton();
-            this.rbUncensor = new System.Windows.Forms.RadioButton();
-            this.rbNoteFound = new System.Windows.Forms.RadioButton();
-            this.rbCensor = new System.Windows.Forms.RadioButton();
+            this.txtRenameYear = new System.Windows.Forms.TextBox();
+            this.txtReanmeLength = new System.Windows.Forms.TextBox();
+            this.txtRenameCategory = new System.Windows.Forms.TextBox();
+            this.txtRenameActress = new System.Windows.Forms.TextBox();
+            this.txtRenameCompany = new System.Windows.Forms.TextBox();
+            this.txtRenameTitle = new System.Windows.Forms.TextBox();
+            this.txtRenameID = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.pbRename = new System.Windows.Forms.ProgressBar();
+            this.btRenameStart = new System.Windows.Forms.Button();
+            this.cbRenameAuto = new System.Windows.Forms.CheckBox();
+            this.txtRename = new System.Windows.Forms.TextBox();
+            this.fdMoveSrc = new System.Windows.Forms.FolderBrowserDialog();
+            this.fdMoveDes = new System.Windows.Forms.FolderBrowserDialog();
+            this.fdRename = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -113,15 +114,15 @@
             this.panel2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureRename)).BeginInit();
             this.panel10.SuspendLayout();
             this.panel11.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureRename)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -374,18 +375,6 @@
             this.panel6.Size = new System.Drawing.Size(1964, 1105);
             this.panel6.TabIndex = 0;
             // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.pbRename);
-            this.panel7.Controls.Add(this.btRenameStart);
-            this.panel7.Controls.Add(this.cbRenameAuto);
-            this.panel7.Controls.Add(this.txtRename);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel7.Location = new System.Drawing.Point(0, 0);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1964, 67);
-            this.panel7.TabIndex = 0;
-            // 
             // panel8
             // 
             this.panel8.Controls.Add(this.panel9);
@@ -394,41 +383,6 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(1964, 1038);
             this.panel8.TabIndex = 1;
-            // 
-            // txtRename
-            // 
-            this.txtRename.Location = new System.Drawing.Point(16, 20);
-            this.txtRename.Name = "txtRename";
-            this.txtRename.Size = new System.Drawing.Size(811, 26);
-            this.txtRename.TabIndex = 0;
-            this.txtRename.Click += new System.EventHandler(this.txtRename_Click);
-            // 
-            // cbRenameAuto
-            // 
-            this.cbRenameAuto.AutoSize = true;
-            this.cbRenameAuto.Location = new System.Drawing.Point(861, 22);
-            this.cbRenameAuto.Name = "cbRenameAuto";
-            this.cbRenameAuto.Size = new System.Drawing.Size(69, 24);
-            this.cbRenameAuto.TabIndex = 1;
-            this.cbRenameAuto.Text = "Auto";
-            this.cbRenameAuto.UseVisualStyleBackColor = true;
-            // 
-            // btRenameStart
-            // 
-            this.btRenameStart.Location = new System.Drawing.Point(961, 8);
-            this.btRenameStart.Name = "btRenameStart";
-            this.btRenameStart.Size = new System.Drawing.Size(112, 50);
-            this.btRenameStart.TabIndex = 2;
-            this.btRenameStart.Text = "Start";
-            this.btRenameStart.UseVisualStyleBackColor = true;
-            this.btRenameStart.Click += new System.EventHandler(this.btRenameStart_Click);
-            // 
-            // pbRename
-            // 
-            this.pbRename.Location = new System.Drawing.Point(1101, 11);
-            this.pbRename.Name = "pbRename";
-            this.pbRename.Size = new System.Drawing.Size(842, 41);
-            this.pbRename.TabIndex = 3;
             // 
             // panel9
             // 
@@ -439,6 +393,150 @@
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(1964, 1038);
             this.panel9.TabIndex = 0;
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.rbCensor);
+            this.panel10.Controls.Add(this.rbNoteFound);
+            this.panel10.Controls.Add(this.rbUncensor);
+            this.panel10.Controls.Add(this.rbEnglish);
+            this.panel10.Controls.Add(this.btnRenameSearch);
+            this.panel10.Controls.Add(this.txtKeyword);
+            this.panel10.Controls.Add(this.label12);
+            this.panel10.Controls.Add(this.txtRenameOri);
+            this.panel10.Controls.Add(this.label11);
+            this.panel10.Controls.Add(this.btnConfirm);
+            this.panel10.Controls.Add(this.txtRenameFinal);
+            this.panel10.Controls.Add(this.label10);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel10.Location = new System.Drawing.Point(0, 682);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(1964, 356);
+            this.panel10.TabIndex = 1;
+            // 
+            // rbCensor
+            // 
+            this.rbCensor.AutoSize = true;
+            this.rbCensor.Checked = true;
+            this.rbCensor.Location = new System.Drawing.Point(16, 198);
+            this.rbCensor.Name = "rbCensor";
+            this.rbCensor.Size = new System.Drawing.Size(85, 24);
+            this.rbCensor.TabIndex = 14;
+            this.rbCensor.TabStop = true;
+            this.rbCensor.Text = "Censor";
+            this.rbCensor.UseVisualStyleBackColor = true;
+            this.rbCensor.CheckedChanged += new System.EventHandler(this.rbCensor_CheckedChanged);
+            // 
+            // rbNoteFound
+            // 
+            this.rbNoteFound.AutoSize = true;
+            this.rbNoteFound.Location = new System.Drawing.Point(406, 198);
+            this.rbNoteFound.Name = "rbNoteFound";
+            this.rbNoteFound.Size = new System.Drawing.Size(105, 24);
+            this.rbNoteFound.TabIndex = 13;
+            this.rbNoteFound.Text = "NotFound";
+            this.rbNoteFound.UseVisualStyleBackColor = true;
+            this.rbNoteFound.CheckedChanged += new System.EventHandler(this.rbNoteFound_CheckedChanged);
+            // 
+            // rbUncensor
+            // 
+            this.rbUncensor.AutoSize = true;
+            this.rbUncensor.Location = new System.Drawing.Point(265, 198);
+            this.rbUncensor.Name = "rbUncensor";
+            this.rbUncensor.Size = new System.Drawing.Size(103, 24);
+            this.rbUncensor.TabIndex = 12;
+            this.rbUncensor.Text = "Uncensor";
+            this.rbUncensor.UseVisualStyleBackColor = true;
+            this.rbUncensor.CheckedChanged += new System.EventHandler(this.rbUncensor_CheckedChanged);
+            // 
+            // rbEnglish
+            // 
+            this.rbEnglish.AutoSize = true;
+            this.rbEnglish.Location = new System.Drawing.Point(133, 198);
+            this.rbEnglish.Name = "rbEnglish";
+            this.rbEnglish.Size = new System.Drawing.Size(86, 24);
+            this.rbEnglish.TabIndex = 11;
+            this.rbEnglish.Text = "English";
+            this.rbEnglish.UseVisualStyleBackColor = true;
+            this.rbEnglish.CheckedChanged += new System.EventHandler(this.rbEnglish_CheckedChanged);
+            // 
+            // btnRenameSearch
+            // 
+            this.btnRenameSearch.Location = new System.Drawing.Point(711, 65);
+            this.btnRenameSearch.Name = "btnRenameSearch";
+            this.btnRenameSearch.Size = new System.Drawing.Size(75, 48);
+            this.btnRenameSearch.TabIndex = 10;
+            this.btnRenameSearch.Text = "Search";
+            this.btnRenameSearch.UseVisualStyleBackColor = true;
+            this.btnRenameSearch.Click += new System.EventHandler(this.btnRenameSearch_Click);
+            // 
+            // txtKeyword
+            // 
+            this.txtKeyword.Location = new System.Drawing.Point(90, 76);
+            this.txtKeyword.Name = "txtKeyword";
+            this.txtKeyword.Size = new System.Drawing.Size(592, 26);
+            this.txtKeyword.TabIndex = 9;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(12, 79);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(73, 20);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Keyword:";
+            // 
+            // txtRenameOri
+            // 
+            this.txtRenameOri.Location = new System.Drawing.Point(90, 20);
+            this.txtRenameOri.Name = "txtRenameOri";
+            this.txtRenameOri.Size = new System.Drawing.Size(886, 26);
+            this.txtRenameOri.TabIndex = 6;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 23);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(58, 20);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "OriFile:";
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.Enabled = false;
+            this.btnConfirm.Location = new System.Drawing.Point(9, 282);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(132, 58);
+            this.btnConfirm.TabIndex = 4;
+            this.btnConfirm.Text = "Confirm";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // txtRenameFinal
+            // 
+            this.txtRenameFinal.Location = new System.Drawing.Point(90, 134);
+            this.txtRenameFinal.Name = "txtRenameFinal";
+            this.txtRenameFinal.Size = new System.Drawing.Size(886, 26);
+            this.txtRenameFinal.TabIndex = 1;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 137);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(72, 20);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "FinalFile:";
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.tableLayoutPanel2);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel11.Location = new System.Drawing.Point(0, 0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(1964, 682);
+            this.panel11.TabIndex = 2;
             // 
             // tableLayoutPanel2
             // 
@@ -469,8 +567,40 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Picture";
             // 
+            // btRenameRight
+            // 
+            this.btRenameRight.Enabled = false;
+            this.btRenameRight.Location = new System.Drawing.Point(908, 623);
+            this.btRenameRight.Name = "btRenameRight";
+            this.btRenameRight.Size = new System.Drawing.Size(44, 44);
+            this.btRenameRight.TabIndex = 2;
+            this.btRenameRight.Text = ">";
+            this.btRenameRight.UseVisualStyleBackColor = true;
+            this.btRenameRight.Click += new System.EventHandler(this.btRenameRight_Click);
+            // 
+            // btRenameLeft
+            // 
+            this.btRenameLeft.Enabled = false;
+            this.btRenameLeft.Location = new System.Drawing.Point(858, 623);
+            this.btRenameLeft.Name = "btRenameLeft";
+            this.btRenameLeft.Size = new System.Drawing.Size(44, 44);
+            this.btRenameLeft.TabIndex = 1;
+            this.btRenameLeft.Text = "<";
+            this.btRenameLeft.UseVisualStyleBackColor = true;
+            this.btRenameLeft.Click += new System.EventHandler(this.btRenameLeft_Click);
+            // 
+            // pictureRename
+            // 
+            this.pictureRename.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureRename.Location = new System.Drawing.Point(3, 22);
+            this.pictureRename.Name = "pictureRename";
+            this.pictureRename.Size = new System.Drawing.Size(970, 651);
+            this.pictureRename.TabIndex = 0;
+            this.pictureRename.TabStop = false;
+            // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnRenamePlay);
             this.groupBox4.Controls.Add(this.btnRenameNext);
             this.groupBox4.Controls.Add(this.lbRenameTotal);
             this.groupBox4.Controls.Add(this.btnRenamePre);
@@ -496,255 +626,15 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Info";
             // 
-            // pictureRename
+            // btnRenamePlay
             // 
-            this.pictureRename.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureRename.Location = new System.Drawing.Point(3, 22);
-            this.pictureRename.Name = "pictureRename";
-            this.pictureRename.Size = new System.Drawing.Size(970, 651);
-            this.pictureRename.TabIndex = 0;
-            this.pictureRename.TabStop = false;
-            // 
-            // btRenameLeft
-            // 
-            this.btRenameLeft.Enabled = false;
-            this.btRenameLeft.Location = new System.Drawing.Point(858, 623);
-            this.btRenameLeft.Name = "btRenameLeft";
-            this.btRenameLeft.Size = new System.Drawing.Size(44, 44);
-            this.btRenameLeft.TabIndex = 1;
-            this.btRenameLeft.Text = "<";
-            this.btRenameLeft.UseVisualStyleBackColor = true;
-            this.btRenameLeft.Click += new System.EventHandler(this.btRenameLeft_Click);
-            // 
-            // btRenameRight
-            // 
-            this.btRenameRight.Enabled = false;
-            this.btRenameRight.Location = new System.Drawing.Point(908, 623);
-            this.btRenameRight.Name = "btRenameRight";
-            this.btRenameRight.Size = new System.Drawing.Size(44, 44);
-            this.btRenameRight.TabIndex = 2;
-            this.btRenameRight.Text = ">";
-            this.btRenameRight.UseVisualStyleBackColor = true;
-            this.btRenameRight.Click += new System.EventHandler(this.btRenameRight_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 41);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 20);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "ID:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 91);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 20);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Title:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 144);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(76, 20);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Company";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 205);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 20);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Actress:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 264);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(77, 20);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Category:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 322);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 20);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "Length:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 383);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(47, 20);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Year:";
-            // 
-            // txtRenameID
-            // 
-            this.txtRenameID.Location = new System.Drawing.Point(107, 35);
-            this.txtRenameID.Name = "txtRenameID";
-            this.txtRenameID.Size = new System.Drawing.Size(851, 26);
-            this.txtRenameID.TabIndex = 8;
-            // 
-            // txtRenameTitle
-            // 
-            this.txtRenameTitle.Location = new System.Drawing.Point(107, 91);
-            this.txtRenameTitle.Name = "txtRenameTitle";
-            this.txtRenameTitle.Size = new System.Drawing.Size(851, 26);
-            this.txtRenameTitle.TabIndex = 9;
-            // 
-            // txtRenameCompany
-            // 
-            this.txtRenameCompany.Location = new System.Drawing.Point(107, 144);
-            this.txtRenameCompany.Name = "txtRenameCompany";
-            this.txtRenameCompany.Size = new System.Drawing.Size(851, 26);
-            this.txtRenameCompany.TabIndex = 10;
-            // 
-            // txtRenameActress
-            // 
-            this.txtRenameActress.Location = new System.Drawing.Point(107, 199);
-            this.txtRenameActress.Name = "txtRenameActress";
-            this.txtRenameActress.Size = new System.Drawing.Size(852, 26);
-            this.txtRenameActress.TabIndex = 11;
-            // 
-            // txtRenameCategory
-            // 
-            this.txtRenameCategory.Location = new System.Drawing.Point(107, 261);
-            this.txtRenameCategory.Name = "txtRenameCategory";
-            this.txtRenameCategory.Size = new System.Drawing.Size(852, 26);
-            this.txtRenameCategory.TabIndex = 12;
-            // 
-            // txtReanmeLength
-            // 
-            this.txtReanmeLength.Location = new System.Drawing.Point(107, 316);
-            this.txtReanmeLength.Name = "txtReanmeLength";
-            this.txtReanmeLength.Size = new System.Drawing.Size(852, 26);
-            this.txtReanmeLength.TabIndex = 13;
-            // 
-            // txtRenameYear
-            // 
-            this.txtRenameYear.Location = new System.Drawing.Point(107, 377);
-            this.txtRenameYear.Name = "txtRenameYear";
-            this.txtRenameYear.Size = new System.Drawing.Size(852, 26);
-            this.txtRenameYear.TabIndex = 14;
-            // 
-            // lbRenameTotal
-            // 
-            this.lbRenameTotal.AutoSize = true;
-            this.lbRenameTotal.Location = new System.Drawing.Point(6, 647);
-            this.lbRenameTotal.Name = "lbRenameTotal";
-            this.lbRenameTotal.Size = new System.Drawing.Size(31, 20);
-            this.lbRenameTotal.TabIndex = 15;
-            this.lbRenameTotal.Text = "0/0";
-            // 
-            // panel10
-            // 
-            this.panel10.Controls.Add(this.rbCensor);
-            this.panel10.Controls.Add(this.rbNoteFound);
-            this.panel10.Controls.Add(this.rbUncensor);
-            this.panel10.Controls.Add(this.rbEnglish);
-            this.panel10.Controls.Add(this.btnRenameSearch);
-            this.panel10.Controls.Add(this.txtKeyword);
-            this.panel10.Controls.Add(this.label12);
-            this.panel10.Controls.Add(this.txtRenameOri);
-            this.panel10.Controls.Add(this.label11);
-            this.panel10.Controls.Add(this.btnConfirm);
-            this.panel10.Controls.Add(this.txtRenameFinal);
-            this.panel10.Controls.Add(this.label10);
-            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(0, 682);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(1964, 356);
-            this.panel10.TabIndex = 1;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 137);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(72, 20);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "FinalFile:";
-            // 
-            // txtRenameFinal
-            // 
-            this.txtRenameFinal.Location = new System.Drawing.Point(90, 134);
-            this.txtRenameFinal.Name = "txtRenameFinal";
-            this.txtRenameFinal.Size = new System.Drawing.Size(886, 26);
-            this.txtRenameFinal.TabIndex = 1;
-            // 
-            // btnConfirm
-            // 
-            this.btnConfirm.Enabled = false;
-            this.btnConfirm.Location = new System.Drawing.Point(9, 282);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(132, 58);
-            this.btnConfirm.TabIndex = 4;
-            this.btnConfirm.Text = "Confirm";
-            this.btnConfirm.UseVisualStyleBackColor = true;
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
-            // 
-            // txtRenameOri
-            // 
-            this.txtRenameOri.Location = new System.Drawing.Point(90, 20);
-            this.txtRenameOri.Name = "txtRenameOri";
-            this.txtRenameOri.Size = new System.Drawing.Size(886, 26);
-            this.txtRenameOri.TabIndex = 6;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 23);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(58, 20);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "OriFile:";
-            // 
-            // panel11
-            // 
-            this.panel11.Controls.Add(this.tableLayoutPanel2);
-            this.panel11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel11.Location = new System.Drawing.Point(0, 0);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(1964, 682);
-            this.panel11.TabIndex = 2;
-            // 
-            // txtKeyword
-            // 
-            this.txtKeyword.Location = new System.Drawing.Point(90, 76);
-            this.txtKeyword.Name = "txtKeyword";
-            this.txtKeyword.Size = new System.Drawing.Size(592, 26);
-            this.txtKeyword.TabIndex = 9;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(12, 79);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(73, 20);
-            this.label12.TabIndex = 8;
-            this.label12.Text = "Keyword:";
-            // 
-            // btnRenameSearch
-            // 
-            this.btnRenameSearch.Location = new System.Drawing.Point(711, 65);
-            this.btnRenameSearch.Name = "btnRenameSearch";
-            this.btnRenameSearch.Size = new System.Drawing.Size(75, 48);
-            this.btnRenameSearch.TabIndex = 10;
-            this.btnRenameSearch.Text = "Search";
-            this.btnRenameSearch.UseVisualStyleBackColor = true;
-            this.btnRenameSearch.Click += new System.EventHandler(this.btnRenameSearch_Click);
+            this.btnRenamePlay.Location = new System.Drawing.Point(6, 521);
+            this.btnRenamePlay.Name = "btnRenamePlay";
+            this.btnRenamePlay.Size = new System.Drawing.Size(103, 59);
+            this.btnRenamePlay.TabIndex = 15;
+            this.btnRenamePlay.Text = "Play";
+            this.btnRenamePlay.UseVisualStyleBackColor = true;
+            this.btnRenamePlay.Click += new System.EventHandler(this.btnRenamePlay_Click);
             // 
             // btnRenameNext
             // 
@@ -757,6 +647,15 @@
             this.btnRenameNext.UseVisualStyleBackColor = true;
             this.btnRenameNext.Click += new System.EventHandler(this.btnRenameNext_Click);
             // 
+            // lbRenameTotal
+            // 
+            this.lbRenameTotal.AutoSize = true;
+            this.lbRenameTotal.Location = new System.Drawing.Point(6, 647);
+            this.lbRenameTotal.Name = "lbRenameTotal";
+            this.lbRenameTotal.Size = new System.Drawing.Size(31, 20);
+            this.lbRenameTotal.TabIndex = 15;
+            this.lbRenameTotal.Text = "0/0";
+            // 
             // btnRenamePre
             // 
             this.btnRenamePre.Enabled = false;
@@ -768,54 +667,164 @@
             this.btnRenamePre.UseVisualStyleBackColor = true;
             this.btnRenamePre.Click += new System.EventHandler(this.btnRenamePre_Click);
             // 
-            // rbEnglish
+            // txtRenameYear
             // 
-            this.rbEnglish.AutoSize = true;
-            this.rbEnglish.Location = new System.Drawing.Point(133, 198);
-            this.rbEnglish.Name = "rbEnglish";
-            this.rbEnglish.Size = new System.Drawing.Size(86, 24);
-            this.rbEnglish.TabIndex = 11;
-            this.rbEnglish.TabStop = true;
-            this.rbEnglish.Text = "English";
-            this.rbEnglish.UseVisualStyleBackColor = true;
-            this.rbEnglish.CheckedChanged += new System.EventHandler(this.rbEnglish_CheckedChanged);
+            this.txtRenameYear.Location = new System.Drawing.Point(107, 377);
+            this.txtRenameYear.Name = "txtRenameYear";
+            this.txtRenameYear.Size = new System.Drawing.Size(852, 26);
+            this.txtRenameYear.TabIndex = 14;
             // 
-            // rbUncensor
+            // txtReanmeLength
             // 
-            this.rbUncensor.AutoSize = true;
-            this.rbUncensor.Location = new System.Drawing.Point(265, 198);
-            this.rbUncensor.Name = "rbUncensor";
-            this.rbUncensor.Size = new System.Drawing.Size(103, 24);
-            this.rbUncensor.TabIndex = 12;
-            this.rbUncensor.TabStop = true;
-            this.rbUncensor.Text = "Uncensor";
-            this.rbUncensor.UseVisualStyleBackColor = true;
-            this.rbUncensor.CheckedChanged += new System.EventHandler(this.rbUncensor_CheckedChanged);
+            this.txtReanmeLength.Location = new System.Drawing.Point(107, 316);
+            this.txtReanmeLength.Name = "txtReanmeLength";
+            this.txtReanmeLength.Size = new System.Drawing.Size(852, 26);
+            this.txtReanmeLength.TabIndex = 13;
             // 
-            // rbNoteFound
+            // txtRenameCategory
             // 
-            this.rbNoteFound.AutoSize = true;
-            this.rbNoteFound.Location = new System.Drawing.Point(406, 198);
-            this.rbNoteFound.Name = "rbNoteFound";
-            this.rbNoteFound.Size = new System.Drawing.Size(105, 24);
-            this.rbNoteFound.TabIndex = 13;
-            this.rbNoteFound.TabStop = true;
-            this.rbNoteFound.Text = "NotFound";
-            this.rbNoteFound.UseVisualStyleBackColor = true;
-            this.rbNoteFound.CheckedChanged += new System.EventHandler(this.rbNoteFound_CheckedChanged);
+            this.txtRenameCategory.Location = new System.Drawing.Point(107, 261);
+            this.txtRenameCategory.Name = "txtRenameCategory";
+            this.txtRenameCategory.Size = new System.Drawing.Size(852, 26);
+            this.txtRenameCategory.TabIndex = 12;
             // 
-            // rbCensor
+            // txtRenameActress
             // 
-            this.rbCensor.AutoSize = true;
-            this.rbCensor.Checked = true;
-            this.rbCensor.Location = new System.Drawing.Point(16, 198);
-            this.rbCensor.Name = "rbCensor";
-            this.rbCensor.Size = new System.Drawing.Size(85, 24);
-            this.rbCensor.TabIndex = 14;
-            this.rbCensor.TabStop = true;
-            this.rbCensor.Text = "Censor";
-            this.rbCensor.UseVisualStyleBackColor = true;
-            this.rbCensor.CheckedChanged += new System.EventHandler(this.rbCensor_CheckedChanged);
+            this.txtRenameActress.Location = new System.Drawing.Point(107, 199);
+            this.txtRenameActress.Name = "txtRenameActress";
+            this.txtRenameActress.Size = new System.Drawing.Size(852, 26);
+            this.txtRenameActress.TabIndex = 11;
+            // 
+            // txtRenameCompany
+            // 
+            this.txtRenameCompany.Location = new System.Drawing.Point(107, 144);
+            this.txtRenameCompany.Name = "txtRenameCompany";
+            this.txtRenameCompany.Size = new System.Drawing.Size(851, 26);
+            this.txtRenameCompany.TabIndex = 10;
+            // 
+            // txtRenameTitle
+            // 
+            this.txtRenameTitle.Location = new System.Drawing.Point(107, 91);
+            this.txtRenameTitle.Name = "txtRenameTitle";
+            this.txtRenameTitle.Size = new System.Drawing.Size(851, 26);
+            this.txtRenameTitle.TabIndex = 9;
+            // 
+            // txtRenameID
+            // 
+            this.txtRenameID.Location = new System.Drawing.Point(107, 35);
+            this.txtRenameID.Name = "txtRenameID";
+            this.txtRenameID.Size = new System.Drawing.Size(851, 26);
+            this.txtRenameID.TabIndex = 8;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 383);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(47, 20);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Year:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 322);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 20);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Length:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 264);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(77, 20);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Category:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 205);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(67, 20);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Actress:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 144);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 20);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Company";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 91);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(42, 20);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Title:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 41);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(30, 20);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "ID:";
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.pbRename);
+            this.panel7.Controls.Add(this.btRenameStart);
+            this.panel7.Controls.Add(this.cbRenameAuto);
+            this.panel7.Controls.Add(this.txtRename);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel7.Location = new System.Drawing.Point(0, 0);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(1964, 67);
+            this.panel7.TabIndex = 0;
+            // 
+            // pbRename
+            // 
+            this.pbRename.Location = new System.Drawing.Point(1101, 11);
+            this.pbRename.Name = "pbRename";
+            this.pbRename.Size = new System.Drawing.Size(842, 41);
+            this.pbRename.TabIndex = 3;
+            // 
+            // btRenameStart
+            // 
+            this.btRenameStart.Location = new System.Drawing.Point(961, 8);
+            this.btRenameStart.Name = "btRenameStart";
+            this.btRenameStart.Size = new System.Drawing.Size(112, 50);
+            this.btRenameStart.TabIndex = 2;
+            this.btRenameStart.Text = "Start";
+            this.btRenameStart.UseVisualStyleBackColor = true;
+            this.btRenameStart.Click += new System.EventHandler(this.btRenameStart_Click);
+            // 
+            // cbRenameAuto
+            // 
+            this.cbRenameAuto.AutoSize = true;
+            this.cbRenameAuto.Location = new System.Drawing.Point(861, 22);
+            this.cbRenameAuto.Name = "cbRenameAuto";
+            this.cbRenameAuto.Size = new System.Drawing.Size(69, 24);
+            this.cbRenameAuto.TabIndex = 1;
+            this.cbRenameAuto.Text = "Auto";
+            this.cbRenameAuto.UseVisualStyleBackColor = true;
+            // 
+            // txtRename
+            // 
+            this.txtRename.Location = new System.Drawing.Point(16, 20);
+            this.txtRename.Name = "txtRename";
+            this.txtRename.Size = new System.Drawing.Size(811, 26);
+            this.txtRename.TabIndex = 0;
+            this.txtRename.Click += new System.EventHandler(this.txtRename_Click);
             // 
             // Main
             // 
@@ -828,6 +837,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -842,18 +852,18 @@
             this.panel2.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureRename)).EndInit();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             this.panel11.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureRename)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -933,6 +943,7 @@
         private System.Windows.Forms.RadioButton rbUncensor;
         private System.Windows.Forms.RadioButton rbEnglish;
         private System.Windows.Forms.RadioButton rbCensor;
+        private System.Windows.Forms.Button btnRenamePlay;
     }
 }
 

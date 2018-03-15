@@ -266,24 +266,7 @@ namespace AvManager
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtRenameFinal.Text))
-            {
-                var des = currentFolder + txtRenameFinal.Text;
-                if (!Directory.Exists(currentFolder))
-                {
-                    Directory.CreateDirectory(currentFolder);
-                }
-
-                MessageBox.Show("Move to " + des);
-                try
-                {
-                    //currentFi.MoveTo(des);
-                }
-                catch (Exception ee)
-                {
-
-                }
-            }
+            RenameConfirm();
         }
 
         private void rbCensor_CheckedChanged(object sender, EventArgs e)
@@ -318,12 +301,18 @@ namespace AvManager
             }
         }
 
+        private void btnRenamePlay_Click(object sender, EventArgs e)
+        {
+            RenamePlay();
+        }
+
         private void ShowRenameFiles(string folder)
         {
             RenameInit();
             currentFolder = folder + "/";
             renameFi = new List<FileInfo>();
             FileUtility.GetFilesRecursive(folder, formats, excludes, renameFi);
+            renameFi = renameFi.Where(x => !x.Name.Contains("-fin")).ToList();
             avs = JavDataBaseManager.GetAllAV();
             prefixs = FileUtility.GetPrefix(avs);
             pbRename.Minimum = 0;
@@ -354,6 +343,7 @@ namespace AvManager
             txtRenameFinal.Text = "";
             pbRename.Value = indexOfRename;
             txtRenameOri.Text = currentFi.FullName;
+            txtRenameFinal.Text = currentFi.FullName;
 
             if (file != null)
             {
@@ -515,9 +505,75 @@ namespace AvManager
             txtReanmeLength.Text = "";
             pictureRename.Image = null;
         }
+
+        private void RenamePlay()
+        {
+            if (currentFi != null)
+            {
+                System.Diagnostics.Process.Start(currentFi.FullName);
+            }
+        }
+
+        private void RenameConfirm()
+        {
+            if (!string.IsNullOrEmpty(txtRenameFinal.Text))
+            {
+                var des = currentFolder + txtRenameFinal.Text;
+                if (!Directory.Exists(currentFolder))
+                {
+                    Directory.CreateDirectory(currentFolder);
+                }
+
+                MessageBox.Show("Move to " + des);
+                try
+                {
+                    //currentFi.MoveTo(des);
+                }
+                catch (Exception ee)
+                {
+                    MessageBox.Show(ee.ToString());
+                }
+            }
+        }
         #endregion
 
         #region Common
+        private void Main_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 1)
+            {
+                if (e.KeyCode == Keys.Left)
+                {
+                    RenameLeft();
+                }
+
+                if (e.KeyCode == Keys.Right)
+                {
+                    RenameRight();
+                }
+
+                if (e.KeyCode == Keys.Up)
+                {
+                    RenamePre();
+                }
+
+                if (e.KeyCode == Keys.Down)
+                {
+                    RenameNext();
+                }
+
+                if (e.KeyCode == Keys.Space)
+                {
+                    RenamePlay();
+                }
+
+                if (e.KeyCode == Keys.C)
+                {
+                    RenameConfirm();
+                }
+            }
+        }
+
         private void InitFD(FolderBrowserDialog fd, TextBox tb)
         {
             fd.RootFolder = Environment.SpecialFolder.MyComputer;
