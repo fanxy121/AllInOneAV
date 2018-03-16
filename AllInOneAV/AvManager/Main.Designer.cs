@@ -595,6 +595,7 @@
             this.pictureRename.Location = new System.Drawing.Point(3, 22);
             this.pictureRename.Name = "pictureRename";
             this.pictureRename.Size = new System.Drawing.Size(970, 651);
+            this.pictureRename.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureRename.TabIndex = 0;
             this.pictureRename.TabStop = false;
             // 

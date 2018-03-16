@@ -22,7 +22,7 @@ namespace AvManager
         #region GlobalVar
         private static List<string> formats = JavINIClass.IniReadValue("Scan", "Format").Split(',').ToList();
         private static List<string> excludes = JavINIClass.IniReadValue("Scan", "Exclude").Split(',').ToList();
-        private static readonly string imageFolder = JavINIClass.IniReadValue("Jav", "imageFolder");
+        private static readonly string imageFolder = JavINIClass.IniReadValue("Jav", "imgFolder");
         private static List<FileInfo> srcFi = new List<FileInfo>();
         private static List<FileInfo> desFi = new List<FileInfo>();
         private static List<FileInfo> renameFi = new List<FileInfo>();
@@ -109,6 +109,7 @@ namespace AvManager
         {
             if (srcFi.Count > 0 && !string.IsNullOrEmpty(txtMoveDes.Text))
             {
+                pbMove.Value = 0;
                 pbMove.Maximum = srcFi.Count;
                 pbMove.Minimum = 0;
                 pbMove.Step = 1;
@@ -153,7 +154,7 @@ namespace AvManager
                             CompareMove cm = new AvManager.CompareMove();
                             cm.oriFile = fi;
                             cm.desFile = desF;
-                            cm.desPath = desF.DirectoryName;
+                            cm.desPath = desF.DirectoryName + "/";
                             cm.logFile = logFile;
 
                             cm.ShowDialog();
@@ -575,7 +576,7 @@ namespace AvManager
                     RenamePlay();
                 }
 
-                if (e.KeyCode == Keys.C)
+                if (e.KeyCode == Keys.D)
                 {
                     RenameConfirm();
                 }
