@@ -132,7 +132,10 @@ namespace JavLibraryDownloader.ScanHelper
                         {
                             Match first = m[0];
 
-                            ForUpdate.AddRange(temp);
+                            if (isUpdate)
+                            {
+                                ForUpdate.AddRange(temp);
+                            }
 
                             return prefix + first.Groups[1].Value;
                         }

@@ -25,11 +25,15 @@ namespace ScanAllAndMatch
 
             foreach(var driver in drivers)
             {
+                Console.WriteLine("Processing " + driver);
                 FileUtility.GetFilesRecursive(driver, formats, excludes, fi, 100);
             }
 
             var avs = JavDataBaseManager.GetAllAV();
             var prefix = FileUtility.GetPrefix(avs);
+
+            Console.WriteLine("Fi -> " + fi.Count);
+            Console.WriteLine("AV -> " + avs.Count + "   Prefix -> " + prefix.Count);
 
             foreach (var file in fi)
             {
@@ -42,8 +46,12 @@ namespace ScanAllAndMatch
 
                 var possibleIDs = FileUtility.GetPossibleID(scan, prefix);
 
+                Console.WriteLine("PossibleIDs -> " + possibleIDs.Count);
+
                 AddTemp(scan, possibleIDs, temp);
             }
+
+            Console.WriteLine("Temp -> " + temp.Count);
 
             var currentMatchs = ScanDataBaseManager.GetAllMatch();
 
@@ -60,14 +68,18 @@ namespace ScanAllAndMatch
             var cd = shouldDelete.Count();
             var ca = shouldAdd.Count();
 
+            Console.WriteLine(cd + " should to be delted");
+            Console.WriteLine(ca + " should to be inserted");
 
             foreach (var m in shouldDelete)
             {
+                Console.WriteLine("Delete " + m.AvID);
                 ScanDataBaseManager.DeleteMatch(m.AvID);
             }
 
             foreach (var m in shouldAdd)
             {
+                Console.WriteLine("Insert " + m.AvID);
                 ScanDataBaseManager.SaveMatch(m);
             }
 
