@@ -98,6 +98,14 @@ namespace PlayRecent
                 }
             }
 
+            if (e.KeyCode == Keys.D)
+            {
+                if (listView1.SelectedItems != null && listView1.SelectedItems.Count > 0)
+                {
+                    Delete(listView1.SelectedItems[0]);
+                }
+            }
+
             if (e.KeyCode == Keys.NumPad0)
             {
                 if (listView1.SelectedItems != null && listView1.SelectedItems.Count > 0)
@@ -182,9 +190,9 @@ namespace PlayRecent
             if (res == DialogResult.Yes)
             {
                 File.Delete(current.Tag + "");
-            }
 
-            listView1.Items.Remove(current);
+                listView1.Items.Remove(current);
+            }
         }
     }
 }
