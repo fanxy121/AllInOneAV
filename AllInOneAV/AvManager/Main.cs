@@ -468,6 +468,11 @@ namespace AvManager
             {
                 currentFolder += "无码/";
             }
+
+            if (rbCensor.Checked)
+            {
+                currentFolder += "fin/";
+            }
         }
 
         private void RenameInit()
@@ -520,6 +525,8 @@ namespace AvManager
         {
             if (!string.IsNullOrEmpty(txtRenameFinal.Text))
             {
+                SetFinalFilePath();
+
                 var des = currentFolder + txtRenameFinal.Text;
                 if (!Directory.Exists(currentFolder))
                 {
@@ -529,14 +536,14 @@ namespace AvManager
                 MessageBox.Show("Move to " + des);
                 try
                 {
-                    //currentFi.MoveTo(des);
+                    currentFi.MoveTo(des);
                     renameFi.RemoveAt(indexOfRename);
-                    //if (indexOfRename > 0)
-                    //{
-                    //    indexOfRename--;
-                    //}
-                    ShowRenameDetail();
-                    lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
+                    if (indexOfRename >= 0)
+                    {
+                        ShowRenameDetail();
+                        lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
+                        //indexOfRename--;
+                    }
                 }
                 catch (Exception ee)
                 {
@@ -576,7 +583,7 @@ namespace AvManager
                     RenamePlay();
                 }
 
-                if (e.KeyCode == Keys.D)
+                if (e.KeyCode == Keys.Enter)
                 {
                     RenameConfirm();
                 }
