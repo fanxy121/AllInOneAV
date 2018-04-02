@@ -361,6 +361,17 @@ namespace AvManager
                     {
                         indexOfCurrentAV = 0;
                         ShowRenameInfo();
+
+                        if (currentAVS.Count > 1)
+                        {
+                            btRenameLeft.Show();
+                            btRenameRight.Show();
+                        }
+                        else
+                        {
+                            btRenameLeft.Hide();
+                            btRenameRight.Hide();
+                        }
                     }
                     else
                     {
@@ -400,6 +411,7 @@ namespace AvManager
                 txtRenameYear.Text = av.ReleaseDate.ToString("yyyy-MM-dd");
                 txtRenameActress.Text = av.Actress;
                 txtReanmeLength.Text = av.AvLength + "";
+                txtKeyword.Text = av.ID;
 
                 ShowRenamePic(av);
 
@@ -457,16 +469,19 @@ namespace AvManager
             if (rbEnglish.Checked)
             {
                 currentFolder += "欧美/";
+                btnConfirm.Enabled = true;
             }
 
             if (rbNoteFound.Checked)
             {
                 currentFolder += "没找到/";
+                btnConfirm.Enabled = true;
             }
 
             if (rbUncensor.Checked)
             {
                 currentFolder += "无码/";
+                btnConfirm.Enabled = true;
             }
 
             if (rbCensor.Checked)
@@ -477,8 +492,6 @@ namespace AvManager
 
         private void RenameInit()
         {
-            btRenameLeft.Enabled = false;
-            btRenameRight.Enabled = false;
             btnRenamePre.Enabled = false;
             btnRenameNext.Enabled = false;
             btnConfirm.Enabled = false;
@@ -499,8 +512,8 @@ namespace AvManager
 
         private void RenameInitPartial()
         {
-            btRenameLeft.Enabled = false;
-            btRenameRight.Enabled = false;
+            btRenameLeft.Hide();
+            btRenameRight.Hide();
             btnConfirm.Enabled = false;
 
             txtRenameID.Text = "";
