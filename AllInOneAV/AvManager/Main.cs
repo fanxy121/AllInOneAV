@@ -600,6 +600,14 @@ namespace AvManager
                 {
                     RenameConfirm();
                 }
+
+                if (e.KeyCode == Keys.Space)
+                {
+                    if (!string.IsNullOrEmpty(txtRenameOri.Text))
+                    {
+                        System.Diagnostics.Process.Start(txtRenameOri.Text);
+                    }
+                }
             }
         }
 
