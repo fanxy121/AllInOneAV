@@ -487,6 +487,11 @@ namespace AvManager
             if (rbCensor.Checked)
             {
                 currentFolder += "fin/";
+
+                if (string.IsNullOrEmpty(txtRenameID.Text) || string.IsNullOrEmpty(txtRenameTitle.Text))
+                {
+                    btnConfirm.Enabled = false;
+                }
             }
         }
 
@@ -523,6 +528,7 @@ namespace AvManager
             txtRenameYear.Text = "";
             txtRenameActress.Text = "";
             txtReanmeLength.Text = "";
+            txtKeyword.Text = "";
             pictureRename.Image = null;
         }
 
@@ -540,27 +546,31 @@ namespace AvManager
             {
                 SetFinalFilePath();
 
-                var des = currentFolder + txtRenameFinal.Text;
+                var des = currentFolder + txtRenameFinal.Text.Substring(txtRenameFinal.Text.LastIndexOf(Path.DirectorySeparatorChar) + 1);
                 if (!Directory.Exists(currentFolder))
                 {
                     Directory.CreateDirectory(currentFolder);
                 }
 
-                MessageBox.Show("Move to " + des);
-                try
+                var res = MessageBox.Show("Move to " + des);
+
+                if (res == DialogResult.OK || res == DialogResult.Yes)
                 {
-                    currentFi.MoveTo(des);
-                    renameFi.RemoveAt(indexOfRename);
-                    if (indexOfRename >= 0)
+                    try
                     {
-                        ShowRenameDetail();
-                        lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
-                        //indexOfRename--;
+                        currentFi.MoveTo(des);
+                        renameFi.RemoveAt(indexOfRename);
+                        if (indexOfRename >= 0)
+                        {
+                            ShowRenameDetail();
+                            lbRenameTotal.Text = string.Format(renameTotal, (indexOfRename + 1), renameFi.Count, currentFi.FullName);
+                            //indexOfRename--;
+                        }
                     }
-                }
-                catch (Exception ee)
-                {
-                    MessageBox.Show(ee.ToString());
+                    catch (Exception ee)
+                    {
+                        MessageBox.Show(ee.ToString());
+                    }
                 }
             }
         }
