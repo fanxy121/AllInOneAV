@@ -28,7 +28,7 @@ namespace Model.ScanModels
                 return false;
 
             //Check whether the products' properties are equal.
-            return x.AvID == y.AvID && x.Location == y.Location && x.Name == y.Name;
+            return x.Name == y.Name && x.AvID == y.AvID && x.Location == y.Location && x.Name == y.Name;
         }
 
         // If Equals() returns true for a pair of objects 
