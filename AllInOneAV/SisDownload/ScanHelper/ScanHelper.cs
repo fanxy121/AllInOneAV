@@ -129,7 +129,10 @@ namespace SisDownload.ScanHelper
                 foreach (var item in temp)
                 {
                     Console.WriteLine(string.Format("Insert thread {0} of channel {1} url --> {2} Date {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
-                    SisDataBaseManager.InsertScanThread(item);
+                    if (!SisDataBaseManager.IsExistScanThread(item))
+                    {
+                        SisDataBaseManager.InsertScanThread(item);
+                    }
                 }
 
                 return res;
