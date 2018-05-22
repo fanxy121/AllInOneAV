@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AvManager\MoveLog.cs" />
     <Compile Include="Common\ConfigType.cs" />
+    <Compile Include="Common\Email.cs" />
     <Compile Include="FindModels\Movie.cs" />
     <Compile Include="JavModels\Actress.cs" />
     <Compile Include="JavModels\AV.cs" />

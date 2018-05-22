@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavLibraryDownloader", "JavLibraryDownloader\JavLibraryDownloader.csproj", "{E4C70E94-C30A-4788-AFBF-23E374B4B17F}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvManager", "AvManager\AvManager.csproj", "{98914D21-B7BD-4DF6-BE28-8B84A278CA29}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeOfEachFolder", "SizeOfEachFolder\SizeOfEachFolder.csproj", "{AE78314A-31FC-421D-9C0B-FEE9A2834A10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{936B306A-F276-42DA-8B76-3E8672D73D7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,8 +83,15 @@ Global
 		{AE78314A-31FC-421D-9C0B-FEE9A2834A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE78314A-31FC-421D-9C0B-FEE9A2834A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE78314A-31FC-421D-9C0B-FEE9A2834A10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{936B306A-F276-42DA-8B76-3E8672D73D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{936B306A-F276-42DA-8B76-3E8672D73D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{936B306A-F276-42DA-8B76-3E8672D73D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{936B306A-F276-42DA-8B76-3E8672D73D7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3209A18-E48F-4413-9F57-DFA9380E8D97}
 	EndGlobalSection
 EndGlobal
