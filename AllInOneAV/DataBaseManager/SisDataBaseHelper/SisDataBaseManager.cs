@@ -30,6 +30,13 @@ namespace DataBaseManager.SisDataBaseHelper
             return  model == null ? new LastOperationEndDate().LastOperationDate : model.LastOperationDate;
         }
 
+        public static bool IsExistScanThread(ScanThread st)
+        {
+            var sql = @"SELECT TOP 1 * FROM AlreadyScaned WHERE Url = '" + st.Url + "'";
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToModel<ScanThread>() == null ? false : true;
+        }
+
         public static int InsertScanThread(ScanThread st)
         {
             var sql = @"INSERT INTO AlreadyScaned (Channel, Url, Name, ScannedDate, IsDownloaded) 
