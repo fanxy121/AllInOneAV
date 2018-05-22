@@ -20,25 +20,29 @@ namespace SisDownload.DownloadHelper
         private static string RootFolder = JavINIClass.IniReadValue("Sis", "root");
         private static string Prefix = JavINIClass.IniReadValue("Sis", "Prefix");
 
-        public static DateTime Start()
+        public static DateTime Start(StringBuilder sb)
         {
             var targets = SisDataBaseManager.GetScanThread().Where(x => x.IsDownloaded != 1).OrderBy(x => x.Channel);
+
+            sb.AppendLine(string.Format("SisDownload下载总共有{0}帖子", targets.Count()));
+
             DateTime res = DateTime.Today;
 
             foreach(var item in targets)
             {
-                res = DoDownload(item);
+                sb.AppendLine(string.Format("开始下载{0}", item.Url));
+                res = DoDownload(item, sb);
             }
 
             return res;
         }
 
-        public static DateTime DoDownload(ScanThread st)
+        public static DateTime DoDownload(ScanThread st, StringBuilder sb)
         {
-            return DoParse(st);
+            return DoParse(st, sb);
         }
 
-        public static DateTime DoParse(ScanThread st)
+        public static DateTime DoParse(ScanThread st, StringBuilder sb)
         {
             var url = st.Url;
             var res = HtmlManager.GetHtmlContentViaUrl(url, "gbk");
@@ -46,6 +50,7 @@ namespace SisDownload.DownloadHelper
 
             if (res.Success)
             {
+                sb.AppendLine(string.Format("获取{0}内容成功", st.Url));
                 string subFolder = today.ToString("yyyy年MM月dd日") + "/" + st.Channel + "/";
 
                 if (!string.IsNullOrEmpty(res.Content))
@@ -71,7 +76,12 @@ namespace SisDownload.DownloadHelper
                         var path = RootFolder + subFolder + attachName;
 
                         Console.WriteLine(string.Format("Download {0} to {1} and create folder {2} for picture", attach, path, innerSubFolder));
-                        Utils.DownloadHelper.DownloadFile(attach, path);
+                        sb.AppendLine(string.Format("Download {0} to {1} and create folder {2} for picture", attach, path, innerSubFolder));
+
+                        if (!string.IsNullOrEmpty(Utils.DownloadHelper.DownloadFile(attach, path)))
+                        {
+                            sb.AppendLine(string.Format("下载附件失败"));
+                        }
 
                         var ps = Regex.Matches(res.Content, DetailImg, RegexOptions.Multiline | RegexOptions.IgnoreCase);
                         int index = 1;
@@ -83,14 +93,23 @@ namespace SisDownload.DownloadHelper
                                 var pic = p.Groups[1].Value;
                                 var picPath = RootFolder + innerSubFolder + index + ".jpg";
                                 Console.WriteLine(string.Format("Download Picture {0} to {1}", pic, picPath));
-                                Utils.DownloadHelper.DownloadFile(pic, picPath);
+                                sb.AppendLine(string.Format("Download Picture {0} to {1}", pic, picPath));
+                                if (string.IsNullOrEmpty(Utils.DownloadHelper.DownloadFile(pic, picPath)))
+                                {
+                                    sb.AppendLine(string.Format("下载图片失败"));
+                                }
                                 index++;
                             }
                         }
 
+                        sb.AppendLine(string.Format("更新{0}的下载状态", url));
                         SisDataBaseManager.UpdateDownload(url);
                     }
                 }
+            }
+            else
+            {
+                sb.AppendLine(string.Format("获取{0}内容失败", st.Url));
             }
 
             return today;
