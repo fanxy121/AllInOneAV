@@ -38,17 +38,17 @@ namespace SisDownload.ScanHelper
 
             List<string> listChannel = new List<string>();
             listChannel.Add(AsiaUncensoredAuthorshipSeed);
-            sb.AppendLine(string.Format("添加频道: {0}", AsiaUncensoredAuthorshipSeed));
+            sb.AppendLine(string.Format("添加频道: {0}", "AsiaUncensoredAuthorshipSeed"));
             listChannel.Add(AsiaUncensoredSection);
-            sb.AppendLine(string.Format("添加频道: {0}", AsiaUncensoredSection));
+            sb.AppendLine(string.Format("添加频道: {0}", "AsiaUncensoredSection"));
             listChannel.Add(WesternUncensoredAuthorshipSeed);
-            sb.AppendLine(string.Format("添加频道: {0}", WesternUncensoredAuthorshipSeed));
+            sb.AppendLine(string.Format("添加频道: {0}", "WesternUncensoredAuthorshipSeed"));
             listChannel.Add(WesternUncensored);
-            sb.AppendLine(string.Format("添加频道: {0}", WesternUncensored));
+            sb.AppendLine(string.Format("添加频道: {0}", "WesternUncensored"));
             listChannel.Add(AsiaCensoredAuthorshipSeed);
-            sb.AppendLine(string.Format("添加频道: {0}", AsiaCensoredAuthorshipSeed));
+            sb.AppendLine(string.Format("添加频道: {0}", "AsiaCensoredAuthorshipSeed"));
             listChannel.Add(AsiaCensoredSection);
-            sb.AppendLine(string.Format("添加频道: {0}", AsiaCensoredSection));
+            sb.AppendLine(string.Format("添加频道: {0}", "AsiaCensoredSection"));
 
             foreach (var channel in listChannel)
             {
@@ -64,13 +64,15 @@ namespace SisDownload.ScanHelper
 
                     if (res.Success)
                     {
-                        sb.AppendLine("URL内容获取成功");
+                        sb.AppendLine("    URL内容获取成功");
                         needContinue = GetTargetThread(res.Content, ChannelMapping[channel], lastOperationEndDate, string.Format(channel, page), sb);
                     }
                     else
                     {
-                        sb.AppendLine("URL内容获取失败");
+                        sb.AppendLine("    URL内容获取失败");
                     }
+
+                    sb.AppendLine("*******************************************************************************");
 
                     page++;
                 }
@@ -104,7 +106,7 @@ namespace SisDownload.ScanHelper
                     };
 
                     Console.WriteLine(string.Format("Add thread {0} of channel {1} url --> {2} Date {3}", tempItem.Name, tempItem.Channel, tempItem.Url, tempItem.ScannedDate));
-                    sb.AppendLine(string.Format("Add thread {0} of channel {1} url --> {2} Date {3}", tempItem.Name, tempItem.Channel, tempItem.Url, tempItem.ScannedDate));
+                    sb.AppendLine(string.Format("    Add thread {0} url --> {1}", tempItem.Name, tempItem.Url));
                     temp.Add(tempItem);
                 }
 
@@ -117,6 +119,9 @@ namespace SisDownload.ScanHelper
                 int index = 0;
                 int tempIndex = 0;
 
+                sb.AppendLine(string.Format("    临时列表数量: {0}", temp.Count));
+                int removeCount = 0;
+
                 foreach (Match item in m)
                 {
                     if (index >= skip)
@@ -128,8 +133,9 @@ namespace SisDownload.ScanHelper
                             var tempItem = temp[tempIndex];
                             Console.WriteLine(string.Format("Remove thread {0} of channel {1} url --> {2} Date {3}", tempItem.Name, tempItem.Channel, tempItem.Url, tempItem.ScannedDate));
                             temp.RemoveAt(tempIndex);
-                            sb.AppendLine(string.Format("从列表中移除{0}因为日期{1}小于最后一次扫描日期{2}", tempItem.Url, tempItem.ScannedDate.ToString("yyyy-MM-dd"), lastDate.ToString("yyyy-MM-dd")));
+                            sb.AppendLine(string.Format("    从列表中移除{0}因为日期{1}小于最后一次扫描日期{2}", tempItem.Url, tempItem.ScannedDate.ToString("yyyy-MM-dd"), lastDate.ToString("yyyy-MM-dd")));
                             res = false;
+                            removeCount++;
                         }
                         else
                         {
@@ -142,6 +148,8 @@ namespace SisDownload.ScanHelper
                     index++;
                 }
 
+                sb.AppendLine(string.Format("    删除: {0}, 剩余: {1}", removeCount, temp.Count));
+
                 foreach (var item in temp)
                 {
                     if (!SisDataBaseManager.IsExistScanThread(item))
@@ -149,12 +157,12 @@ namespace SisDownload.ScanHelper
                         SisDataBaseManager.InsertScanThread(item);
 
                         Console.WriteLine(string.Format("Insert thread {0} of channel {1} url --> {2} Date {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
-                        sb.AppendLine(string.Format("插入帖子 {0} of channel {1} url --> {2} 日期 {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
+                        sb.AppendLine(string.Format("    插入帖子 {0} of channel {1} url --> {2} 日期 {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
                         SisDataBaseManager.InsertScanThread(item);
                     }
                     else
                     {
-                        sb.AppendLine(string.Format("已有此贴{0}，不再插入", item.Url));
+                        sb.AppendLine(string.Format("    已有此贴{0}，不再插入", item.Url));
                     }
                 }
 

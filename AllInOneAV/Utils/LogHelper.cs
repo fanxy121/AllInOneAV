@@ -23,7 +23,7 @@ namespace Utils
                 File.Create(root + logFile).Close();
             }
 
-            StreamWriter sw = new StreamWriter(root + logFile, true);
+            StreamWriter sw = new StreamWriter(root + logFile, true, Encoding.UTF8);
             sw.WriteLine(content);
             sw.Close();
         }

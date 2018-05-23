@@ -50,7 +50,7 @@ namespace SisDownload.DownloadHelper
 
             if (res.Success)
             {
-                sb.AppendLine(string.Format("获取{0}内容成功", st.Url));
+                sb.AppendLine(string.Format("    获取内容成功"));
                 string subFolder = today.ToString("yyyy年MM月dd日") + "/" + st.Channel + "/";
 
                 if (!string.IsNullOrEmpty(res.Content))
@@ -76,11 +76,11 @@ namespace SisDownload.DownloadHelper
                         var path = RootFolder + subFolder + attachName;
 
                         Console.WriteLine(string.Format("Download {0} to {1} and create folder {2} for picture", attach, path, innerSubFolder));
-                        sb.AppendLine(string.Format("Download {0} to {1} and create folder {2} for picture", attach, path, innerSubFolder));
+                        sb.AppendLine(string.Format("    Download {0} to {1} and create folder {2} for picture", attach, path, innerSubFolder));
 
                         if (!string.IsNullOrEmpty(Utils.DownloadHelper.DownloadFile(attach, path)))
                         {
-                            sb.AppendLine(string.Format("下载附件失败"));
+                            sb.AppendLine(string.Format("    下载附件失败"));
                         }
 
                         var ps = Regex.Matches(res.Content, DetailImg, RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -93,24 +93,26 @@ namespace SisDownload.DownloadHelper
                                 var pic = p.Groups[1].Value;
                                 var picPath = RootFolder + innerSubFolder + index + ".jpg";
                                 Console.WriteLine(string.Format("Download Picture {0} to {1}", pic, picPath));
-                                sb.AppendLine(string.Format("Download Picture {0} to {1}", pic, picPath));
+                                sb.AppendLine(string.Format("    Download Picture {0} to {1}", pic, picPath));
                                 if (string.IsNullOrEmpty(Utils.DownloadHelper.DownloadFile(pic, picPath)))
                                 {
-                                    sb.AppendLine(string.Format("下载图片失败"));
+                                    sb.AppendLine(string.Format("    下载图片失败"));
                                 }
                                 index++;
                             }
                         }
 
-                        sb.AppendLine(string.Format("更新{0}的下载状态", url));
+                        sb.AppendLine(string.Format("    更新{0}的下载状态", url));
                         SisDataBaseManager.UpdateDownload(url);
                     }
                 }
             }
             else
             {
-                sb.AppendLine(string.Format("获取{0}内容失败", st.Url));
+                sb.AppendLine(string.Format("    获取{0}内容失败", st.Url));
             }
+
+            sb.AppendLine("*******************************************************************************");
 
             return today;
         }
