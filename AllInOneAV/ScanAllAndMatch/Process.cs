@@ -26,7 +26,7 @@ namespace ScanAllAndMatch
                 List<FileInfo> fi = new List<FileInfo>();
                 List<Match> temp = new List<Match>();
 
-                foreach (var driver in drivers)
+                foreach (var driver in drivers.Take(7))
                 {
                     sb.AppendLine(string.Format("添加扫描驱动器: {0}", driver));
                     Console.WriteLine("Processing " + driver);
@@ -48,8 +48,8 @@ namespace ScanAllAndMatch
                 {
                     var scan = new Scan
                     {
-                        FileName = file.Name,
-                        Location = file.FullName,
+                        FileName = FileUtility.ReplaceInvalidChar(file.Name.Trim().ToLower()),
+                        Location = FileUtility.ReplaceInvalidChar(file.FullName.Trim().ToLower()),
                         Size = FileSize.GetAutoSizeString(file.Length, 2)
                     };
 
@@ -90,15 +90,15 @@ namespace ScanAllAndMatch
 
                 foreach (var m in shouldDelete)
                 {
-                    Console.WriteLine("Delete " + m.AvID);
-                    sb.AppendLine(string.Format("从库中删除Match -> {0}", m.AvID));
-                    ScanDataBaseManager.DeleteMatch(m.AvID);
+                    Console.WriteLine("Delete " + m.Location);
+                    sb.AppendLine(string.Format("从库中删除Match -> {0}", m.Location));
+                    ScanDataBaseManager.DeleteMatch(m.Location);
                 }
 
                 foreach (var m in shouldAdd)
                 {
-                    Console.WriteLine("Insert " + m.AvID);
-                    sb.AppendLine(string.Format("在库中添加Match -> {0}", m.AvID));
+                    Console.WriteLine("Insert " + m.Location);
+                    sb.AppendLine(string.Format("在库中添加Match -> {0}", m.Location));
                     ScanDataBaseManager.SaveMatch(m);
                 }
 
@@ -118,7 +118,7 @@ namespace ScanAllAndMatch
                 }
 
                 var jsonRoot = "C:/AvLog/";
-                var jsonStr = JsonConvert.SerializeObject(duplicateItemList);
+                var jsonStr = JsonConvert.SerializeObject(duplicateItemList).Replace("/","\\");
                 var jsonFile = "ScanJson" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + ".json";
                 LogHelper.WriteLog(jsonFile, jsonStr);
                 EmailHelper.SendEmail("ScanJson", "详情见附件", new[] { "cainqs@outlook.com" }, new[] { jsonRoot + jsonFile });
