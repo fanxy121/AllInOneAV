@@ -1,14 +1,13 @@
 ﻿using DataBaseManager.JavDataBaseHelper;
 using DataBaseManager.ScanDataBaseHelper;
-using Model.JavModels;
 using Model.ScanModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Utils;
+using Newtonsoft.Json;
 
 namespace ScanAllAndMatch
 {
@@ -105,6 +104,25 @@ namespace ScanAllAndMatch
 
                 sb.AppendLine("更新数据库状态");
                 ScanDataBaseManager.InsertFinish();
+
+                var duplicateJson = new DuplicateJSON();
+                var duplicateItemList = new List<DuplicateItem>();
+                
+                var tempDic = temp.GroupBy(x => x.AvID.ToLower()).ToDictionary(x => x.Key, y => y.ToList());
+                foreach (var item in tempDic)
+                {
+                    var tempItem = new DuplicateItem();
+                    tempItem.AvId = item.Key;
+                    tempItem.Matches = item.Value;
+
+                    duplicateItemList.Add(tempItem);
+                }
+
+                duplicateJson.data = duplicateItemList;
+
+                var jsonStr = JsonConvert.SerializeObject(duplicateJson);
+                var jsonFile = "ScanJson" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + ".json";
+                LogHelper.WriteLog(jsonFile, jsonStr);
             }
             catch (Exception e)
             {
