@@ -59,6 +59,8 @@ namespace JavLibraryDownloader.DownloadHelper
             {
                 if (res.Success)
                 {
+                    _logger.WriteLog(url, string.IsNullOrWhiteSpace(res.Content) ? "空" : res.Content);
+
                     Console.WriteLine(string.Format("Start to download {0}, {1}/{2}", oriURL, currentItem, totalItem));
 
                     AV av = new AV();
