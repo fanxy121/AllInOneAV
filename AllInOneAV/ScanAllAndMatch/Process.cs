@@ -105,7 +105,6 @@ namespace ScanAllAndMatch
                 sb.AppendLine("更新数据库状态");
                 ScanDataBaseManager.InsertFinish();
 
-                var duplicateJson = new DuplicateJSON();
                 var duplicateItemList = new List<DuplicateItem>();
                 
                 var tempDic = temp.GroupBy(x => x.AvID.ToLower()).ToDictionary(x => x.Key, y => y.ToList());
@@ -118,10 +117,8 @@ namespace ScanAllAndMatch
                     duplicateItemList.Add(tempItem);
                 }
 
-                duplicateJson.data = duplicateItemList;
-
                 var jsonRoot = "C:/AvLog/";
-                var jsonStr = JsonConvert.SerializeObject(duplicateJson);
+                var jsonStr = JsonConvert.SerializeObject(duplicateItemList);
                 var jsonFile = "ScanJson" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + ".json";
                 LogHelper.WriteLog(jsonFile, jsonStr);
                 EmailHelper.SendEmail("ScanJson", "详情见附件", new[] { "cainqs@outlook.com" }, new[] { jsonRoot + jsonFile });
