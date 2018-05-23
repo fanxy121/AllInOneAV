@@ -120,9 +120,11 @@ namespace ScanAllAndMatch
 
                 duplicateJson.data = duplicateItemList;
 
+                var jsonRoot = "C:/AvLog/";
                 var jsonStr = JsonConvert.SerializeObject(duplicateJson);
                 var jsonFile = "ScanJson" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + ".json";
                 LogHelper.WriteLog(jsonFile, jsonStr);
+                EmailHelper.SendEmail("ScanJson", "详情见附件", new[] { "cainqs@outlook.com" }, new[] { jsonRoot + jsonFile });
             }
             catch (Exception e)
             {
