@@ -11,38 +11,47 @@ namespace Utils
 {
     public class FileUtility
     {
-        public static void GetFilesRecursive(string folder, List<string> formats, List<string> excludes, List<FileInfo> res, int minSize = 0)
+        public static string GetFilesRecursive(string folder, List<string> formats, List<string> excludes, List<FileInfo> res, int minSize = 0)
         {
-            var files = Directory.GetFiles(folder);
-            var dirs = Directory.GetDirectories(folder);
-
-            foreach (var file in files)
+            try
             {
-                var f = new FileInfo(file);
+                var files = Directory.GetFiles(folder);
+                var dirs = Directory.GetDirectories(folder);
 
-                if (formats.Contains(f.Extension.ToLower()))
+                foreach (var file in files)
                 {
-                    if (minSize > 0)
+                    var f = new FileInfo(file);
+
+                    if (formats.Contains(f.Extension.ToLower()))
                     {
-                        if(f.Length >= minSize * 1024 * 1024)
+                        if (minSize > 0)
                         {
-                            res.Add(f);    
+                            if (f.Length >= minSize * 1024 * 1024)
+                            {
+                                res.Add(f);
+                            }
+                        }
+                        else
+                        {
+                            res.Add(f);
                         }
                     }
-                    else
+                }
+
+                foreach (var dir in dirs)
+                {
+                    if (!excludes.Contains(dir.Substring(dir.LastIndexOf(Path.DirectorySeparatorChar) + 1)))
                     {
-                        res.Add(f);
+                        GetFilesRecursive(dir, formats, excludes, res, minSize);
                     }
                 }
             }
-
-            foreach (var dir in dirs)
+            catch (Exception e)
             {
-                if (!excludes.Contains(dir.Substring(dir.LastIndexOf(Path.DirectorySeparatorChar) + 1)))
-                {
-                    GetFilesRecursive(dir, formats, excludes, res, minSize);
-                }
+                return e.ToString();
             }
+
+            return "";
         }
 
         public static string ReadFile(string location)

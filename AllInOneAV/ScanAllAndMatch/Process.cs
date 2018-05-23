@@ -31,7 +31,10 @@ namespace ScanAllAndMatch
                 {
                     sb.AppendLine(string.Format("添加扫描驱动器: {0}", driver));
                     Console.WriteLine("Processing " + driver);
-                    FileUtility.GetFilesRecursive(driver, formats, excludes, fi, 100);
+                    if (!string.IsNullOrEmpty(FileUtility.GetFilesRecursive(driver, formats, excludes, fi, 100)))
+                    {
+                        sb.AppendLine("获取文件失败");
+                    }
                 }
 
                 var avs = JavDataBaseManager.GetAllAV();
@@ -124,7 +127,7 @@ namespace ScanAllAndMatch
             {
                 var avs = JavDataBaseManager.GetAllAV(id);
 
-                foreach(var av in avs)
+                foreach (var av in avs)
                 {
                     temp.Add(new Match
                     {
