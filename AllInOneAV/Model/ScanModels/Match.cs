@@ -19,7 +19,6 @@ namespace Model.ScanModels
         // Products are equal if their names and product numbers are equal.
         public bool Equals(Match x, Match y)
         {
-
             //Check whether the compared objects reference the same data.
             if (Object.ReferenceEquals(x, y)) return true;
 
@@ -28,7 +27,7 @@ namespace Model.ScanModels
                 return false;
 
             //Check whether the products' properties are equal.
-            return x.Name == y.Name && x.AvID == y.AvID && x.Location == y.Location && x.Name == y.Name;
+            return ReplaceInvalidChar(x.Name) == ReplaceInvalidChar(y.Name) && ReplaceInvalidChar(x.AvID) == ReplaceInvalidChar(y.AvID) && ReplaceInvalidChar(x.Location) == ReplaceInvalidChar(y.Location) && ReplaceInvalidChar(x.Name) == ReplaceInvalidChar(y.Name);
         }
 
         // If Equals() returns true for a pair of objects 
@@ -49,6 +48,11 @@ namespace Model.ScanModels
 
             //Calculate the hash code for the product.
             return hashMatchName ^ hashMatchLocation ^ hashMatchAvID;
+        }
+
+        public string ReplaceInvalidChar(string str)
+        {
+            return str.Replace("/", "").Replace("\"", "").Replace("\\", "").Replace(":", "").Replace("?", "").Replace("*", "").Replace("<", "").Replace(">", "").Replace("|", "").Replace("'", "");
         }
 
     }

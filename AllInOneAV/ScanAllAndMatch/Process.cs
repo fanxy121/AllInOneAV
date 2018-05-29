@@ -48,8 +48,8 @@ namespace ScanAllAndMatch
                 {
                     var scan = new Scan
                     {
-                        FileName = FileUtility.ReplaceInvalidChar(file.Name.Trim().ToLower()),
-                        Location = FileUtility.ReplaceInvalidChar(file.FullName.Trim().ToLower()),
+                        FileName = file.Name.Trim().ToLower(),
+                        Location = file.FullName.Trim().ToLower(),
                         Size = FileSize.GetAutoSizeString(file.Length, 2)
                     };
 

@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{144C6554-CF3B-49AF-9A8C-926A99E633BE}</Project>
+      <Project>{144c6554-cf3b-49af-9a8c-926a99e633be}</Project>
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>

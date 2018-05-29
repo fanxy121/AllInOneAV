@@ -190,7 +190,7 @@ namespace Utils
 
         public static string ReplaceInvalidChar(string str)
         {
-            return str.Replace("/", "").Replace("\"", "").Replace("?", "").Replace("*", "").Replace("<", "").Replace(">", "").Replace("|", "").Replace("'","");
+            return str.Replace("/", "").Replace("\"", "").Replace("\\","").Replace(":","").Replace("?", "").Replace("*", "").Replace("<", "").Replace(">", "").Replace("|", "").Replace("'","");
         }
 
         public static string GetImageFile(string folder, AV av)
