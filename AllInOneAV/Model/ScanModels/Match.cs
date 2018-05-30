@@ -27,7 +27,9 @@ namespace Model.ScanModels
                 return false;
 
             //Check whether the products' properties are equal.
-            return ReplaceInvalidChar(x.Name) == ReplaceInvalidChar(y.Name) && ReplaceInvalidChar(x.AvID) == ReplaceInvalidChar(y.AvID) && ReplaceInvalidChar(x.Location) == ReplaceInvalidChar(y.Location) && ReplaceInvalidChar(x.Name) == ReplaceInvalidChar(y.Name);
+            return ReplaceInvalidChar(x.Name) == ReplaceInvalidChar(y.Name)
+                && ReplaceInvalidChar(x.AvID) == ReplaceInvalidChar(y.AvID)
+                && ReplaceInvalidChar(x.Location) == ReplaceInvalidChar(y.Location);
         }
 
         // If Equals() returns true for a pair of objects 
@@ -39,12 +41,12 @@ namespace Model.ScanModels
             if (Object.ReferenceEquals(match, null)) return 0;
 
             //Get hash code for the Name field if it is not null.
-            int hashMatchName = match.Name == null ? 0 : match.Name.GetHashCode();
+            int hashMatchName = match.Name == null ? 0 : ReplaceInvalidChar(match.Name).GetHashCode();
 
             //Get hash code for the Code field.
-            int hashMatchLocation = match.Location == null ? 0 : match.Location.GetHashCode();
+            int hashMatchLocation = match.Location == null ? 0 : ReplaceInvalidChar(match.Location).GetHashCode();
 
-            int hashMatchAvID = match.AvID == null ? 0 : match.AvID.GetHashCode();
+            int hashMatchAvID = match.AvID == null ? 0 : ReplaceInvalidChar(match.AvID).GetHashCode();
 
             //Calculate the hash code for the product.
             return hashMatchName ^ hashMatchLocation ^ hashMatchAvID;
