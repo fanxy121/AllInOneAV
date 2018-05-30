@@ -49,7 +49,7 @@ namespace ScanAllAndMatch
                     var scan = new Scan
                     {
                         FileName = file.Name.Trim().ToLower(),
-                        Location = file.FullName.Trim().ToLower(),
+                        Location = file.DirectoryName.Trim().ToLower(),
                         Size = FileSize.GetAutoSizeString(file.Length, 2)
                     };
 

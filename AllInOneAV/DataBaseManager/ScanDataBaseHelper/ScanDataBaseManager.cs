@@ -71,7 +71,7 @@ namespace DataBaseManager.ScanDataBaseHelper
 
             paras[0].Value = match.AvID;
             paras[1].Value = FileUtility.ReplaceInvalidChar(match.Name);
-            paras[2].Value = FileUtility.ReplaceInvalidChar(match.Location);
+            paras[2].Value = match.Location;
             paras[3].Value = DateTime.Now;
 
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql, paras);
