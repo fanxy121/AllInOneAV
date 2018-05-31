@@ -134,14 +134,12 @@ namespace SisDownload.ScanHelper
                             Console.WriteLine(string.Format("Remove thread {0} of channel {1} url --> {2} Date {3}", tempItem.Name, tempItem.Channel, tempItem.Url, tempItem.ScannedDate));
                             temp.RemoveAt(tempIndex);
                             sb.AppendLine(string.Format("    从列表中移除{0}因为日期{1}小于最后一次扫描日期{2}", tempItem.Url, tempItem.ScannedDate.ToString("yyyy-MM-dd"), lastDate.ToString("yyyy-MM-dd")));
-                            res = false;
                             removeCount++;
                         }
                         else
                         {
                             temp[tempIndex].ScannedDate = DateTime.Today.Date;
                             tempIndex++;
-                            res = true;
                         }
                     }
 
@@ -166,6 +164,7 @@ namespace SisDownload.ScanHelper
                     }
                 }
 
+                res = temp.Count > 0 ? true : false;
                 return res;
             }
 
