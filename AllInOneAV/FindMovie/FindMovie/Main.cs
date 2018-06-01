@@ -59,14 +59,15 @@ namespace FindMovie
 
                 foreach (var movie in cacheMovies)
                 {
-                    if (movie.AvID.Contains(tempKeyword) || movie.AvID == tempKeyword)
+                    //Console.WriteLine(movie.AvID.Trim());
+                    if (movie.AvID.Trim().ToUpper().Contains(tempKeyword) || movie.AvID.Trim().ToUpper() == tempKeyword)
                     {
-                        ListViewItem lvi = new ListViewItem(tempKeyword);
+                        ListViewItem lvi = new ListViewItem(movie.AvID.Trim().ToUpper());
 
-                        var tempFi = new FileInfo(movie.Location);
+                        var tempFi = new FileInfo(movie.Location.Trim() + "\\" + movie.Name.Trim());
 
                         lvi.SubItems.Add(FileSize.GetAutoSizeString(tempFi.Length, 2));
-                        lvi.SubItems.Add(movie.Location);
+                        lvi.SubItems.Add(movie.Location.Trim() + "\\" + movie.Name.Trim());
 
                         listView1.Items.Add(lvi);
                     }
