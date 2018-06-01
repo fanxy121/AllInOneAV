@@ -1,59 +1,130 @@
-﻿using Model.Common;
+﻿using DataBaseManager.SisDataBaseHelper;
+using Model.Common;
 using Model.ScanModels;
+using Model.SisModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Utils;
 
 namespace UnitTest
 {
     class Program
     {
+        private static string AsiaUncensoredAuthorshipSeed = JavINIClass.IniReadValue("Sis", "AsiaUncensoredAuthorshipSeed");
+        private static string AsiaUncensoredSection = JavINIClass.IniReadValue("Sis", "AsiaUncensoredSection");
+        private static string WesternUncensoredAuthorshipSeed = JavINIClass.IniReadValue("Sis", "WesternUncensoredAuthorshipSeed");
+        private static string WesternUncensored = JavINIClass.IniReadValue("Sis", "WesternUncensored");
+        private static string AsiaCensoredAuthorshipSeed = JavINIClass.IniReadValue("Sis", "AsiaCensoredAuthorshipSeed");
+        private static string AsiaCensoredSection = JavINIClass.IniReadValue("Sis", "AsiaCensoredSection");
+        private static string RootFolder = JavINIClass.IniReadValue("Sis", "root");
+        private static string ListPattern = JavINIClass.IniReadValue("Sis", "ListPattern");
+        private static string ListDatePattern = JavINIClass.IniReadValue("Sis", "ListDatePattern");
+        private static string Prefix = JavINIClass.IniReadValue("Sis", "Prefix");
+        private static readonly Dictionary<string, string> ChannelMapping = new Dictionary<string, string> { { AsiaCensoredAuthorshipSeed, "亚洲有码原创" }, { AsiaCensoredSection, "亚洲有码转帖" }, { WesternUncensoredAuthorshipSeed, "欧美无码原创" }, { WesternUncensored, "欧美无码转帖" }, { AsiaUncensoredAuthorshipSeed, "亚洲无码原创" }, { AsiaUncensoredSection, "亚洲无码转帖" } };
+
         static void Main(string[] args)
         {
-            DateTime d1 = DateTime.Now.AddSeconds(-2);
-            DateTime d2 = DateTime.Now.AddMinutes(-2);
-            DateTime d3 = DateTime.Now.AddHours(-2);
-            DateTime d4 = DateTime.Now.AddMonths(-2);
-            DateTime d5 = DateTime.Now.AddYears(-2);
+            StringBuilder sb = new StringBuilder();
+            var url = "http://sis001.com/bbs/forum-58-3.html";
+            var res = HtmlManager.GetHtmlContentViaUrl(url, "gbk");
+            if (res.Success)
+            {
+                ProcessHtml(res.Content, "", DateTime.Today.AddDays(-1), url, sb);
+            }
 
-            Console.WriteLine(GetStr(d1));
-            Console.WriteLine(GetStr(d2));
-            Console.WriteLine(GetStr(d3));
-            Console.WriteLine(GetStr(d4));
-            Console.WriteLine(GetStr(d5));
-
+            Console.WriteLine(sb.ToString());
             Console.ReadKey();
         }
 
-        public static string GetStr(DateTime item)
+        private static bool ProcessHtml(string content, string channel, DateTime lastDate, string oriUrl, StringBuilder sb)
         {
-            var now = DateTime.Now;
-            var dateDiff = (now - item);
+            if (!string.IsNullOrEmpty(content))
+            {
+                var res = false;
+                List<ScanThread> temp = new List<ScanThread>();
 
-            if (dateDiff.TotalSeconds <= 60)
-            {
-                return("刚刚");
+                var m = Regex.Matches(content, ListPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+                foreach (System.Text.RegularExpressions.Match item in m)
+                {
+                    ScanThread tempItem = new ScanThread
+                    {
+                        Channel = channel,
+                        IsDownloaded = 0,
+                        Name = FileUtility.ReplaceInvalidChar(item.Groups[4].Value),
+                        Url = Prefix + "thread-" + item.Groups[2].Value + ".html"
+                    };
+
+                    //Console.WriteLine(string.Format("Add thread {0} of channel {1} url --> {2} Date {3}", tempItem.Name, tempItem.Channel, tempItem.Url, tempItem.ScannedDate));
+                    sb.AppendLine(string.Format("    Add thread {0} url --> {1}", tempItem.Name, tempItem.Url));
+                    temp.Add(tempItem);
+                }
+
+                var threadCount = m.Count;
+
+                m = Regex.Matches(content, ListDatePattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+                var dateCount = m.Count;
+                var skip = dateCount - threadCount;
+                int index = 0;
+                int tempIndex = 0;
+
+                sb.AppendLine(string.Format("    临时列表数量: {0}", temp.Count));
+                int removeCount = 0;
+
+                foreach (System.Text.RegularExpressions.Match item in m)
+                {
+                    if (index >= skip)
+                    {
+                        DateTime tempDate = new DateTime(int.Parse(item.Groups[1].Value), int.Parse(item.Groups[2].Value), int.Parse(item.Groups[3].Value));
+
+                        if (tempDate.Date <= lastDate.Date)
+                        {
+                            var tempItem = temp[tempIndex];
+                            //Console.WriteLine(string.Format("Remove thread {0} of channel {1} url --> {2} Date {3}", tempItem.Name, tempItem.Channel, tempItem.Url, tempItem.ScannedDate));
+                            temp.RemoveAt(tempIndex);
+                            sb.AppendLine(string.Format("    从列表中移除 -> '{0}' 因为日期{1}小于最后一次扫描日期{2}", tempItem.Name, tempDate.ToString("yyyy-MM-dd"), lastDate.ToString("yyyy-MM-dd")));
+                            removeCount++;
+                        }
+                        else
+                        {
+                            temp[tempIndex].ScannedDate = DateTime.Today.Date;
+                            tempIndex++;
+                        }
+                    }
+
+                    index++;
+                }
+
+                sb.AppendLine(string.Format("    删除: {0}, 剩余: {1}", removeCount, temp.Count));
+
+                foreach (var item in temp)
+                {
+                    if (!SisDataBaseManager.IsExistScanThread(item))
+                    {
+                        SisDataBaseManager.InsertScanThread(item);
+
+                        //Console.WriteLine(string.Format("Insert thread {0} of channel {1} url --> {2} Date {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
+                        sb.AppendLine(string.Format("    插入帖子 {0} of channel {1} url --> {2} 日期 {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
+                        SisDataBaseManager.InsertScanThread(item);
+                    }
+                    else
+                    {
+                        sb.AppendLine(string.Format("    已有此贴{0}，不再插入", item.Url));
+                    }
+                }
+
+                res = temp.Count > 0 ? true : false;
+                return res;
             }
-            else if (dateDiff.TotalMinutes <= 60)
-            {
-                return (string.Format("{0}分钟前", (int)dateDiff.TotalMinutes));
-            }
-            else if (dateDiff.TotalHours <= 24)
-            {
-                return (string.Format("{0}小时前", (int)dateDiff.TotalHours));
-            }
-            else if (item.Year == now.Year)
-            {
-                return (string.Format("{0}", item.ToString("MM-dd hh:mm")));
-            }
-            else
-            {
-                return (string.Format("{0}", item.ToString("yyyy-MM-dd hh:mm")));
-            }
+
+            return false;
         }
     }
 }
