@@ -105,7 +105,7 @@ namespace SisDownload.ScanHelper
                         Url = Prefix + "thread-" + item.Groups[2].Value + ".html"
                     };
 
-                    Console.WriteLine(string.Format("Add thread {0} of channel {1} url --> {2} Date {3}", tempItem.Name, tempItem.Channel, tempItem.Url, tempItem.ScannedDate));
+                    Console.WriteLine(string.Format("    Add thread {0} url --> {1}", tempItem.Name, tempItem.Url));
                     sb.AppendLine(string.Format("    Add thread {0} url --> {1}", tempItem.Name, tempItem.Url));
                     temp.Add(tempItem);
                 }
@@ -131,9 +131,9 @@ namespace SisDownload.ScanHelper
                         if (tempDate.Date <= lastDate.Date)
                         {
                             var tempItem = temp[tempIndex];
-                            Console.WriteLine(string.Format("Remove thread {0} of channel {1} url --> {2} Date {3}", tempItem.Name, tempItem.Channel, tempItem.Url, tempItem.ScannedDate));
+                            Console.WriteLine(string.Format("    从列表中移除{0}因为日期{1}小于最后一次扫描日期{2}", tempItem.Name, tempDate.ToString("yyyy-MM-dd"), lastDate.ToString("yyyy-MM-dd")));
                             temp.RemoveAt(tempIndex);
-                            sb.AppendLine(string.Format("    从列表中移除{0}因为日期{1}小于最后一次扫描日期{2}", tempItem.Url, tempItem.ScannedDate.ToString("yyyy-MM-dd"), lastDate.ToString("yyyy-MM-dd")));
+                            sb.AppendLine(string.Format("    从列表中移除{0}因为日期{1}小于最后一次扫描日期{2}", tempItem.Name, tempDate.ToString("yyyy-MM-dd"), lastDate.ToString("yyyy-MM-dd")));
                             removeCount++;
                         }
                         else
@@ -154,7 +154,7 @@ namespace SisDownload.ScanHelper
                     {
                         SisDataBaseManager.InsertScanThread(item);
 
-                        Console.WriteLine(string.Format("Insert thread {0} of channel {1} url --> {2} Date {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
+                        Console.WriteLine(string.Format("    插入帖子 {0} of channel {1} url --> {2} 日期 {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
                         sb.AppendLine(string.Format("    插入帖子 {0} of channel {1} url --> {2} 日期 {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
                         SisDataBaseManager.InsertScanThread(item);
                     }

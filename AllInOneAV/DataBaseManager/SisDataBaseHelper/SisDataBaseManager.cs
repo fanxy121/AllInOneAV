@@ -24,7 +24,7 @@ namespace DataBaseManager.SisDataBaseHelper
 
         public static DateTime GetLastOperationEndDate()
         {
-            var sql = @"SELECT Top 1 LastOperationEndDate from LastOperationEndDate ORDER BY LastOperationEndDate DESC";
+            var sql = @"SELECT Top 1 LastOperationEndDate AS LastOperationDate from LastOperationEndDate ORDER BY LastOperationEndDateID DESC";
             var model = SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToModel<LastOperationEndDate>();
 
             return  model == null ? new LastOperationEndDate().LastOperationDate : model.LastOperationDate;

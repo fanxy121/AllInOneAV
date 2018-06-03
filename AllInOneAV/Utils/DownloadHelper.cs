@@ -19,6 +19,7 @@ namespace Utils
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
                 //发送请求并获取相应回应数据
                 request.KeepAlive = false;
+                request.Timeout = 3000;
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
                 //直到request.GetResponse()程序才开始向目标网页发送Post请求
                 Stream responseStream = response.GetResponseStream();
