@@ -86,6 +86,16 @@ namespace ScanAllAndMatch
                 Console.WriteLine(cd + " should to be deleted");
                 Console.WriteLine(ca + " should to be inserted");
 
+                File.Create("c:/avlog/allav.txt").Close();
+                StreamWriter sw = new StreamWriter("c:/avlog/allav.txt");
+
+                foreach (var item in temp)
+                {
+                    sw.WriteLine(item.AvID + " " + item.Location + "\\" + item.Name);
+                }
+
+                sw.Close();
+
                 sb.AppendLine(string.Format("{0}需要被删除,{1}需要被添加", cd, ca));
 
                 foreach (var m in shouldDelete)
