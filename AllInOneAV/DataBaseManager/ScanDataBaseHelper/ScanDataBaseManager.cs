@@ -32,6 +32,8 @@ namespace DataBaseManager.ScanDataBaseHelper
 
         public static int DeleteMatch(string location)
         {
+            location = FileUtility.ReplaceInvalidChar(location);
+
             var sql = @"DELETE FROM Match WHERE Location = '" + location + "'";
 
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
