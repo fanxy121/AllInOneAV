@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeOfEachFolder", "SizeOfE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{936B306A-F276-42DA-8B76-3E8672D73D7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectPossibleName", "DetectPossibleName\DetectPossibleName.csproj", "{C27FACD1-36F0-480F-9559-565083FB749C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{936B306A-F276-42DA-8B76-3E8672D73D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{936B306A-F276-42DA-8B76-3E8672D73D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{936B306A-F276-42DA-8B76-3E8672D73D7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C27FACD1-36F0-480F-9559-565083FB749C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C27FACD1-36F0-480F-9559-565083FB749C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C27FACD1-36F0-480F-9559-565083FB749C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C27FACD1-36F0-480F-9559-565083FB749C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

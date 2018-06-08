@@ -19,7 +19,7 @@ namespace DataBaseManager.FindDataBaseHelper
 
         static FindDataBaseManager()
         {
-            con = string.Format("Server={0};Database={1};Trusted_Connection=SSPI", JavINIClass.IniReadValue("Scan", "server"), JavINIClass.IniReadValue("Scan", "db"));
+            con = string.Format("Server={0};Database={1};User=sa;password=19880118Qs123!", JavINIClass.IniReadValue("Scan", "server"), JavINIClass.IniReadValue("Scan", "db"));
             mycon = new SqlConnection(con);
         }
 

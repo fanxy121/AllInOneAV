@@ -18,7 +18,7 @@ namespace DataBaseManager.SisDataBaseHelper
 
         static SisDataBaseManager()
         {
-            con = string.Format("Server={0};Database={1};Trusted_Connection=SSPI", JavINIClass.IniReadValue("Sis", "server"), JavINIClass.IniReadValue("Sis", "db"));
+            con = string.Format("Server={0};Database={1};User=sa;password=19880118Qs123!", JavINIClass.IniReadValue("Sis", "server"), JavINIClass.IniReadValue("Sis", "db"));
             mycon = new SqlConnection(con);
         }
 
