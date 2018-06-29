@@ -16,6 +16,7 @@ namespace UnitTest
 {
     class Program
     {
+        #region SisDownloadParam
         private static string AsiaUncensoredAuthorshipSeed = JavINIClass.IniReadValue("Sis", "AsiaUncensoredAuthorshipSeed");
         private static string AsiaUncensoredSection = JavINIClass.IniReadValue("Sis", "AsiaUncensoredSection");
         private static string WesternUncensoredAuthorshipSeed = JavINIClass.IniReadValue("Sis", "WesternUncensoredAuthorshipSeed");
@@ -27,8 +28,16 @@ namespace UnitTest
         private static string ListDatePattern = JavINIClass.IniReadValue("Sis", "ListDatePattern");
         private static string Prefix = JavINIClass.IniReadValue("Sis", "Prefix");
         private static readonly Dictionary<string, string> ChannelMapping = new Dictionary<string, string> { { AsiaCensoredAuthorshipSeed, "亚洲有码原创" }, { AsiaCensoredSection, "亚洲有码转帖" }, { WesternUncensoredAuthorshipSeed, "欧美无码原创" }, { WesternUncensored, "欧美无码转帖" }, { AsiaUncensoredAuthorshipSeed, "亚洲无码原创" }, { AsiaUncensoredSection, "亚洲无码转帖" } };
+        #endregion
 
         static void Main(string[] args)
+        {
+            //StartTestSisDownload();
+            StartTestRegMatch();
+        }
+
+        #region SisDownloadMethod
+        private static void StartTestSisDownload()
         {
             StringBuilder sb = new StringBuilder();
             var url = "http://sis001.com/bbs/forum-58-3.html";
@@ -126,5 +135,93 @@ namespace UnitTest
 
             return false;
         }
+        #endregion
+
+        #region RegMatch
+        private static void StartTestRegMatch()
+        {
+            var fileList = GetFileNames("C:\\allav.txt");
+
+            var matchList = GetMatch(fileList);
+
+            Console.WriteLine(string.Format("Only one match -> {0}", matchList.Item.Where(x=>x.PossibleId.Count == 1).Count()));
+            Console.WriteLine(string.Format("Multiple match -> {0}", matchList.Item.Where(x => x.PossibleId.Count > 1).Count()));
+
+            foreach (var item in matchList.Item.Where(x => x.PossibleId.Count > 1))
+            {
+                Console.WriteLine(item.Fi);
+                item.PossibleId.ToList().ForEach(x => Console.WriteLine(x));
+                Console.WriteLine("---------------------------------------");
+            }
+
+            Console.ReadKey();
+        }
+
+        private static List<string> GetFileNames(string path)
+        {
+            List<string> ret = new List<string>();
+
+            using (StreamReader sw = new StreamReader(path))
+            {
+                while (!sw.EndOfStream)
+                {
+                    var content = sw.ReadLine();
+
+                    if (content.Contains(" "))
+                    {
+                        var fullPath = content.Substring(content.IndexOf(" ") + 1);
+                        ret.Add(fullPath.Substring(fullPath.LastIndexOf("\\") + 1));
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        private static MatchPair GetMatch(List<string> list)
+        {
+            MatchPair ret = new MatchPair();
+            List<MatchPairItem> retList = new List<MatchPairItem>();
+            string regx = @"([a-zA-Z]{1,8}\s*-?\s*\d{1,8})";
+
+            foreach (var item in list)
+            {
+                FileInfo fi = new FileInfo(item);              
+                HashSet<string> hs = new HashSet<string>();
+                MatchPairItem mpi = new MatchPairItem();
+
+                var m = Regex.Matches(fi.Name.Replace(fi.Extension, ""), regx, RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+                foreach (System.Text.RegularExpressions.Match match in m)
+                {
+                    var firstTime = true;
+                    var charArray = match.Value.Replace("-", "").ToCharArray();
+                    StringBuilder sb = new StringBuilder();
+                    
+                    foreach (var c in charArray)
+                    {
+                        if (firstTime && Char.IsDigit(c))
+                        {
+                            sb.Append("-");
+                            sb.Append(c);
+                            firstTime = false;
+                        }
+                        else
+                        {
+                            sb.Append(c);
+                        }
+                    }
+                    hs.Add(sb.ToString().ToUpper().Trim());
+                }
+
+                mpi.Fi = fi;
+                mpi.PossibleId = hs;
+                retList.Add(mpi);
+            }
+
+            ret.Item = retList;
+            return ret;
+        }
+        #endregion
     }
 }

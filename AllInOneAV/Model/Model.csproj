@@ -62,6 +62,7 @@
     <Compile Include="ScanModels\DuplicateJSON.cs" />
     <Compile Include="ScanModels\Finish.cs" />
     <Compile Include="ScanModels\Match.cs" />
+    <Compile Include="ScanModels\MatchPair.cs" />
     <Compile Include="ScanModels\Scan.cs" />
     <Compile Include="ScanModels\ViewHistory.cs" />
     <Compile Include="SisModels\LastOperationEndDate.cs" />
