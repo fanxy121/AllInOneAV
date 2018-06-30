@@ -1,4 +1,5 @@
-﻿using DataBaseManager.SisDataBaseHelper;
+﻿using DataBaseManager.JavDataBaseHelper;
+using DataBaseManager.SisDataBaseHelper;
 using Model.Common;
 using Model.ScanModels;
 using Model.SisModels;
@@ -34,6 +35,8 @@ namespace UnitTest
         {
             //StartTestSisDownload();
             StartTestRegMatch();
+
+            var list = GetPreFix();
         }
 
         #region SisDownloadMethod
@@ -154,7 +157,7 @@ namespace UnitTest
                 Console.WriteLine("---------------------------------------");
             }
 
-            Console.ReadKey();
+            Console.WriteLine(string.Format("Total {0}, Subtotal {1}", fileList.Count, matchList.Item.Count));
         }
 
         private static List<string> GetFileNames(string path)
@@ -221,6 +224,11 @@ namespace UnitTest
 
             ret.Item = retList;
             return ret;
+        }
+
+        private static List<string> GetPreFix()
+        {
+            return FileUtility.GetPrefix(JavDataBaseManager.GetAllAV());
         }
         #endregion
     }
