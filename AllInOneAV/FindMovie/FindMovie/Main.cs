@@ -134,5 +134,10 @@ namespace FindMovie
         {
             RefreshCache();
         }
+
+        private void Main_Activated(object sender, EventArgs e)
+        {
+            this.textBox1.SelectAll();
+        }
     }
 }

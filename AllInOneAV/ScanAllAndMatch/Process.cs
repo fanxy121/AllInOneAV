@@ -26,7 +26,7 @@ namespace ScanAllAndMatch
                 List<FileInfo> fi = new List<FileInfo>();
                 List<Match> temp = new List<Match>();
 
-                foreach (var driver in drivers.Take(7))
+                foreach (var driver in drivers.Take(8))
                 {
                     sb.AppendLine(string.Format("添加扫描驱动器: {0}", driver));
                     Console.WriteLine("Processing " + driver);
@@ -101,13 +101,13 @@ namespace ScanAllAndMatch
                 foreach (var m in shouldDelete)
                 {
                     Console.WriteLine("Delete " + m.Location);
-                    sb.AppendLine(string.Format("从库中删除Match -> {0}", m.Location));
-                    ScanDataBaseManager.DeleteMatch(m.Location);
+                    sb.AppendLine(string.Format("从库中删除Match -> {0}\\{1}", m.Location, m.Name));
+                    ScanDataBaseManager.DeleteMatch(m.Location, m.Name);
                 }
 
                 foreach (var m in shouldAdd)
                 {
-                    Console.WriteLine("Insert " + m.Location);
+                    Console.WriteLine(string.Format("Insert {0}\\{1}" + m.Location, m.Name));
                     sb.AppendLine(string.Format("在库中添加Match -> {0}", m.Location));
                     ScanDataBaseManager.SaveMatch(m);
                 }

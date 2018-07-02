@@ -30,11 +30,11 @@ namespace DataBaseManager.ScanDataBaseHelper
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
         }
 
-        public static int DeleteMatch(string location)
+        public static int DeleteMatch(string location, string name)
         {
-            location = FileUtility.ReplaceInvalidChar(location);
+            name = FileUtility.ReplaceInvalidChar(name);
 
-            var sql = @"DELETE FROM Match WHERE Location = '" + location + "'";
+            var sql = @"DELETE FROM Match WHERE Location = '" + location + "' and Name = '" + name + "'";
 
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
         }
