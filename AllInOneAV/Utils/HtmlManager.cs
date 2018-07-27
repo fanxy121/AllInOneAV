@@ -12,7 +12,7 @@ namespace Utils
 {
     public class HtmlManager
     {
-        public static HtmlResponse GetHtmlContentViaUrl(string url, string end = "utf-8")
+        public static HtmlResponse GetHtmlContentViaUrl(string url, string end = "utf-8", bool isJav = false)
         {
             HtmlResponse res = new HtmlResponse();
             res.Success = false;
@@ -24,8 +24,20 @@ namespace Utils
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Credentials = CredentialCache.DefaultCredentials;
                 request.Timeout = 90000;
-                request.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; QQWubi 133; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; CIBA; InfoPath.2)";
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36";//设置User-Agent，伪装成Google Chrome浏览器
                 request.Method = "GET";
+                if (isJav)
+                {
+                    CookieContainer cookie = new CookieContainer();
+                    cookie.Add(new Cookie("__cfuid", "d68af188bd94d83e83ede105bb0e689791532670718", "/", "www.javlibrary.com"));
+                    cookie.Add(new Cookie("timezone", "-480", "/", "www.javlibrary.com"));
+                    cookie.Add(new Cookie("over18", "18", "/", "www.javlibrary.com"));
+                    cookie.Add(new Cookie("cf_clearance", "b7c1fa02f0ee1825907214fb26da30a53f6895f0-1532671763-3600", "/", "www.javlibrary.com"));
+                    cookie.Add(new Cookie("__qca", "P0-1301848006-1532671765632", "/", "www.javlibrary.com"));
+                    request.CookieContainer = cookie;
+                }
+
+                request.KeepAlive = true;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream dataStream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(dataStream, Encoding.GetEncoding(end));

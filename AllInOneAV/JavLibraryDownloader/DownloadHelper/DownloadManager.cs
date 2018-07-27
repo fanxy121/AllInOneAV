@@ -53,7 +53,7 @@ namespace JavLibraryDownloader.DownloadHelper
 
         public static void StartDownload(string url, string oriURL, int currentItem, int totalItem)
         {
-            var res = HtmlManager.GetHtmlContentViaUrl(url);
+            var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true);
 
             try
             {

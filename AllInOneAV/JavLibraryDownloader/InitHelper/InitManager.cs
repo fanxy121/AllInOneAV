@@ -38,7 +38,7 @@ namespace JavLibraryDownloader.InitHelper
         {
             Console.WriteLine("Start to init catrgories...");
 
-            var res = HtmlManager.GetHtmlContentViaUrl(categoryURL);
+            var res = HtmlManager.GetHtmlContentViaUrl(categoryURL, "utf-8", true);
 
             if (res.Success)
             {

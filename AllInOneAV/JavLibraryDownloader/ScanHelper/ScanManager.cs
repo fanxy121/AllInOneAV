@@ -66,7 +66,7 @@ namespace JavLibraryDownloader.ScanHelper
         {
             try
             {
-                var res = HtmlManager.GetHtmlContentViaUrl(url);
+                var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true);
                 List<ScanURL> temp = new List<ScanURL>();
                 int totalPage = currentPage;
 
