@@ -1,11 +1,13 @@
 ﻿using DataBaseManager.JavDataBaseHelper;
 using DataBaseManager.SisDataBaseHelper;
+using Microsoft.Win32;
 using Model.Common;
 using Model.ScanModels;
 using Model.SisModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -34,9 +36,76 @@ namespace UnitTest
         static void Main(string[] args)
         {
             //StartTestSisDownload();
-            StartTestRegMatch();
+            //StartTestRegMatch();
 
-            var list = GetPreFix();
+            //var list = GetPreFix();
+
+            //ChromeCookie("jav");
+
+            OpenBrowserUrl("www.javlibrary.com/cn");
+        }
+
+        public static void OpenBrowserUrl(string url)
+        {
+             try
+             {
+                 // 64位注册表路径
+                 var openKey = @"SOFTWARE\Wow6432Node\Google\Chrome";
+                 if (IntPtr.Size == 4)
+                 {
+                     // 32位注册表路径
+                     openKey = @"SOFTWARE\Google\Chrome";
+                 }
+                 RegistryKey appPath = Registry.LocalMachine.OpenSubKey(openKey);
+                 // 谷歌浏览器就用谷歌打开，没找到就用系统默认的浏览器
+                 // 谷歌卸载了，注册表还没有清空，程序会返回一个"系统找不到指定的文件。"的bug
+                 if (appPath != null)
+                 {
+                     var result = Process.Start("chrome.exe", url);  
+                 }
+                 else
+                 {
+                     var result = Process.Start("chrome.exe", url);
+                 }
+             }
+             catch
+             {
+                 
+             }
+         }
+
+        public static void ChromeCookie(string hostName)
+        {
+            if (hostName == null) throw new ArgumentNullException("hostName");
+
+            var dbPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Google\Chrome\User Data\Default\Cookies";
+            if (!System.IO.File.Exists(dbPath)) throw new System.IO.FileNotFoundException("Cant find cookie store", dbPath); // race condition, but i'll risk it
+
+            var connectionString = "Data Source=" + dbPath + ";pooling=false";
+
+            using (var conn = new System.Data.SQLite.SQLiteConnection(connectionString))
+            using (var cmd = conn.CreateCommand())
+            {
+                var prm = cmd.CreateParameter();
+                prm.ParameterName = "hostName";
+                prm.Value = hostName;
+                cmd.Parameters.Add(prm);
+
+                cmd.CommandText = "SELECT name,encrypted_value FROM cookies WHERE host_key like '%" + hostName + "%'";
+
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var name = reader[0];
+                        var encryptedData = (byte[])reader[1];
+                        var decodedData = System.Security.Cryptography.ProtectedData.Unprotect(encryptedData, null, System.Security.Cryptography.DataProtectionScope.CurrentUser);
+                        var plainText = Encoding.ASCII.GetString(decodedData); // Looks like ASCII
+                    }
+                }
+                conn.Close();
+            }
         }
 
         #region SisDownloadMethod

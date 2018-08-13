@@ -52,6 +52,7 @@
     <Compile Include="JavModels\Category.cs" />
     <Compile Include="JavModels\Comment.cs" />
     <Compile Include="JavModels\Company.cs" />
+    <Compile Include="JavModels\CookieItem.cs" />
     <Compile Include="JavModels\DatabaseModel.cs" />
     <Compile Include="JavModels\Director.cs" />
     <Compile Include="JavModels\Publisher.cs" />

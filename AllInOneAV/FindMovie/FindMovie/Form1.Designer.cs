@@ -166,11 +166,12 @@
             // Keyword
             // 
             this.Keyword.Text = "Keyword";
+            this.Keyword.Width = 163;
             // 
             // Size
             // 
             this.Size.Text = "Size";
-            this.Size.Width = 100;
+            this.Size.Width = 137;
             // 
             // Location
             // 

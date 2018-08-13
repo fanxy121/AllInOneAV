@@ -4,8 +4,10 @@ using Model.JavModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Utils;
 
@@ -20,11 +22,33 @@ namespace JavLibraryDownloader.InitHelper
         private static string categoryPattern = JavINIClass.IniReadValue("Jav", "categoryPattern");
         private static string categoryPrefix = JavINIClass.IniReadValue("Jav", "categoryPrefix");
 
-        public static bool InitCategory()
+        public static CookieContainer GetCookie()
+        {
+            CookieContainer cc = new CookieContainer();
+            var process = Broswer.OpenBrowserUrl("http://www.javlibrary.com/cn/");
+            Thread.Sleep(10000);
+            Broswer.Refresh_click(process);
+            Thread.Sleep(30000);
+            Broswer.CloseBroswer(process);
+
+            var data = new ChromeCookieReader().ReadCookies("jav");
+
+            foreach (var item in data.Distinct())
+            {
+                Cookie c = new Cookie(item.Name, item.Value, "/", "www.javlibrary.com");
+
+                cc.Add(c);
+            }
+
+            cc.Add(new Cookie("over18", "18", "/", "www.javlibrary.com"));
+            return cc;
+        }
+
+        public static bool InitCategory(CookieContainer cc)
         {
             try
             {
-                return GetCategory();
+                return GetCategory(cc);
             }
             catch (Exception e)
             {
@@ -34,11 +58,11 @@ namespace JavLibraryDownloader.InitHelper
             return false;
         }
 
-        private static bool GetCategory()
+        private static bool GetCategory(CookieContainer cc)
         {
             Console.WriteLine("Start to init catrgories...");
 
-            var res = HtmlManager.GetHtmlContentViaUrl(categoryURL, "utf-8", true);
+            var res = HtmlManager.GetHtmlContentViaUrl(categoryURL, "utf-8", true, cc);
 
             if (res.Success)
             {

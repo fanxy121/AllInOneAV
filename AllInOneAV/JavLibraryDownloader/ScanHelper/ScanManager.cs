@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace JavLibraryDownloader.ScanHelper
         private static string RootFolder = JavINIClass.IniReadValue("Sis", "root");
         private static List<ScanURL> ForUpdate = new List<ScanURL>();
 
-        public static void Scan(string url, string category, int currentCategory, int totalCategories, bool isUpdate = false)
+        public static void Scan(string url, string category, int currentCategory, int totalCategories, CookieContainer cc, bool isUpdate = false)
         {
             try
             {
@@ -33,7 +34,7 @@ namespace JavLibraryDownloader.ScanHelper
 
                 while (!string.IsNullOrEmpty(url))
                 {
-                    url = RecursiveHelper(url, category, currentCategory, totalCategories, page, isUpdate);
+                    url = RecursiveHelper(url, category, currentCategory, totalCategories, page, cc, isUpdate);
                     page++;
                 }
 
@@ -50,7 +51,7 @@ namespace JavLibraryDownloader.ScanHelper
                 int current = 1;
                 foreach (var update in ForUpdate)
                 {
-                    DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count);
+                    DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count, cc);
                     current++;
                 }
 
@@ -62,11 +63,11 @@ namespace JavLibraryDownloader.ScanHelper
             }
         }
 
-        public static string RecursiveHelper(string url, string category, int currentCategory, int totalCategories, int currentPage, bool isUpdate = false)
+        public static string RecursiveHelper(string url, string category, int currentCategory, int totalCategories, int currentPage, CookieContainer cc, bool isUpdate = false)
         {
             try
             {
-                var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true);
+                var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true, cc);
                 List<ScanURL> temp = new List<ScanURL>();
                 int totalPage = currentPage;
 

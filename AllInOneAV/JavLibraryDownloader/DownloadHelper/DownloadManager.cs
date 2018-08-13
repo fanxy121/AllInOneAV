@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace JavLibraryDownloader.DownloadHelper
         private static string detailActressPattern = JavINIClass.IniReadValue("Jav", "detailActress");
         private static string detailCommentPattern = JavINIClass.IniReadValue("Jav", "detailComment");
 
-        public static void Download(string url, int currentItem, int totalItem)
+        public static void Download(string url, int currentItem, int totalItem, CookieContainer cc)
         {
             if (!Directory.Exists(imgFolder))
             {
@@ -43,7 +44,7 @@ namespace JavLibraryDownloader.DownloadHelper
 
             try
             {
-                StartDownload(prefix + url, url, currentItem, totalItem);
+                StartDownload(prefix + url, url, currentItem, totalItem, cc);
             }
             catch (Exception e)
             {
@@ -51,9 +52,9 @@ namespace JavLibraryDownloader.DownloadHelper
             }
         }
 
-        public static void StartDownload(string url, string oriURL, int currentItem, int totalItem)
+        public static void StartDownload(string url, string oriURL, int currentItem, int totalItem, CookieContainer cc)
         {
-            var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true);
+            var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true, cc);
 
             try
             {

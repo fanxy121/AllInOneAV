@@ -3,6 +3,7 @@ using Model.JavModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
@@ -15,25 +16,26 @@ namespace JavLibraryDownloader.Process
 
         public static void Start(RunType type)
         {
-            var res = InitHelper.InitManager.InitCategory();
+            var cc = InitHelper.InitManager.GetCookie();
+            var res = InitHelper.InitManager.InitCategory(cc);
 
             if (res)
             {
                 if (type == RunType.Both || type == RunType.Scan)
                 {
-                    DoScan(new List<Category>());
-                    SecondTry(type);
+                    DoScan(new List<Category>(), cc);
+                    SecondTry(type, cc);
                 }
 
                 if (type == RunType.Both || type == RunType.Download)
                 {
-                    DoDownload();
-                    SecondTry(type);
+                    DoDownload(cc);
+                    SecondTry(type, cc);
                 }
 
                 if (type == RunType.SecondTry)
                 {
-                    SecondTry(RunType.Both);
+                    SecondTry(RunType.Both, cc);
                 }
 
                 if (type == RunType.Update)
@@ -44,7 +46,7 @@ namespace JavLibraryDownloader.Process
                             Name = "Update",
                             Url = UpdateURL
                         }
-                    });
+                    },cc);
                 }
             }
             else
@@ -55,15 +57,17 @@ namespace JavLibraryDownloader.Process
 
         public static void DoScan(string url)
         {
-            ScanHelper.ScanManager.Scan(url, url, 1, 1);
+            var cc = InitHelper.InitManager.GetCookie();
+            ScanHelper.ScanManager.Scan(url, url, 1, 1, cc);
         }
 
         public static void DoDownload(string url)
         {
-            DownloadHelper.DownloadManager.Download(url, 1, 1);
+            var cc = InitHelper.InitManager.GetCookie();
+            DownloadHelper.DownloadManager.Download(url, 1, 1, cc);
         }
 
-        public static void DoScan(List<Category> categories)
+        public static void DoScan(List<Category> categories, CookieContainer cc)
         {
             bool isUpdate = false;
 
@@ -80,45 +84,45 @@ namespace JavLibraryDownloader.Process
 
             foreach (var category in categories)
             {
-                ScanHelper.ScanManager.Scan(category.Url, category.Name, currentCategory, categories.Count, isUpdate);
+                ScanHelper.ScanManager.Scan(category.Url, category.Name, currentCategory, categories.Count, cc, isUpdate);
                 currentCategory++;
             }
         }
 
-        public static void DoDownload()
+        public static void DoDownload(CookieContainer cc)
         {
             var noDownloads = JavDataBaseManager.GetScanURL().Where(x => x.IsDownload == false);
             int currentItems = 1;
 
             foreach (var item in noDownloads)
             {
-                DownloadHelper.DownloadManager.Download(item.URL, currentItems, noDownloads.Count());
+                DownloadHelper.DownloadManager.Download(item.URL, currentItems, noDownloads.Count(), cc);
             }
         }
 
-        public static void DoSecondScan(List<SecondTry> second)
+        public static void DoSecondScan(List<SecondTry> second, CookieContainer cc)
         {
             int currentCategory = 1;
 
             foreach (var item in second)
             {
-                ScanHelper.ScanManager.Scan(item.Url, "SecondTry", currentCategory, second.Count);
+                ScanHelper.ScanManager.Scan(item.Url, "SecondTry", currentCategory, second.Count, cc);
                 currentCategory++;
             }
         }
 
-        public static void DoSecondDownload(List<SecondTry> second)
+        public static void DoSecondDownload(List<SecondTry> second, CookieContainer cc)
         {
             int currentItems = 1;
 
             foreach (var item in second)
             {
-                DownloadHelper.DownloadManager.Download(item.Url, currentItems, second.Count());
+                DownloadHelper.DownloadManager.Download(item.Url, currentItems, second.Count(), cc);
                 currentItems++;
             }
         }
 
-        public static void SecondTry(RunType type)
+        public static void SecondTry(RunType type, CookieContainer cc)
         {
             var flag = true;
 
@@ -131,8 +135,8 @@ namespace JavLibraryDownloader.Process
                     var downTarget = target.Where(x => x.Logger.Trim() == "Download").ToList();
                     JavDataBaseManager.DeleteSecondTry();
 
-                    DoSecondScan(scanTarget);
-                    DoSecondDownload(downTarget);
+                    DoSecondScan(scanTarget, cc);
+                    DoSecondDownload(downTarget, cc);
 
                     if (target == null || target.Count == 0)
                     {
@@ -149,7 +153,7 @@ namespace JavLibraryDownloader.Process
                     var scanTarget = target.Where(x => x.Logger == "Scan").ToList();
                     JavDataBaseManager.DeleteSecondTry();
 
-                    DoSecondScan(scanTarget);
+                    DoSecondScan(scanTarget, cc);
 
                     if (target == null || target.Count == 0)
                     {
@@ -166,7 +170,7 @@ namespace JavLibraryDownloader.Process
                     var downTarget = target.Where(x => x.Logger == "Download").ToList();
                     JavDataBaseManager.DeleteSecondTry();
 
-                    DoSecondDownload(downTarget);
+                    DoSecondDownload(downTarget, cc);
 
                     if (target == null || target.Count == 0)
                     {

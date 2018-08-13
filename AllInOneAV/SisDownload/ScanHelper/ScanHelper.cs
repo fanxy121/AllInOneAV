@@ -13,16 +13,17 @@ namespace SisDownload.ScanHelper
 {
     public class ScanHelper
     {
-        private static string AsiaUncensoredAuthorshipSeed = JavINIClass.IniReadValue("Sis", "AsiaUncensoredAuthorshipSeed");
-        private static string AsiaUncensoredSection = JavINIClass.IniReadValue("Sis", "AsiaUncensoredSection");
-        private static string WesternUncensoredAuthorshipSeed = JavINIClass.IniReadValue("Sis", "WesternUncensoredAuthorshipSeed");
-        private static string WesternUncensored = JavINIClass.IniReadValue("Sis", "WesternUncensored");
-        private static string AsiaCensoredAuthorshipSeed = JavINIClass.IniReadValue("Sis", "AsiaCensoredAuthorshipSeed");
-        private static string AsiaCensoredSection = JavINIClass.IniReadValue("Sis", "AsiaCensoredSection");
+        private static string Prefix = JavINIClass.IniReadValue("Sis", "Prefix");
+        private static string WholePrefix = JavINIClass.IniReadValue("Sis", "Prefix") + JavINIClass.IniReadValue("Sis", "Forum");
+        private static string AsiaUncensoredAuthorshipSeed = Prefix + JavINIClass.IniReadValue("Sis", "AsiaUncensoredAuthorshipSeed");
+        private static string AsiaUncensoredSection = Prefix + JavINIClass.IniReadValue("Sis", "AsiaUncensoredSection");
+        private static string WesternUncensoredAuthorshipSeed = Prefix + JavINIClass.IniReadValue("Sis", "WesternUncensoredAuthorshipSeed");
+        private static string WesternUncensored = Prefix + JavINIClass.IniReadValue("Sis", "WesternUncensored");
+        private static string AsiaCensoredAuthorshipSeed = Prefix + JavINIClass.IniReadValue("Sis", "AsiaCensoredAuthorshipSeed");
+        private static string AsiaCensoredSection = Prefix + JavINIClass.IniReadValue("Sis", "AsiaCensoredSection");
         private static string RootFolder = JavINIClass.IniReadValue("Sis", "root");
         private static string ListPattern = JavINIClass.IniReadValue("Sis", "ListPattern");
         private static string ListDatePattern = JavINIClass.IniReadValue("Sis", "ListDatePattern");
-        private static string Prefix = JavINIClass.IniReadValue("Sis", "Prefix");
         private static readonly Dictionary<string, string> ChannelMapping = new Dictionary<string, string> { { AsiaCensoredAuthorshipSeed, "亚洲有码原创" }, { AsiaCensoredSection, "亚洲有码转帖" }, { WesternUncensoredAuthorshipSeed, "欧美无码原创" }, { WesternUncensored, "欧美无码转帖" }, { AsiaUncensoredAuthorshipSeed, "亚洲无码原创" }, { AsiaUncensoredSection, "亚洲无码转帖" } };
 
         public static void Init(StringBuilder sb)
