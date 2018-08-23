@@ -27,11 +27,11 @@ namespace JavLibraryDownloader.InitHelper
             CookieContainer cc = new CookieContainer();
             var process = Broswer.OpenBrowserUrl("http://www.javlibrary.com/cn/");
             Thread.Sleep(10000);
-            Broswer.Refresh_click(process);
+            Broswer.Refresh_click();
             Thread.Sleep(30000);
-            Broswer.CloseBroswer(process);
+            Broswer.CloseBroswer();
 
-            var data = new ChromeCookieReader().ReadCookies("jav");
+            var data = new ChromeCookieReader().ReadCookies("javlibrary");
 
             foreach (var item in data.Distinct())
             {

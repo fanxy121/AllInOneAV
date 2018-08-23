@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ using Utils;
 
 namespace UnitTest
 {
-    class Program
+    public class Program
     {
         #region SisDownloadParam
         private static string AsiaUncensoredAuthorshipSeed = JavINIClass.IniReadValue("Sis", "AsiaUncensoredAuthorshipSeed");
@@ -41,8 +42,9 @@ namespace UnitTest
             //var list = GetPreFix();
 
             //ChromeCookie("jav");
+            //OpenBrowserUrl("www.javlibrary.com/cn");
 
-            OpenBrowserUrl("www.javlibrary.com/cn");
+            //var res = GetHtmlContentViaUrl("http://www.javlibrary.com/cn/genres.php", "utf-8", true, null);
         }
 
         public static void OpenBrowserUrl(string url)
@@ -209,96 +211,138 @@ namespace UnitTest
         }
         #endregion
 
+        private static HtmlResponse GetHtmlContentViaUrl(string url, string end = "utf-8", bool isJav = false, CookieContainer cc = null)
+        {
+            HtmlResponse res = new HtmlResponse();
+            res.Success = false;
+
+            try
+            {
+                GC.Collect();
+                StringBuilder sb = new StringBuilder();
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Credentials = CredentialCache.DefaultCredentials;
+                request.Timeout = 90000;
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36";//设置User-Agent，伪装成Google Chrome浏览器
+                request.Method = "GET";
+
+                if (isJav)
+                {
+                    request.CookieContainer = cc;
+                }
+
+                request.KeepAlive = true;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream, Encoding.GetEncoding(end));
+                while (!reader.EndOfStream)
+                {
+                    sb.AppendLine(reader.ReadLine());
+                }
+                res.Content = sb.ToString();
+                reader.Close();
+                dataStream.Close();
+                response.Close();
+            }
+            catch (Exception e)
+            {
+                res.Success = false;
+            }
+
+            res.Success = true;
+            return res;
+        }
+
         #region RegMatch
         private static void StartTestRegMatch()
-        {
-            var fileList = GetFileNames("C:\\allav.txt");
-
-            var matchList = GetMatch(fileList);
-
-            Console.WriteLine(string.Format("Only one match -> {0}", matchList.Item.Where(x=>x.PossibleId.Count == 1).Count()));
-            Console.WriteLine(string.Format("Multiple match -> {0}", matchList.Item.Where(x => x.PossibleId.Count > 1).Count()));
-
-            foreach (var item in matchList.Item.Where(x => x.PossibleId.Count > 1))
             {
-                Console.WriteLine(item.Fi);
-                item.PossibleId.ToList().ForEach(x => Console.WriteLine(x));
-                Console.WriteLine("---------------------------------------");
+                var fileList = GetFileNames("C:\\allav.txt");
+
+                var matchList = GetMatch(fileList);
+
+                Console.WriteLine(string.Format("Only one match -> {0}", matchList.Item.Where(x=>x.PossibleId.Count == 1).Count()));
+                Console.WriteLine(string.Format("Multiple match -> {0}", matchList.Item.Where(x => x.PossibleId.Count > 1).Count()));
+
+                foreach (var item in matchList.Item.Where(x => x.PossibleId.Count > 1))
+                {
+                    Console.WriteLine(item.Fi);
+                    item.PossibleId.ToList().ForEach(x => Console.WriteLine(x));
+                    Console.WriteLine("---------------------------------------");
+                }
+
+                Console.WriteLine(string.Format("Total {0}, Subtotal {1}", fileList.Count, matchList.Item.Count));
             }
 
-            Console.WriteLine(string.Format("Total {0}, Subtotal {1}", fileList.Count, matchList.Item.Count));
-        }
-
-        private static List<string> GetFileNames(string path)
-        {
-            List<string> ret = new List<string>();
-
-            using (StreamReader sw = new StreamReader(path))
+            private static List<string> GetFileNames(string path)
             {
-                while (!sw.EndOfStream)
-                {
-                    var content = sw.ReadLine();
+                List<string> ret = new List<string>();
 
-                    if (content.Contains(" "))
+                using (StreamReader sw = new StreamReader(path))
+                {
+                    while (!sw.EndOfStream)
                     {
-                        var fullPath = content.Substring(content.IndexOf(" ") + 1);
-                        ret.Add(fullPath.Substring(fullPath.LastIndexOf("\\") + 1));
+                        var content = sw.ReadLine();
+
+                        if (content.Contains(" "))
+                        {
+                            var fullPath = content.Substring(content.IndexOf(" ") + 1);
+                            ret.Add(fullPath.Substring(fullPath.LastIndexOf("\\") + 1));
+                        }
                     }
                 }
+
+                return ret;
             }
 
-            return ret;
-        }
-
-        private static MatchPair GetMatch(List<string> list)
-        {
-            MatchPair ret = new MatchPair();
-            List<MatchPairItem> retList = new List<MatchPairItem>();
-            string regx = @"([a-zA-Z]{1,8}\s*-?\s*\d{1,8})";
-
-            foreach (var item in list)
+            private static MatchPair GetMatch(List<string> list)
             {
-                FileInfo fi = new FileInfo(item);              
-                HashSet<string> hs = new HashSet<string>();
-                MatchPairItem mpi = new MatchPairItem();
+                MatchPair ret = new MatchPair();
+                List<MatchPairItem> retList = new List<MatchPairItem>();
+                string regx = @"([a-zA-Z]{1,8}\s*-?\s*\d{1,8})";
 
-                var m = Regex.Matches(fi.Name.Replace(fi.Extension, ""), regx, RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-                foreach (System.Text.RegularExpressions.Match match in m)
+                foreach (var item in list)
                 {
-                    var firstTime = true;
-                    var charArray = match.Value.Replace("-", "").ToCharArray();
-                    StringBuilder sb = new StringBuilder();
+                    FileInfo fi = new FileInfo(item);              
+                    HashSet<string> hs = new HashSet<string>();
+                    MatchPairItem mpi = new MatchPairItem();
+
+                    var m = Regex.Matches(fi.Name.Replace(fi.Extension, ""), regx, RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+                    foreach (System.Text.RegularExpressions.Match match in m)
+                    {
+                        var firstTime = true;
+                        var charArray = match.Value.Replace("-", "").ToCharArray();
+                        StringBuilder sb = new StringBuilder();
                     
-                    foreach (var c in charArray)
-                    {
-                        if (firstTime && Char.IsDigit(c))
+                        foreach (var c in charArray)
                         {
-                            sb.Append("-");
-                            sb.Append(c);
-                            firstTime = false;
+                            if (firstTime && Char.IsDigit(c))
+                            {
+                                sb.Append("-");
+                                sb.Append(c);
+                                firstTime = false;
+                            }
+                            else
+                            {
+                                sb.Append(c);
+                            }
                         }
-                        else
-                        {
-                            sb.Append(c);
-                        }
+                        hs.Add(sb.ToString().ToUpper().Trim());
                     }
-                    hs.Add(sb.ToString().ToUpper().Trim());
+
+                    mpi.Fi = fi;
+                    mpi.PossibleId = hs;
+                    retList.Add(mpi);
                 }
 
-                mpi.Fi = fi;
-                mpi.PossibleId = hs;
-                retList.Add(mpi);
+                ret.Item = retList;
+                return ret;
             }
 
-            ret.Item = retList;
-            return ret;
-        }
-
-        private static List<string> GetPreFix()
-        {
-            return FileUtility.GetPrefix(JavDataBaseManager.GetAllAV());
-        }
-        #endregion
+            private static List<string> GetPreFix()
+            {
+                return FileUtility.GetPrefix(JavDataBaseManager.GetAllAV());
+            }
+            #endregion
     }
 }

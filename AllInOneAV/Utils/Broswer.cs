@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Automation;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -46,8 +47,10 @@ namespace Utils
             }
         }
 
-        public static void Refresh_click(Process p)
+        public static void Refresh_click()
         {
+            var p = Process.GetProcessById(GetCurrentChromeTabProcessId());
+
             if (p != null)
             {
                 IntPtr ptr = p.MainWindowHandle;
@@ -56,16 +59,43 @@ namespace Utils
             }
         }
 
-        public static void CloseBroswer(Process p)
+        public static void CloseBroswer()
         {
+            var p = Process.GetProcessById(GetCurrentChromeTabProcessId());
+
             if (p != null)
             {
                 IntPtr ptr = p.MainWindowHandle;
                 SetForegroundWindow(ptr);
-                SendKeys.SendWait("%{F4}");
+                SendKeys.SendWait("^w");
 
                 p = null;
             }
+        }
+
+        public static int GetCurrentChromeTabProcessId()
+        {
+            Process[] procsChrome = Process.GetProcessesByName("chrome");
+
+            if (procsChrome.Length <= 0)
+                return -1;
+
+            foreach (Process proc in procsChrome)
+            {
+                // the chrome process must have a window 
+                if (proc.MainWindowHandle == IntPtr.Zero)
+                    continue;
+
+                // to find the tabs we first need to locate something reliable - the 'New Tab' button 
+                AutomationElement root = AutomationElement.FromHandle(proc.MainWindowHandle);
+                var SearchBar = root.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, "Address and search bar"));
+                if (SearchBar != null)
+                {
+                    return SearchBar.Current.ProcessId;
+                }
+            }
+
+            return -1;
         }
     }
 }
