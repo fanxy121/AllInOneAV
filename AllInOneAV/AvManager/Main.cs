@@ -78,6 +78,8 @@ namespace AvManager
         {
             srcFi = new List<FileInfo>();
             lvMoveSrc.Items.Clear();
+            var oriExcludes = excludes;
+            excludes.Add(txtMoveDes.Text);
 
             if (!string.IsNullOrEmpty(txtMoveSrc.Text))
             {
@@ -98,6 +100,8 @@ namespace AvManager
                 }
                 lvMoveSrc.EndUpdate();
             }
+
+            excludes = oriExcludes;
         }
 
         private void MoveSrcClick()
