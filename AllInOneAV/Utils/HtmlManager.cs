@@ -24,7 +24,7 @@ namespace Utils
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Credentials = CredentialCache.DefaultCredentials;
                 request.Timeout = 90000;
-                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36";//设置User-Agent，伪装成Google Chrome浏览器
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36";//设置User-Agent，伪装成Google Chrome浏览器
                 request.Method = "GET";
 
                 if (isJav)

@@ -18,7 +18,8 @@ namespace SisDownload.DownloadHelper
         private static string DetailAttach = JavINIClass.IniReadValue("Sis", "DetailAttach");
         private static string DetailAttachPrefix = JavINIClass.IniReadValue("Sis", "DetailAttachPrefix");
         private static string RootFolder = JavINIClass.IniReadValue("Sis", "root");
-        private static string Prefix = JavINIClass.IniReadValue("Sis", "Prefix") + JavINIClass.IniReadValue("Sis", "Forum");
+        private static string Prefix = JavINIClass.IniReadValue("Sis", "Prefix");
+        private static string wholePrefix = JavINIClass.IniReadValue("Sis", "Prefix") + JavINIClass.IniReadValue("Sis", "Forum");
 
         public static DateTime Start(StringBuilder sb)
         {
