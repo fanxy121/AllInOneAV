@@ -30,6 +30,7 @@ namespace FindMovie
 
         private void Main_Load(object sender, EventArgs e)
         {
+            InitAutoComplete();
             cacheMovies = new List<Match>();
             RefreshCache();
         }
@@ -46,6 +47,7 @@ namespace FindMovie
 
         private void doFind()
         {
+            InsertSearchHistory(textBox1.Text);
             doRecursive();
         }
 
@@ -59,17 +61,19 @@ namespace FindMovie
 
                 foreach (var movie in cacheMovies)
                 {
-                    //Console.WriteLine(movie.AvID.Trim());
                     if (movie.AvID.Trim().ToUpper().Contains(tempKeyword) || movie.AvID.Trim().ToUpper() == tempKeyword)
                     {
                         ListViewItem lvi = new ListViewItem(movie.AvID.Trim().ToUpper());
 
-                        var tempFi = new FileInfo(movie.Location.Trim() + "\\" + movie.Name.Trim());
+                        if (File.Exists(movie.Location.Trim() + "\\" + movie.Name.Trim()))
+                        {
+                            var tempFi = new FileInfo(movie.Location.Trim() + "\\" + movie.Name.Trim());
 
-                        lvi.SubItems.Add(FileSize.GetAutoSizeString(tempFi.Length, 2));
-                        lvi.SubItems.Add(movie.Location.Trim() + "\\" + movie.Name.Trim());
+                            lvi.SubItems.Add(FileSize.GetAutoSizeString(tempFi.Length, 2));
+                            lvi.SubItems.Add(movie.Location.Trim() + "\\" + movie.Name.Trim());
 
-                        listView1.Items.Add(lvi);
+                            listView1.Items.Add(lvi);
+                        }
                     }
                 }
             }
@@ -88,6 +92,7 @@ namespace FindMovie
             if (info.Item != null)
             {
                 System.Diagnostics.Process.Start(@"" + info.Item.SubItems[2].Text);
+                InsertViewHistory(info.Item.SubItems[2].Text);
             }
         }
 
@@ -103,7 +108,6 @@ namespace FindMovie
                     if (result == DialogResult.Yes)
                     {
                         File.Delete(info.Item.SubItems[2].Text);
-                        //ScanDataBaseManager.DeleteMatch(FileUtility.ReplaceInvalidChar(info.Item.SubItems[2].Text));
                         RefreshCache();
 
                         listView1.Items.Remove(info.Item);
@@ -138,6 +142,57 @@ namespace FindMovie
         private void Main_Activated(object sender, EventArgs e)
         {
             this.textBox1.SelectAll();
+        }
+
+        private void Main_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.D)
+            {
+                ListViewItem info = listView1.SelectedItems[0];
+                if (info != null)
+                {
+                    var result = MessageBox.Show(string.Format("Do you want to delete {0}", info.SubItems[2].Text), "Warning", MessageBoxButtons.YesNo);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        File.Delete(info.SubItems[2].Text);
+                        RefreshCache();
+
+                        listView1.Items.Remove(info);
+                    }
+                }
+            }
+
+            if (e.KeyCode == Keys.Space)
+            {
+                ListViewItem info = listView1.SelectedItems[0];
+
+                if (info != null)
+                {
+                    System.Diagnostics.Process.Start(@"" + info.SubItems[2].Text);
+                    InsertViewHistory(info.SubItems[2].Text);
+                }
+            }
+        }
+
+        private void InsertViewHistory(string file)
+        {
+            ScanDataBaseManager.InsertViewHistory(FileUtility.ReplaceInvalidChar(file));
+        }
+
+        private void InsertSearchHistory(string content)
+        {
+            ScanDataBaseManager.InsertSearchHistory(FileUtility.ReplaceInvalidChar(content));
+        }
+
+        private void InitAutoComplete()
+        {
+            var source = new AutoCompleteStringCollection();
+            source.AddRange(ScanDataBaseManager.GetSearchHistory().Select(x => x.Content).ToArray());
+
+            textBox1.AutoCompleteCustomSource = source;
+            textBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            textBox1.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
     }
 }

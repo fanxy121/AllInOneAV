@@ -47,6 +47,7 @@
     <Compile Include="Common\ConfigType.cs" />
     <Compile Include="Common\Email.cs" />
     <Compile Include="FindModels\Movie.cs" />
+    <Compile Include="FindModels\SearchHistory.cs" />
     <Compile Include="JavModels\Actress.cs" />
     <Compile Include="JavModels\AV.cs" />
     <Compile Include="JavModels\Category.cs" />

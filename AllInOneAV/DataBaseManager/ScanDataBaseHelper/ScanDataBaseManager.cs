@@ -1,4 +1,5 @@
 ﻿using DataBaseManager.Common;
+using Model.FindModels;
 using Model.JavModels;
 using Model.ScanModels;
 using System;
@@ -33,6 +34,7 @@ namespace DataBaseManager.ScanDataBaseHelper
         public static int DeleteMatch(string location, string name)
         {
             name = FileUtility.ReplaceInvalidChar(name);
+            location = FileUtility.ReplaceInvalidChar(location);
 
             var sql = @"DELETE FROM Match WHERE Location = '" + location + "' and Name = '" + name + "'";
 
@@ -62,21 +64,9 @@ namespace DataBaseManager.ScanDataBaseHelper
 
         public static int SaveMatch(Match match)
         {
-            var sql = @"INSERT INTO Match (AvID, Name, Location, CreateTime) VALUES (@avID, @name, @location, @createTime)";
+            var sql = string.Format(@"INSERT INTO Match (AvID, Name, Location, CreateTime) VALUES ('{0}', N'{1}', N'{2}', GETDATE())", match.AvID, FileUtility.ReplaceInvalidChar(match.Name), FileUtility.ReplaceInvalidChar(match.Location));
 
-            SqlParameter[] paras = {
-                new SqlParameter("@avID",SqlDbType.NVarChar,100),
-                new SqlParameter("@name",SqlDbType.NVarChar,500),
-                new SqlParameter("@location",SqlDbType.NVarChar,1000),
-                new SqlParameter("@createTime",SqlDbType.DateTime),
-            };
-
-            paras[0].Value = match.AvID;
-            paras[1].Value = FileUtility.ReplaceInvalidChar(match.Name);
-            paras[2].Value = match.Location;
-            paras[3].Value = DateTime.Now;
-
-            return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql, paras);
+            return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
         }
 
         public static int DeleteFinish()
@@ -102,9 +92,23 @@ namespace DataBaseManager.ScanDataBaseHelper
 
         public static int InsertViewHistory(string file)
         {
-            var sql = string.Format("INSERT INTO ViewHistory (FileName) VALUES ('{0}')", file);
+            var sql = string.Format("INSERT INTO ViewHistory (FileName) VALUES ('{0}')", FileUtility.ReplaceInvalidChar(file));
 
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
+        }
+
+        public static int InsertSearchHistory(string content)
+        {
+            var sql = string.Format("IF NOT EXISTS (SELECT 1 FROM SearchHistory WHERE Content = '{0}') INSERT INTO SearchHistory(Content) VALUES('{0}')", FileUtility.ReplaceInvalidChar(content));
+
+            return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
+        }
+
+        public static List<SearchHistory> GetSearchHistory()
+        {
+            var sql = "SELECT Content From SearchHistory";
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<SearchHistory>();
         }
 
         public static bool ViewedFile(string file)

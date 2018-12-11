@@ -56,16 +56,16 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(955, 64);
+            this.panel1.Size = new System.Drawing.Size(781, 55);
             this.panel1.TabIndex = 0;
             // 
             // initButton
             // 
             this.initButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.initButton.Location = new System.Drawing.Point(684, 14);
+            this.initButton.Location = new System.Drawing.Point(560, 12);
             this.initButton.Margin = new System.Windows.Forms.Padding(2);
             this.initButton.Name = "initButton";
-            this.initButton.Size = new System.Drawing.Size(112, 37);
+            this.initButton.Size = new System.Drawing.Size(92, 32);
             this.initButton.TabIndex = 3;
             this.initButton.Text = "Refesh";
             this.initButton.UseVisualStyleBackColor = true;
@@ -74,10 +74,10 @@
             // findButton
             // 
             this.findButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.findButton.Location = new System.Drawing.Point(815, 14);
+            this.findButton.Location = new System.Drawing.Point(667, 12);
             this.findButton.Margin = new System.Windows.Forms.Padding(2);
             this.findButton.Name = "findButton";
-            this.findButton.Size = new System.Drawing.Size(112, 37);
+            this.findButton.Size = new System.Drawing.Size(92, 32);
             this.findButton.TabIndex = 2;
             this.findButton.Text = "Find";
             this.findButton.UseVisualStyleBackColor = true;
@@ -87,20 +87,22 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 22);
+            this.label1.Location = new System.Drawing.Point(10, 19);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 21);
+            this.label1.Size = new System.Drawing.Size(53, 18);
             this.label1.TabIndex = 1;
             this.label1.Text = "Name:";
             // 
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(88, 19);
+            this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textBox1.Location = new System.Drawing.Point(72, 16);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(576, 31);
+            this.textBox1.Size = new System.Drawing.Size(472, 28);
             this.textBox1.TabIndex = 0;
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
@@ -109,39 +111,39 @@
             this.panel2.Controls.Add(this.progressBar1);
             this.panel2.Controls.Add(this.textBox2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 1311);
+            this.panel2.Location = new System.Drawing.Point(0, 1124);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(955, 90);
+            this.panel2.Size = new System.Drawing.Size(781, 77);
             this.panel2.TabIndex = 2;
             // 
             // progressBar1
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(17, 55);
+            this.progressBar1.Location = new System.Drawing.Point(14, 47);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(911, 25);
+            this.progressBar1.Size = new System.Drawing.Size(745, 21);
             this.progressBar1.TabIndex = 1;
             // 
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(17, 19);
+            this.textBox2.Location = new System.Drawing.Point(14, 16);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(911, 31);
+            this.textBox2.Size = new System.Drawing.Size(746, 28);
             this.textBox2.TabIndex = 0;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.listView1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 64);
+            this.panel3.Location = new System.Drawing.Point(0, 55);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(955, 1247);
+            this.panel3.Size = new System.Drawing.Size(781, 1069);
             this.panel3.TabIndex = 3;
             // 
             // listView1
@@ -155,7 +157,7 @@
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Margin = new System.Windows.Forms.Padding(2);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(955, 1247);
+            this.listView1.Size = new System.Drawing.Size(781, 1069);
             this.listView1.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -180,12 +182,13 @@
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(955, 1401);
+            this.ClientSize = new System.Drawing.Size(781, 1201);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -193,6 +196,7 @@
             this.Activated += new System.EventHandler(this.Main_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

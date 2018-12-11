@@ -26,18 +26,25 @@ namespace PlayRecent
 
         private void btnBroswe_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox1.Text))
-            {
-                FileUtility.GetFilesRecursive(textBox1.Text, formats, excludes, fi, 100);
-
-                WhenClickRb();
-                ShowContent();
-            }
+            ListItems();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ListItems()
+        {
+            if (!string.IsNullOrEmpty(textBox1.Text))
+            {
+                this.listView1.Items.Clear();
+
+                FileUtility.GetFilesRecursive(textBox1.Text, formats, excludes, fi, 100);
+
+                WhenClickRb();
+                ShowContent();
+            }
         }
 
         private void textBox1_Click(object sender, EventArgs e)
@@ -90,12 +97,17 @@ namespace PlayRecent
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Space)
             {
                 if (listView1.SelectedItems != null && listView1.SelectedItems.Count > 0)
                 {
                     Play(listView1.SelectedItems[0]);
                 }
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                ListItems();
             }
 
             if (e.KeyCode == Keys.D)
