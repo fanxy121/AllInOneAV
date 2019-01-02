@@ -73,7 +73,7 @@ namespace SisDownload.DownloadHelper
                             Directory.CreateDirectory(RootFolder + innerSubFolder);
                         }
 
-                        var attach = Prefix + DetailAttachPrefix + item.Groups[1].Value;
+                        var attach = Prefix + DetailAttachPrefix + item.Groups[1].Value + "&clickDownload=1";
                         var path = RootFolder + subFolder + attachName;
 
                         Console.WriteLine(string.Format("Download {0} to {1} and create folder {2} for picture", attach, path, innerSubFolder));
