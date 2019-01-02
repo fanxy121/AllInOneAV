@@ -38,14 +38,14 @@ namespace SisDownload.ScanHelper
             sb.AppendLine(string.Format("上次执行时间: {0}", lastOperationEndDate.ToString("yyyy-MM-dd")));
 
             List<string> listChannel = new List<string>();
-            listChannel.Add(AsiaUncensoredAuthorshipSeed);
-            sb.AppendLine(string.Format("添加频道: {0}", "AsiaUncensoredAuthorshipSeed"));
-            listChannel.Add(AsiaUncensoredSection);
-            sb.AppendLine(string.Format("添加频道: {0}", "AsiaUncensoredSection"));
-            listChannel.Add(WesternUncensoredAuthorshipSeed);
-            sb.AppendLine(string.Format("添加频道: {0}", "WesternUncensoredAuthorshipSeed"));
-            listChannel.Add(WesternUncensored);
-            sb.AppendLine(string.Format("添加频道: {0}", "WesternUncensored"));
+            //listChannel.Add(AsiaUncensoredAuthorshipSeed);
+            //sb.AppendLine(string.Format("添加频道: {0}", "AsiaUncensoredAuthorshipSeed"));
+            //listChannel.Add(AsiaUncensoredSection);
+            //sb.AppendLine(string.Format("添加频道: {0}", "AsiaUncensoredSection"));
+            //listChannel.Add(WesternUncensoredAuthorshipSeed);
+            //sb.AppendLine(string.Format("添加频道: {0}", "WesternUncensoredAuthorshipSeed"));
+            //listChannel.Add(WesternUncensored);
+            //sb.AppendLine(string.Format("添加频道: {0}", "WesternUncensored"));
             listChannel.Add(AsiaCensoredAuthorshipSeed);
             sb.AppendLine(string.Format("添加频道: {0}", "AsiaCensoredAuthorshipSeed"));
             listChannel.Add(AsiaCensoredSection);

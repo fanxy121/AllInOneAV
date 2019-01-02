@@ -38,6 +38,7 @@ namespace PlayRecent
         {
             if (!string.IsNullOrEmpty(textBox1.Text))
             {
+                fi = new List<FileInfo>();
                 this.listView1.Items.Clear();
 
                 FileUtility.GetFilesRecursive(textBox1.Text, formats, excludes, fi, 100);

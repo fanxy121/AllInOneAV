@@ -46,6 +46,8 @@
     <Compile Include="AvManager\MoveLog.cs" />
     <Compile Include="Common\ConfigType.cs" />
     <Compile Include="Common\Email.cs" />
+    <Compile Include="Common\PageModel.cs" />
+    <Compile Include="FindModels\AVViewModel.cs" />
     <Compile Include="FindModels\Movie.cs" />
     <Compile Include="FindModels\SearchHistory.cs" />
     <Compile Include="JavModels\Actress.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="JavModels\CookieItem.cs" />
     <Compile Include="JavModels\DatabaseModel.cs" />
     <Compile Include="JavModels\Director.cs" />
+    <Compile Include="JavModels\DropDownListModel.cs" />
     <Compile Include="JavModels\Publisher.cs" />
     <Compile Include="JavModels\RunType.cs" />
     <Compile Include="JavModels\ScanURL.cs" />

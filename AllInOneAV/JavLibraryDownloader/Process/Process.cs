@@ -82,8 +82,16 @@ namespace JavLibraryDownloader.Process
 
             int currentCategory = 1;
 
+            DateTime now = DateTime.Now;
+
             foreach (var category in categories)
             {
+                if ((DateTime.Now - now).TotalMinutes >= 25)
+                {
+                    cc = InitHelper.InitManager.GetCookie();
+                    now = DateTime.Now;
+                }
+
                 ScanHelper.ScanManager.Scan(category.Url, category.Name, currentCategory, categories.Count, cc, isUpdate);
                 currentCategory++;
             }
@@ -94,8 +102,16 @@ namespace JavLibraryDownloader.Process
             var noDownloads = JavDataBaseManager.GetScanURL().Where(x => x.IsDownload == false);
             int currentItems = 1;
 
+            DateTime now = DateTime.Now;
+
             foreach (var item in noDownloads)
             {
+                if ((DateTime.Now - now).TotalMinutes >= 25)
+                {
+                    cc = InitHelper.InitManager.GetCookie();
+                    now = DateTime.Now;
+                }
+
                 DownloadHelper.DownloadManager.Download(item.URL, currentItems, noDownloads.Count(), cc);
             }
         }
@@ -104,8 +120,16 @@ namespace JavLibraryDownloader.Process
         {
             int currentCategory = 1;
 
+            DateTime now = DateTime.Now;
+
             foreach (var item in second)
             {
+                if ((DateTime.Now - now).TotalMinutes >= 25)
+                {
+                    cc = InitHelper.InitManager.GetCookie();
+                    now = DateTime.Now;
+                }
+
                 ScanHelper.ScanManager.Scan(item.Url, "SecondTry", currentCategory, second.Count, cc);
                 currentCategory++;
             }
@@ -115,8 +139,16 @@ namespace JavLibraryDownloader.Process
         {
             int currentItems = 1;
 
+            DateTime now = DateTime.Now;
+
             foreach (var item in second)
             {
+                if ((DateTime.Now - now).TotalMinutes >= 25)
+                {
+                    cc = InitHelper.InitManager.GetCookie();
+                    now = DateTime.Now;
+                }
+
                 DownloadHelper.DownloadManager.Download(item.Url, currentItems, second.Count(), cc);
                 currentItems++;
             }

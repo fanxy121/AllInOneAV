@@ -10,7 +10,7 @@ namespace Model.SisModels
     {
         public LastOperationEndDate()
         {
-            LastOperationDate = DateTime.Today.AddDays(-5);
+            LastOperationDate = DateTime.Today.AddDays(-10);
         }
 
         public DateTime LastOperationDate { get; set; }

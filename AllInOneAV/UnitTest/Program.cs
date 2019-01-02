@@ -1,7 +1,9 @@
-﻿using DataBaseManager.JavDataBaseHelper;
+﻿using DataBaseManager.FindDataBaseHelper;
+using DataBaseManager.JavDataBaseHelper;
 using DataBaseManager.SisDataBaseHelper;
 using Microsoft.Win32;
 using Model.Common;
+using Model.FindModels;
 using Model.ScanModels;
 using Model.SisModels;
 using Newtonsoft.Json;
@@ -45,6 +47,15 @@ namespace UnitTest
             //OpenBrowserUrl("www.javlibrary.com/cn");
 
             //var res = GetHtmlContentViaUrl("http://www.javlibrary.com/cn/genres.php", "utf-8", true, null);
+
+            var test = GetAVViewModels();
+
+            foreach (var av in test)
+            {
+                Console.WriteLine(av.Name);
+            }
+
+            Console.ReadKey();
         }
 
         public static void OpenBrowserUrl(string url)
@@ -75,6 +86,11 @@ namespace UnitTest
                  
              }
          }
+
+        public static List<AVViewModel> GetAVViewModels()
+        {
+            return null ;
+        }
 
         public static void ChromeCookie(string hostName)
         {

@@ -26,7 +26,7 @@ namespace ScanAllAndMatch
                 List<FileInfo> fi = new List<FileInfo>();
                 List<Match> temp = new List<Match>();
 
-                foreach (var driver in drivers.Take(8))
+                foreach (var driver in drivers.Take(9))
                 {
                     sb.AppendLine(string.Format("添加扫描驱动器: {0}", driver));
                     Console.WriteLine("Processing " + driver);
@@ -55,6 +55,8 @@ namespace ScanAllAndMatch
 
                     var possibleIDs = FileUtility.GetPossibleID(scan, prefix);
 
+                    possibleIDs = possibleIDs.OrderByDescending(x => x.Length).Take(1).ToList();
+
                     sb.AppendLine(string.Format("文件{0}可能的Match有{1}", file, possibleIDs.Count));
 
                     Console.WriteLine("PossibleIDs -> " + possibleIDs.Count);
@@ -73,6 +75,7 @@ namespace ScanAllAndMatch
                     m.AvID = m.AvID.Trim().ToLower();
                     m.Location = m.Location.Trim().ToLower();
                     m.Name = m.Name.Trim().ToLower();
+                    m.AvName = m.AvName.ToLower();
                 }
 
                 sb.AppendLine(string.Format("目前库中有{0}Match", currentMatchs.Count));
@@ -85,6 +88,8 @@ namespace ScanAllAndMatch
 
                 Console.WriteLine(cd + " should to be deleted");
                 Console.WriteLine(ca + " should to be inserted");
+
+                var test = temp.Where(x => x.AvID == "rki-481");
 
                 sb.AppendLine(string.Format("{0}需要被删除,{1}需要被添加", cd, ca));
 
@@ -149,6 +154,7 @@ namespace ScanAllAndMatch
                     temp.Add(new Match
                     {
                         AvID = av.ID.ToLower(),
+                        AvName = av.Name.ToLower(),
                         Location = scan.Location.ToLower(),
                         Name = scan.FileName.ToLower()
                     });

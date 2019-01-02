@@ -1,4 +1,5 @@
 ﻿using DataBaseManager.Common;
+using Model.Common;
 using Model.FindModels;
 using Model.ScanModels;
 using System;
@@ -28,6 +29,35 @@ namespace DataBaseManager.FindDataBaseHelper
             var sql = @"SELECT * FROM Match";
 
             return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<Match>();
+        }
+
+        public static List<AVViewModel> GetAllViewModel(string where, int pageIndex, int pageSize, string order, ref PageModel total)
+        {
+            var sql = string.Format(@"SELECT * FROM (
+                                        SELECT 
+	                                    m.AvId, 
+	                                    m.Name AS FileName, 
+	                                    m.Location,
+	                                    a.AvLength,
+	                                    a.Category,
+	                                    a.Actress,
+	                                    a.Company,
+	                                    a.Director,
+	                                    a.Name,
+	                                    a.Publisher,
+	                                    a.ReleaseDate,
+	                                    a.URL,
+                                        ROW_NUMBER() OVER (ORDER BY a.ReleaseDate {3}, a.AvId ASC, m.Name) AS RANK
+                                    FROM 
+	                                    [ScanAllAv].[dbo].[Match] m
+	                                    LEFT JOIN [JavLibraryDownload].[dbo].[AV] a on m.AvID = a.ID AND m.AvName = a.Name
+                                    WHERE 1=1 {0}
+				            ) AS t WHERE t.RANK BETWEEN {1} AND {2}", where, pageIndex * pageSize, (pageIndex + 1) * pageSize, order);
+
+            var sqlCount = string.Format(@"SELECT count(1) AS Total FROM [ScanAllAv].[dbo].[Match] m LEFT JOIN[JavLibraryDownload].[dbo].[AV] a on m.AvID = a.ID  WHERE 1=1 {0}", where);
+
+            total = SqlHelper.ExecuteDataTable(con, CommandType.Text, sqlCount).ToModel<PageModel>() ?? new PageModel();
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<AVViewModel>();
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,6 +15,20 @@ namespace Utils
     public class HtmlManager
     {
         private static string UserAgent = JavINIClass.IniReadValue("Html", "UserAgent");
+
+        public static string GetChromeVersion()
+        {
+            object path;
+            path = Registry.GetValue(@"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe", "", null);
+            if (path != null)
+            {
+                return FileVersionInfo.GetVersionInfo(path.ToString()).FileVersion;
+            }
+            else
+            {
+                return "";
+            }
+        }
 
         public static HtmlResponse GetHtmlContentViaUrl(string url, string end = "utf-8",  bool isJav = false, CookieContainer cc = null)
         {
@@ -28,7 +44,7 @@ namespace Utils
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Credentials = CredentialCache.DefaultCredentials;
                 request.Timeout = 90000;
-                request.UserAgent = UserAgent;
+                request.UserAgent = string.Format(UserAgent, GetChromeVersion());
                 request.Method = "GET";
 
                 if (isJav)

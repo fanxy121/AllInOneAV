@@ -146,23 +146,6 @@ namespace FindMovie
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.D)
-            {
-                ListViewItem info = listView1.SelectedItems[0];
-                if (info != null)
-                {
-                    var result = MessageBox.Show(string.Format("Do you want to delete {0}", info.SubItems[2].Text), "Warning", MessageBoxButtons.YesNo);
-
-                    if (result == DialogResult.Yes)
-                    {
-                        File.Delete(info.SubItems[2].Text);
-                        RefreshCache();
-
-                        listView1.Items.Remove(info);
-                    }
-                }
-            }
-
             if (e.KeyCode == Keys.Space)
             {
                 ListViewItem info = listView1.SelectedItems[0];

@@ -252,6 +252,13 @@ namespace DataBaseManager.JavDataBaseHelper
             return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<Comments>();
         }
 
+        public static string[] GetDropDownList(string table)
+        {
+            var sql = string.Format("SELECT Name FROM {0}", table);
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<DropDownListModel>().Select(x=>x.Name).ToArray();
+        }
+
         private static SqlDataReader GetReader(string sql)
         {
             SqlCommand commond = new SqlCommand(sql, mycon);

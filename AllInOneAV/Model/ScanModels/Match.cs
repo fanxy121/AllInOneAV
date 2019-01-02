@@ -9,6 +9,7 @@ namespace Model.ScanModels
     public class Match
     {
         public string AvID { get; set; }
+        public string AvName { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
         //public DateTime CreateTime { get; set; }
@@ -27,9 +28,7 @@ namespace Model.ScanModels
                 return false;
 
             //Check whether the products' properties are equal.
-            return ReplaceInvalidChar(x.Name) == ReplaceInvalidChar(y.Name)
-                && ReplaceInvalidChar(x.AvID) == ReplaceInvalidChar(y.AvID)
-                && ReplaceInvalidChar(x.Location) == ReplaceInvalidChar(y.Location);
+            return x.Location == y.Location && x.AvID == y.AvID && x.Name == y.Name && x.AvName == y.AvName;
         }
 
         // If Equals() returns true for a pair of objects 
@@ -40,22 +39,13 @@ namespace Model.ScanModels
             //Check whether the object is null
             if (Object.ReferenceEquals(match, null)) return 0;
 
-            //Get hash code for the Name field if it is not null.
-            int hashMatchName = match.Name == null ? 0 : ReplaceInvalidChar(match.Name).GetHashCode();
-
-            //Get hash code for the Code field.
-            int hashMatchLocation = match.Location == null ? 0 : ReplaceInvalidChar(match.Location).GetHashCode();
-
-            int hashMatchAvID = match.AvID == null ? 0 : ReplaceInvalidChar(match.AvID).GetHashCode();
+            int hashMatchLocation = string.IsNullOrEmpty(match.Location) ? 0 : match.Location.GetHashCode();
+            int hashMatchName = string.IsNullOrEmpty(match.Name) ? 0 : match.Name.GetHashCode();
+            int hashMatchAvName = string.IsNullOrEmpty(match.AvName) ? 0 : match.AvName.GetHashCode();
+            int hashMatchAvid = string.IsNullOrEmpty(match.AvID) ? 0 : match.AvID.GetHashCode();
 
             //Calculate the hash code for the product.
-            return hashMatchName ^ hashMatchLocation ^ hashMatchAvID;
+            return hashMatchLocation ^ hashMatchName ^ hashMatchAvid ^ hashMatchAvName;
         }
-
-        public string ReplaceInvalidChar(string str)
-        {
-            return str.Replace("/", "").Replace("\"", "").Replace("\\", "").Replace(":", "").Replace("?", "").Replace("*", "").Replace("<", "").Replace(">", "").Replace("|", "").Replace("'", "");
-        }
-
     }
 }
