@@ -26,7 +26,7 @@ namespace JavLibraryDownloader.ScanHelper
         private static string RootFolder = JavINIClass.IniReadValue("Sis", "root");
         private static List<ScanURL> ForUpdate = new List<ScanURL>();
 
-        public static void Scan(string url, string category, int currentCategory, int totalCategories, CookieContainer cc, bool isUpdate = false)
+        public static void Scan(string url, string category, int currentCategory, int totalCategories, CookieContainer cc, DateTime now, bool isUpdate = false)
         {
             try
             {
@@ -34,6 +34,12 @@ namespace JavLibraryDownloader.ScanHelper
 
                 while (!string.IsNullOrEmpty(url))
                 {
+                    if ((DateTime.Now - now).TotalMinutes >= 25)
+                    {
+                        cc = InitHelper.InitManager.GetCookie();
+                        now = DateTime.Now;
+                    }
+
                     url = RecursiveHelper(url, category, currentCategory, totalCategories, page, cc, isUpdate);
                     page++;
                 }

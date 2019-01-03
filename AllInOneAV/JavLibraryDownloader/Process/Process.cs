@@ -19,11 +19,13 @@ namespace JavLibraryDownloader.Process
             var cc = InitHelper.InitManager.GetCookie();
             var res = InitHelper.InitManager.InitCategory(cc);
 
+            DateTime now = DateTime.Now;
+
             if (res)
             {
                 if (type == RunType.Both || type == RunType.Scan)
                 {
-                    DoScan(new List<Category>(), cc);
+                    DoScan(new List<Category>(), cc, now);
                     SecondTry(type, cc);
                 }
 
@@ -46,7 +48,7 @@ namespace JavLibraryDownloader.Process
                             Name = "Update",
                             Url = UpdateURL
                         }
-                    },cc);
+                    },cc, now);
                 }
             }
             else
@@ -58,7 +60,7 @@ namespace JavLibraryDownloader.Process
         public static void DoScan(string url)
         {
             var cc = InitHelper.InitManager.GetCookie();
-            ScanHelper.ScanManager.Scan(url, url, 1, 1, cc);
+            ScanHelper.ScanManager.Scan(url, url, 1, 1, cc, DateTime.Now);
         }
 
         public static void DoDownload(string url)
@@ -67,7 +69,7 @@ namespace JavLibraryDownloader.Process
             DownloadHelper.DownloadManager.Download(url, 1, 1, cc);
         }
 
-        public static void DoScan(List<Category> categories, CookieContainer cc)
+        public static void DoScan(List<Category> categories, CookieContainer cc, DateTime now)
         {
             bool isUpdate = false;
 
@@ -82,17 +84,9 @@ namespace JavLibraryDownloader.Process
 
             int currentCategory = 1;
 
-            DateTime now = DateTime.Now;
-
             foreach (var category in categories)
             {
-                if ((DateTime.Now - now).TotalMinutes >= 25)
-                {
-                    cc = InitHelper.InitManager.GetCookie();
-                    now = DateTime.Now;
-                }
-
-                ScanHelper.ScanManager.Scan(category.Url, category.Name, currentCategory, categories.Count, cc, isUpdate);
+                ScanHelper.ScanManager.Scan(category.Url, category.Name, currentCategory, categories.Count, cc, now, isUpdate);
                 currentCategory++;
             }
         }
@@ -130,7 +124,7 @@ namespace JavLibraryDownloader.Process
                     now = DateTime.Now;
                 }
 
-                ScanHelper.ScanManager.Scan(item.Url, "SecondTry", currentCategory, second.Count, cc);
+                ScanHelper.ScanManager.Scan(item.Url, "SecondTry", currentCategory, second.Count, cc, now);
                 currentCategory++;
             }
         }

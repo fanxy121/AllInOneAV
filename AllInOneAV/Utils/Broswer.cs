@@ -88,11 +88,12 @@ namespace Utils
 
                 // to find the tabs we first need to locate something reliable - the 'New Tab' button 
                 AutomationElement root = AutomationElement.FromHandle(proc.MainWindowHandle);
-                var SearchBar = root.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, "Address and search bar"));
-                if (SearchBar != null)
-                {
-                    return SearchBar.Current.ProcessId;
-                }
+                var test = root.Current;
+                //var SearchBar = root.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, "Address and search bar"));
+                //if (SearchBar != null)
+                //{
+                    return test.ProcessId;
+                //}
             }
 
             return -1;
