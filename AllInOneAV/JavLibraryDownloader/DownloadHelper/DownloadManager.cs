@@ -54,6 +54,7 @@ namespace JavLibraryDownloader.DownloadHelper
 
         public static void StartDownload(string url, string oriURL, int currentItem, int totalItem, CookieContainer cc)
         {
+            cc = InitHelper.InitManager.UpdateCookie(cc);
             var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true, cc);
 
             try

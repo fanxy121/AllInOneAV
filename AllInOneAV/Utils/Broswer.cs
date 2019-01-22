@@ -67,7 +67,7 @@ namespace Utils
             {
                 IntPtr ptr = p.MainWindowHandle;
                 SetForegroundWindow(ptr);
-                SendKeys.SendWait("^w");
+                SendKeys.SendWait("%{F4}");
 
                 p = null;
             }

@@ -26,7 +26,7 @@ namespace JavLibraryDownloader.ScanHelper
         private static string RootFolder = JavINIClass.IniReadValue("Sis", "root");
         private static List<ScanURL> ForUpdate = new List<ScanURL>();
 
-        public static void Scan(string url, string category, int currentCategory, int totalCategories, CookieContainer cc, DateTime now, bool isUpdate = false)
+        public static CookieContainer Scan(string url, string category, int currentCategory, int totalCategories, CookieContainer cc, bool isUpdate = false)
         {
             try
             {
@@ -34,13 +34,10 @@ namespace JavLibraryDownloader.ScanHelper
 
                 while (!string.IsNullOrEmpty(url))
                 {
-                    if ((DateTime.Now - now).TotalMinutes >= 25)
-                    {
-                        cc = InitHelper.InitManager.GetCookie();
-                        now = DateTime.Now;
-                    }
+                    var ret = RecursiveHelper(url, category, currentCategory, totalCategories, page, cc, isUpdate);
+                    url = ret.Url;
+                    cc = ret.Cc;
 
-                    url = RecursiveHelper(url, category, currentCategory, totalCategories, page, cc, isUpdate);
                     page++;
                 }
 
@@ -64,15 +61,17 @@ namespace JavLibraryDownloader.ScanHelper
             }
             catch (Exception e)
             {
-                _logger.WriteExceptionLog("", string.Format("Scan failed. {0}", e.ToString()));
-                return;
+                _logger.WriteExceptionLog("", string.Format("Scan failed. {0}", e.ToString()));           
             }
+
+            return cc;
         }
 
-        public static string RecursiveHelper(string url, string category, int currentCategory, int totalCategories, int currentPage, CookieContainer cc, bool isUpdate = false)
+        public static RecurModel RecursiveHelper(string url, string category, int currentCategory, int totalCategories, int currentPage, CookieContainer cc, bool isUpdate = false)
         {
             try
             {
+                cc = InitHelper.InitManager.UpdateCookie(cc);
                 var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true, cc);
                 List<ScanURL> temp = new List<ScanURL>();
                 int totalPage = currentPage;
@@ -144,25 +143,40 @@ namespace JavLibraryDownloader.ScanHelper
                                 ForUpdate.AddRange(temp);
                             }
 
-                            return prefix + first.Groups[1].Value;
+                            return new RecurModel{
+                                Url = prefix + first.Groups[1].Value,
+                                Cc = cc
+                            };
                         }
                         else
                         {
-                            return "";
+                            return new RecurModel
+                            {
+                                Url = "",
+                                Cc=cc
+                            };
                         }
                     }
                 }
                 else
                 {
                     _logger.WriteExceptionLog(url, string.Format("Scan failed"));
-                    return "";
+                    return  new RecurModel
+                    {
+                        Url = "",
+                        Cc = cc
+                    };
                 }
             }
             catch (Exception e)
             {
                 _logger.WriteExceptionLog(url, string.Format("Scan error {0}", e.ToString()));
             }
-            return "";
+            return new RecurModel
+            {
+                Url = url,
+                Cc = cc
+            };
         }
     }
 }

@@ -29,7 +29,7 @@ namespace JavLibraryDownloader.InitHelper
             Thread.Sleep(5000);
             Broswer.Refresh_click();
             Thread.Sleep(15000);
-            //Broswer.CloseBroswer();
+            Broswer.CloseBroswer();
 
             var data = new ChromeCookieReader().ReadCookies("javlibrary");
 
@@ -58,10 +58,23 @@ namespace JavLibraryDownloader.InitHelper
             return false;
         }
 
+        public static CookieContainer UpdateCookie(CookieContainer cc)
+        {
+            var need = HtmlManager.NeedToUpdateCookie(categoryURL, "utf-8", true, cc);
+
+            if (need)
+            {
+                cc = InitHelper.InitManager.GetCookie();
+            }
+
+            return cc;
+        }
+
         private static bool GetCategory(CookieContainer cc)
         {
             Console.WriteLine("Start to init catrgories...");
 
+            cc = UpdateCookie(cc);
             var res = HtmlManager.GetHtmlContentViaUrl(categoryURL, "utf-8", true, cc);
 
             if (res.Success)

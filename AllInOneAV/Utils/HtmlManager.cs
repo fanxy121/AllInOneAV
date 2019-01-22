@@ -56,11 +56,11 @@ namespace Utils
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream dataStream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(dataStream, Encoding.GetEncoding(end));
-                while (!reader.EndOfStream)
-                {
-                    sb.AppendLine(reader.ReadLine());
-                }
-                res.Content = sb.ToString();
+                //while (!reader.EndOfStream)
+                //{
+                //    sb.AppendLine(reader.ReadLine());
+                //}
+                res.Content = reader.ReadToEnd();
                 reader.Close();
                 dataStream.Close();
                 response.Close();
@@ -68,10 +68,51 @@ namespace Utils
             catch (Exception e)
             {
                 res.Success = false;
+
+                if (e.Message == "远程服务器返回错误: (503) 服务器不可用。")
+                {
+                    Console.WriteLine("123");
+                }
+
             }
 
             res.Success = true;
             return res;
+        }
+
+        public static bool NeedToUpdateCookie(string url, string end = "utf-8", bool isJav = false, CookieContainer cc = null)
+        {
+            try
+            {
+                GC.Collect();
+                StringBuilder sb = new StringBuilder();
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Credentials = CredentialCache.DefaultCredentials;
+                request.Timeout = 90000;
+                request.UserAgent = string.Format(UserAgent, GetChromeVersion());
+                request.Method = "GET";
+
+                if (isJav)
+                {
+                    request.CookieContainer = cc;
+                }
+
+                request.KeepAlive = true;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                //reader.Close();
+                //dataStream.Close();
+                response.Close();
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "远程服务器返回错误: (503) 服务器不可用。")
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 
