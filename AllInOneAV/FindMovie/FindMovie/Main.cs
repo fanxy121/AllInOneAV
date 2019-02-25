@@ -65,6 +65,11 @@ namespace FindMovie
                     {
                         ListViewItem lvi = new ListViewItem(movie.AvID.Trim().ToUpper());
 
+                        if (movie.Location.Length > 2 && movie.Location[1] != ':')
+                        {
+                            movie.Location = movie.Location.Substring(0, 1) + ":" + movie.Location.Substring(1);
+                        }
+
                         if (File.Exists(movie.Location.Trim() + "\\" + movie.Name.Trim()))
                         {
                             var tempFi = new FileInfo(movie.Location.Trim() + "\\" + movie.Name.Trim());

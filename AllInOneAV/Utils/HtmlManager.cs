@@ -85,7 +85,6 @@ namespace Utils
             try
             {
                 GC.Collect();
-                StringBuilder sb = new StringBuilder();
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Credentials = CredentialCache.DefaultCredentials;
                 request.Timeout = 90000;
@@ -99,14 +98,11 @@ namespace Utils
 
                 request.KeepAlive = true;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                //reader.Close();
-                //dataStream.Close();
                 response.Close();
             }
             catch (Exception e)
             {
-                if (e.Message == "远程服务器返回错误: (503) 服务器不可用。")
+                if (e.Message == "The remote server returned an error: (503) Server Unavailable.")
                 {
                     return true;
                 }

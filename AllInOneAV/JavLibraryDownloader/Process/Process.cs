@@ -75,17 +75,9 @@ namespace JavLibraryDownloader.Process
             var noDownloads = JavDataBaseManager.GetScanURL().Where(x => x.IsDownload == false);
             int currentItems = 1;
 
-            DateTime now = DateTime.Now;
-
             foreach (var item in noDownloads)
             {
-                if ((DateTime.Now - now).TotalMinutes >= 25)
-                {
-                    cc = InitHelper.InitManager.GetCookie();
-                    now = DateTime.Now;
-                }
-
-                DownloadHelper.DownloadManager.Download(item.URL, currentItems, noDownloads.Count(), cc);
+                cc = DownloadHelper.DownloadManager.Download(item.URL, currentItems, noDownloads.Count(), cc);
             }
         }
     }

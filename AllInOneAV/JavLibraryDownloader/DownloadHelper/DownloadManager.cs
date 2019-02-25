@@ -35,7 +35,7 @@ namespace JavLibraryDownloader.DownloadHelper
         private static string detailActressPattern = JavINIClass.IniReadValue("Jav", "detailActress");
         private static string detailCommentPattern = JavINIClass.IniReadValue("Jav", "detailComment");
 
-        public static void Download(string url, int currentItem, int totalItem, CookieContainer cc)
+        public static CookieContainer Download(string url, int currentItem, int totalItem, CookieContainer cc)
         {
             if (!Directory.Exists(imgFolder))
             {
@@ -44,15 +44,17 @@ namespace JavLibraryDownloader.DownloadHelper
 
             try
             {
-                StartDownload(prefix + url, url, currentItem, totalItem, cc);
+                cc = StartDownload(prefix + url, url, currentItem, totalItem, cc);
             }
             catch (Exception e)
             {
                 _logger.WriteExceptionLog(url, string.Format("Download failed"));
             }
+
+            return cc;
         }
 
-        public static void StartDownload(string url, string oriURL, int currentItem, int totalItem, CookieContainer cc)
+        public static CookieContainer StartDownload(string url, string oriURL, int currentItem, int totalItem, CookieContainer cc)
         {
             cc = InitHelper.InitManager.UpdateCookie(cc);
             var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true, cc);
@@ -179,23 +181,23 @@ namespace JavLibraryDownloader.DownloadHelper
                         JavDataBaseManager.InsertActress(a);
                     }
 
-                    m = Regex.Matches(res.Content, detailCommentPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
-                    foreach (Match item in m)
-                    {
-                        var data = item.Groups[1].Value;
-                        Console.WriteLine(string.Format("Get AV {0}, Comments -> {1}", url, data));
-                        Comments c = new Comments
-                        {
-                            Comment = data,
-                            AvID = av.ID,
-                            AvTitle = av.Name,
-                            CreateTime = DateTime.Now
-                        };
-                        if (!JavDataBaseManager.HasComment(c))
-                        {
-                            JavDataBaseManager.InsertComment(c);
-                        }
-                    }
+                    //m = Regex.Matches(res.Content, detailCommentPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                    //foreach (Match item in m)
+                    //{
+                    //    var data = item.Groups[1].Value;
+                    //    Console.WriteLine(string.Format("Get AV {0}, Comments -> {1}", url, data));
+                    //    Comments c = new Comments
+                    //    {
+                    //        Comment = data,
+                    //        AvID = av.ID,
+                    //        AvTitle = av.Name,
+                    //        CreateTime = DateTime.Now
+                    //    };
+                    //    if (!JavDataBaseManager.HasComment(c))
+                    //    {
+                    //        JavDataBaseManager.InsertComment(c);
+                    //    }
+                    //}
                     av.URL = url;
 
                     JavDataBaseManager.InsertAV(av);
@@ -216,6 +218,8 @@ namespace JavLibraryDownloader.DownloadHelper
             {
                 _logger.WriteExceptionLog(url, string.Format("Download failed {0}", e.ToString()));
             }
+
+            return cc;
         }
     }
 }

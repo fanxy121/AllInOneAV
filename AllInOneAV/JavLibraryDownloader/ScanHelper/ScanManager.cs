@@ -41,20 +41,13 @@ namespace JavLibraryDownloader.ScanHelper
                     page++;
                 }
 
-                var json = JsonConvert.SerializeObject(ForUpdate);
-
-                var folder = RootFolder + "JavUpdate" + DateTime.Today.ToString("yyyy年MM月dd日") + "/";
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-
-                FileUtility.WriteFile(json, folder + "Update.json");
+                //var json = JsonConvert.SerializeObject(ForUpdate);
+                var noDownloads = JavDataBaseManager.GetScanURL().Where(x => x.IsDownload == false);
 
                 int current = 1;
-                foreach (var update in ForUpdate)
+                foreach (var update in noDownloads)
                 {
-                    DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count, cc);
+                    cc = DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count, cc);
                     current++;
                 }
 
