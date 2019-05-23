@@ -45,10 +45,22 @@ namespace JavLibraryDownloader.ScanHelper
                 var noDownloads = JavDataBaseManager.GetScanURL().Where(x => x.IsDownload == false);
 
                 int current = 1;
-                foreach (var update in noDownloads)
+
+                if (isUpdate)
                 {
-                    cc = DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count, cc);
-                    current++;
+                    foreach (var update in ForUpdate)
+                    {
+                        cc = DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count, cc);
+                        current++;
+                    }
+                }
+                else
+                {
+                    foreach (var update in noDownloads)
+                    {
+                        cc = DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count, cc);
+                        current++;
+                    }
                 }
 
             }

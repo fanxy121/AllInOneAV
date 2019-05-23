@@ -53,10 +53,9 @@ namespace SisDownload.ScanHelper
 
             foreach (var channel in listChannel)
             {
-                var needContinue = true;
                 var page = 1;
 
-                while (needContinue)
+                while (page < 6)
                 {
                     var url = string.Format(channel, page);
                     Console.WriteLine("Get content from " + string.Format(channel, page));
@@ -66,7 +65,7 @@ namespace SisDownload.ScanHelper
                     if (res.Success)
                     {
                         sb.AppendLine("    URL内容获取成功");
-                        needContinue = GetTargetThread(res.Content, ChannelMapping[channel], lastOperationEndDate, string.Format(channel, page), sb);
+                        page = GetTargetThread(res.Content, ChannelMapping[channel], lastOperationEndDate, string.Format(channel, page), sb, page);
                     }
                     else
                     {
@@ -80,18 +79,17 @@ namespace SisDownload.ScanHelper
             }
         }
 
-        private static bool GetTargetThread(string content, string channel, DateTime lastDate, string url, StringBuilder sb)
+        private static int GetTargetThread(string content, string channel, DateTime lastDate, string url, StringBuilder sb, int page)
         {
-            var ret = ProcessHtml(content, channel, lastDate, url, sb);
+            var ret = ProcessHtml(content, channel, lastDate, url, sb, page);
 
             return ret;
         }
 
-        private static bool ProcessHtml(string content, string channel, DateTime lastDate, string oriUrl, StringBuilder sb)
+        private static int ProcessHtml(string content, string channel, DateTime lastDate, string oriUrl, StringBuilder sb, int page)
         {
             if (!string.IsNullOrEmpty(content))
             {
-                var res = false;
                 List<ScanThread> temp = new List<ScanThread>();
 
                 var m = Regex.Matches(content, ListPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -164,12 +162,9 @@ namespace SisDownload.ScanHelper
                         sb.AppendLine(string.Format("    已有此贴{0}，不再插入", item.Url));
                     }
                 }
-
-                res = temp.Count > 0 ? true : false;
-                return res;
             }
 
-            return false;
+            return page++;
         }
     }
 }
