@@ -101,51 +101,14 @@ namespace SisDownload.ScanHelper
                         Channel = channel,
                         IsDownloaded = 0,
                         Name = FileUtility.ReplaceInvalidChar(item.Groups[4].Value),
-                        Url = Prefix + "thread-" + item.Groups[2].Value + ".html"
+                        Url = Prefix + "thread-" + item.Groups[2].Value + ".html",
+                        ScannedDate = DateTime.Now
                     };
 
                     Console.WriteLine(string.Format("    Add thread {0} url --> {1}", tempItem.Name, tempItem.Url));
                     sb.AppendLine(string.Format("    Add thread {0} url --> {1}", tempItem.Name, tempItem.Url));
                     temp.Add(tempItem);
                 }
-
-                var threadCount = m.Count;
-
-                m = Regex.Matches(content, ListDatePattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
-
-                var dateCount = m.Count;
-                var skip = dateCount - threadCount;
-                int index = 0;
-                int tempIndex = 0;
-
-                sb.AppendLine(string.Format("    临时列表数量: {0}", temp.Count));
-                int removeCount = 0;
-
-                foreach (Match item in m)
-                {
-                    if (index >= skip)
-                    {
-                        DateTime tempDate = new DateTime(int.Parse(item.Groups[1].Value), int.Parse(item.Groups[2].Value), int.Parse(item.Groups[3].Value));
-
-                        if (tempDate.Date <= lastDate.Date)
-                        {
-                            var tempItem = temp[tempIndex];
-                            Console.WriteLine(string.Format("    从列表中移除{0}因为日期{1}小于最后一次扫描日期{2}", tempItem.Name, tempDate.ToString("yyyy-MM-dd"), lastDate.ToString("yyyy-MM-dd")));
-                            temp.RemoveAt(tempIndex);
-                            sb.AppendLine(string.Format("    从列表中移除{0}因为日期{1}小于最后一次扫描日期{2}", tempItem.Name, tempDate.ToString("yyyy-MM-dd"), lastDate.ToString("yyyy-MM-dd")));
-                            removeCount++;
-                        }
-                        else
-                        {
-                            temp[tempIndex].ScannedDate = DateTime.Today.Date;
-                            tempIndex++;
-                        }
-                    }
-
-                    index++;
-                }
-
-                sb.AppendLine(string.Format("    删除: {0}, 剩余: {1}", removeCount, temp.Count));
 
                 foreach (var item in temp)
                 {
@@ -155,7 +118,6 @@ namespace SisDownload.ScanHelper
 
                         Console.WriteLine(string.Format("    插入帖子 {0} of channel {1} url --> {2} 日期 {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
                         sb.AppendLine(string.Format("    插入帖子 {0} of channel {1} url --> {2} 日期 {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
-                        SisDataBaseManager.InsertScanThread(item);
                     }
                     else
                     {
