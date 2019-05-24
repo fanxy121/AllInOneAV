@@ -205,17 +205,21 @@ namespace JavLibraryDownloader.DownloadHelper
                         JavDataBaseManager.InsertAV(av);
                     }
 
-                    var result = Utils.DownloadHelper.DownloadFile(av.PictureURL, imgFolder + av.ID + av.Name + ".jpg");
+                    string result = "";
+                    if (!File.Exists(imgFolder + av.ID + av.Name + ".jpg"))
+                    {
+                        result = Utils.DownloadHelper.DownloadFile(av.PictureURL, imgFolder + av.ID + av.Name + ".jpg");
+                    }
                     JavDataBaseManager.UpdateScanURL(oriURL);
 
                     if (!string.IsNullOrEmpty(result))
                     {
-                        _logger.WriteExceptionLog(url, string.Format("Download picture failed"));
+                        _logger.WriteExceptionLog(url, string.Format("Download picture failed {0}", imgFolder + av.ID + av.Name + ".jpg"));
                     }
                 }
                 else
                 {
-                    _logger.WriteExceptionLog(url, string.Format("Download failed"));
+                    _logger.WriteExceptionLog(url, string.Format("Download failed {0}", url));
                 }
             }
             catch (Exception e)
