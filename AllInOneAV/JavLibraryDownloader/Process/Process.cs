@@ -16,7 +16,8 @@ namespace JavLibraryDownloader.Process
 
         public static void Start(RunType type)
         {
-            var cc = InitHelper.InitManager.GetCookie();
+            var cc = InitHelper.InitManager.UpdateCookie(null);
+
             var res = InitHelper.InitManager.InitCategory(cc);
 
             if (res)

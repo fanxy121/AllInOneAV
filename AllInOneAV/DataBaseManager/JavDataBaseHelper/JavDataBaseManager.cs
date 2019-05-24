@@ -77,6 +77,19 @@ namespace DataBaseManager.JavDataBaseHelper
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql, paras);
         }
 
+        public static bool HasScan(ScanURL s)
+        {
+            var sql = @"SELECT * FROM ScanURL WHERE Url = @URL";
+
+            SqlParameter[] paras ={
+                        new SqlParameter("@URL",SqlDbType.NVarChar,500),
+                    };
+
+            paras[0].Value = s.URL;
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql, paras).ToList<ScanURL>().Count > 0 ? true : false;
+        }
+
         public static List<ScanURL> GetScanURL()
         {
             var sql = @"SELECT * FROM ScanURL";
@@ -118,6 +131,13 @@ namespace DataBaseManager.JavDataBaseHelper
             paras[11].Value = av.URL;
 
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql, paras);
+        }
+
+        public static bool HasAv(string url)
+        {
+            var sql = @"SELECT * FROM AV WHERE Url = '" + url + "'";
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<AV>().Count > 0 ? true : false;
         }
 
         public static List<AV> GetAllAV()

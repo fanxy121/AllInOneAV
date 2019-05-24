@@ -62,7 +62,6 @@ namespace JavLibraryDownloader.ScanHelper
                         current++;
                     }
                 }
-
             }
             catch (Exception e)
             {
@@ -115,16 +114,16 @@ namespace JavLibraryDownloader.ScanHelper
                                 CreateTime = DateTime.Now,
                                 ID = item.Groups[3].Value,
                                 IsDownload = false,
-                                Title = item.Groups[2].Value.Replace(item.Groups[3].Value + " ", ""),
+                                Title = FileUtility.ReplaceInvalidChar(item.Groups[2].Value.Replace(item.Groups[3].Value + " ", "")),
                                 URL = item.Groups[1].Value
                             };
 
                             temp.Add(s);
                         }
 
-                        if (!isUpdate)
+                        foreach (var scan in temp)
                         {
-                            foreach (var scan in temp)
+                            if (!JavDataBaseManager.HasScan(scan))
                             {
                                 JavDataBaseManager.InsertScanURL(scan);
                             }

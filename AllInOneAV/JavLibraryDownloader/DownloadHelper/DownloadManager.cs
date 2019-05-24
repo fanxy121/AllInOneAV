@@ -200,7 +200,11 @@ namespace JavLibraryDownloader.DownloadHelper
                     //}
                     av.URL = url;
 
-                    JavDataBaseManager.InsertAV(av);
+                    if (!JavDataBaseManager.HasAv(av.URL))
+                    {
+                        JavDataBaseManager.InsertAV(av);
+                    }
+
                     var result = Utils.DownloadHelper.DownloadFile(av.PictureURL, imgFolder + av.ID + av.Name + ".jpg");
                     JavDataBaseManager.UpdateScanURL(oriURL);
 

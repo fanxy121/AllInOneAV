@@ -60,11 +60,17 @@ namespace JavLibraryDownloader.InitHelper
 
         public static CookieContainer UpdateCookie(CookieContainer cc)
         {
+            if (cc == null)
+            {
+                cc = new CookieContainer();
+            }
+
             var need = HtmlManager.NeedToUpdateCookie(categoryURL, "utf-8", true, cc);
 
-            if (need)
+            while (need)
             {
                 cc = InitHelper.InitManager.GetCookie();
+                need = HtmlManager.NeedToUpdateCookie(categoryURL, "utf-8", true, cc);
             }
 
             return cc;

@@ -15,6 +15,7 @@ namespace Utils
     public class HtmlManager
     {
         private static string UserAgent = JavINIClass.IniReadValue("Html", "UserAgent");
+        private static string Error = JavINIClass.IniReadValue("Jav", "error");
 
         public static string GetChromeVersion()
         {
@@ -69,7 +70,7 @@ namespace Utils
             {
                 res.Success = false;
 
-                if (e.Message == "远程服务器返回错误: (503) 服务器不可用。")
+                if (e.Message == Error)
                 {
                     Console.WriteLine("123");
                 }
@@ -102,7 +103,7 @@ namespace Utils
             }
             catch (Exception e)
             {
-                if (e.Message == "The remote server returned an error: (503) Server Unavailable.")
+                if (e.Message == Error)
                 {
                     return true;
                 }
