@@ -70,6 +70,7 @@
     <Compile Include="EmailHelper.cs" />
     <Compile Include="FileSize.cs" />
     <Compile Include="FileUtility.cs" />
+    <Compile Include="FileWatchHelper.cs" />
     <Compile Include="HtmlManager.cs" />
     <Compile Include="JavINIClass.cs" />
     <Compile Include="LogHelper.cs" />
