@@ -56,8 +56,9 @@ namespace JavLibraryDownloader.DownloadHelper
 
         public static CookieContainer StartDownload(string url, string oriURL, int currentItem, int totalItem, CookieContainer cc)
         {
-            cc = InitHelper.InitManager.UpdateCookie(cc);
-            var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true, cc);
+            var ret = InitHelper.InitManager.UpdateCookie(cc, url);
+            cc = ret.CC;
+            var res = ret.Content;
 
             try
             {
@@ -122,7 +123,11 @@ namespace JavLibraryDownloader.DownloadHelper
                             Name = data,
                             URL = prefix + directorPrefix + u
                         };
-                        JavDataBaseManager.InsertDirector(d);
+
+                        if (!JavDataBaseManager.HasDirector(d.URL))
+                        {
+                            JavDataBaseManager.InsertDirector(d);
+                        }
                     }
 
                     m = Regex.Matches(res.Content, detailCompanyPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -138,7 +143,11 @@ namespace JavLibraryDownloader.DownloadHelper
                             Name = data,
                             URL = prefix + companyPrefix + u
                         };
-                        JavDataBaseManager.InsertCompany(c);
+
+                        if (!JavDataBaseManager.HasCompany(c.URL))
+                        {
+                            JavDataBaseManager.InsertCompany(c);
+                        }
                     }
 
                     m = Regex.Matches(res.Content, detailPublisherPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -154,7 +163,11 @@ namespace JavLibraryDownloader.DownloadHelper
                             Name = data,
                             URL = prefix + publisherPrefix + u
                         };
-                        JavDataBaseManager.InsertPublisher(p);
+
+                        if (!JavDataBaseManager.HasPublisher(p.URL))
+                        {
+                            JavDataBaseManager.InsertPublisher(p);
+                        }
                     }
 
                     m = Regex.Matches(res.Content, detailCategoryPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -178,7 +191,11 @@ namespace JavLibraryDownloader.DownloadHelper
                             Name = data,
                             URL = prefix + actressPrefix + u
                         };
-                        JavDataBaseManager.InsertActress(a);
+
+                        if (!JavDataBaseManager.HasActress(a.URL))
+                        {
+                            JavDataBaseManager.InsertActress(a);
+                        }
                     }
 
                     //m = Regex.Matches(res.Content, detailCommentPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);

@@ -14,22 +14,22 @@ namespace JavLibraryDownloader.Process
     {
         private static string UpdateURL = JavINIClass.IniReadValue("Jav", "update");
 
-        public static void Start(RunType type)
+        public static void Start(RunType type, string args = "")
         {
-            var cc = InitHelper.InitManager.UpdateCookie(null);
+            var cc = InitHelper.InitManager.UpdateCookie(null, UpdateURL);
 
-            var res = InitHelper.InitManager.InitCategory(cc);
+            var res = InitHelper.InitManager.InitCategory(cc.CC);
 
             if (res)
             {
                 if (type == RunType.Both || type == RunType.Scan)
                 {
-                    DoScan(new List<Category>(), cc);
+                    DoScan(new List<Category>(), cc.CC);
                 }
 
                 if (type == RunType.Both || type == RunType.Download)
                 {
-                    DoDownload(cc);
+                    DoDownload(cc.CC);
                 }
 
                 if (type == RunType.Update)
@@ -40,7 +40,14 @@ namespace JavLibraryDownloader.Process
                             Name = "Update",
                             Url = UpdateURL
                         }
-                    },cc);
+                    },cc.CC);
+                }
+
+                if (type == RunType.Skip)
+                {
+                    var howMuchSkip = int.Parse(args);
+
+                    DoScan(new List<Category>(), cc.CC, howMuchSkip);
                 }
             }
             else
@@ -49,7 +56,7 @@ namespace JavLibraryDownloader.Process
             }
         }
 
-        public static void DoScan(List<Category> categories, CookieContainer cc)
+        public static void DoScan(List<Category> categories, CookieContainer cc, int skip = 0)
         {
             bool isUpdate = false;
 
@@ -63,6 +70,11 @@ namespace JavLibraryDownloader.Process
             }
 
             int currentCategory = 1;
+
+            if (skip > 0)
+            {
+                categories = categories.Skip(skip - 1).ToList();
+            }
 
             foreach (var category in categories)
             {

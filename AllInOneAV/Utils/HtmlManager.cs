@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Model.JavModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -81,8 +82,11 @@ namespace Utils
             return res;
         }
 
-        public static bool NeedToUpdateCookie(string url, string end = "utf-8", bool isJav = false, CookieContainer cc = null)
+        public static NeedToUpdate NeedToUpdateCookie(string url, string end = "utf-8", bool isJav = false, CookieContainer cc = null)
         {
+            NeedToUpdate ret = new NeedToUpdate();
+            ret.Content = new Model.JavModels.HtmlResponse();
+
             try
             {
                 GC.Collect();
@@ -99,17 +103,27 @@ namespace Utils
 
                 request.KeepAlive = true;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream, Encoding.GetEncoding(end));
+
+                ret.Content.Content = reader.ReadToEnd();
+                reader.Close();
+                dataStream.Close();
                 response.Close();
             }
             catch (Exception e)
             {
                 if (e.Message == Error)
                 {
-                    return true;
+                    ret.Content.Success = false;
+                    ret.Need = true;
+                    return ret;
                 }
             }
 
-            return false;
+            ret.Content.Success = true;
+            ret.Need = false;
+            return ret;
         }
     }
 

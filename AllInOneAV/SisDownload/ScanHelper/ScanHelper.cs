@@ -58,7 +58,7 @@ namespace SisDownload.ScanHelper
                 while (page < 6)
                 {
                     var url = string.Format(channel, page);
-                    Console.WriteLine("Get content from " + string.Format(channel, page));
+                    //Console.WriteLine("Get content from " + string.Format(channel, page));
                     sb.AppendLine(string.Format("正在处理URL: {0}, 页码: {1}", url, page));
                     var res = HtmlManager.GetHtmlContentViaUrl(url, "gbk");
 
@@ -105,7 +105,7 @@ namespace SisDownload.ScanHelper
                         ScannedDate = DateTime.Now
                     };
 
-                    Console.WriteLine(string.Format("    Add thread {0} url --> {1}", tempItem.Name, tempItem.Url));
+                    //Console.WriteLine(string.Format("    Add thread {0} url --> {1}", tempItem.Name, tempItem.Url));
                     sb.AppendLine(string.Format("    Add thread {0} url --> {1}", tempItem.Name, tempItem.Url));
                     temp.Add(tempItem);
                 }
@@ -116,7 +116,7 @@ namespace SisDownload.ScanHelper
                     {
                         SisDataBaseManager.InsertScanThread(item);
 
-                        Console.WriteLine(string.Format("    插入帖子 {0} of channel {1} url --> {2} 日期 {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
+                        //Console.WriteLine(string.Format("    插入帖子 {0} of channel {1} url --> {2} 日期 {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
                         sb.AppendLine(string.Format("    插入帖子 {0} of channel {1} url --> {2} 日期 {3}", item.Name, item.Channel, item.Url, item.ScannedDate));
                     }
                     else

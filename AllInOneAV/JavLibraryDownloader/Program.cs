@@ -25,6 +25,11 @@ namespace JavLibraryDownloader
             {
                 Process.Process.Start(RunType.Update);
             }
+
+            if (args.Length == 2 && args[0] == "skip")
+            {
+                Process.Process.Start(RunType.Skip, args[1]);
+            }
         }
     }
 }

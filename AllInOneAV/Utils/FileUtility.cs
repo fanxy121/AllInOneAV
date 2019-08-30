@@ -146,9 +146,9 @@ namespace Utils
             List<AV> res = new List<AV>();
             List<string> possibleID = new List<string>();
 
-            foreach (var pre in prefix)
+            foreach (var pre in prefix.OrderByDescending(x=>x.Length))
             {
-                var fileName = scan.FileName.ToUpper().Substring(0, scan.FileName.LastIndexOf("."));
+                var fileName = scan.FileName.Substring(0, scan.FileName.LastIndexOf("."));
 
                 if (fileName.Contains(pre))
                 {
@@ -190,7 +190,7 @@ namespace Utils
 
         public static string ReplaceInvalidChar(string str)
         {
-            return str.Replace("'","''").Replace("?","").Replace(":","").Replace("*","").Replace("|","");
+            return str.Replace("'","''").Replace("?","").Replace(":","").Replace("*","").Replace("|","").Replace("\\","").Replace("/", "").Replace("<", "").Replace(">", "");
         }
 
         public static string GetImageFile(string folder, AV av)

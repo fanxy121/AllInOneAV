@@ -13,6 +13,7 @@ namespace Model.JavModels
         Scan = 2,
         Download = 4,
         SecondTry = 8,
-        Update = 16
+        Update = 16,
+        Skip = 32
     }
 }

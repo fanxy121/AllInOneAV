@@ -166,12 +166,12 @@ namespace PlayRecent
             {
                 if (rbDateA.Checked)
                 {
-                    fi = fi.OrderBy(x => x.CreationTime).ToList();
+                    fi = fi.OrderBy(x => x.LastWriteTime).ToList();
                 }
 
                 if (rbDateD.Checked)
                 {
-                    fi = fi.OrderByDescending(x => x.CreationTime).ToList();
+                    fi = fi.OrderByDescending(x => x.LastWriteTime).ToList();
                 }
 
                 if (rbSizeA.Checked)

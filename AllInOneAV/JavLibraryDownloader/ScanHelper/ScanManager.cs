@@ -50,15 +50,21 @@ namespace JavLibraryDownloader.ScanHelper
                 {
                     foreach (var update in ForUpdate)
                     {
-                        cc = DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count, cc);
+                        if (!JavDataBaseManager.HasScan(update))
+                        {
+                            cc = DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count, cc);
+                        }
                         current++;
                     }
                 }
                 else
                 {
-                    foreach (var update in noDownloads)
+                    foreach (var download in noDownloads)
                     {
-                        cc = DownloadHelper.DownloadManager.Download(update.URL, current, ForUpdate.Count, cc);
+                        if (!JavDataBaseManager.HasScan(download))
+                        {
+                            cc = DownloadHelper.DownloadManager.Download(download.URL, current, noDownloads.Count(), cc);
+                        }
                         current++;
                     }
                 }
@@ -75,8 +81,9 @@ namespace JavLibraryDownloader.ScanHelper
         {
             try
             {
-                cc = InitHelper.InitManager.UpdateCookie(cc);
-                var res = HtmlManager.GetHtmlContentViaUrl(url, "utf-8", true, cc);
+                var ret = InitHelper.InitManager.UpdateCookie(cc, url);
+                cc = ret.CC;
+                var res = ret.Content;
                 List<ScanURL> temp = new List<ScanURL>();
                 int totalPage = currentPage;
 

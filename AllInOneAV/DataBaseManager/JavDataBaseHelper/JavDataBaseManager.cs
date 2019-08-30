@@ -79,7 +79,7 @@ namespace DataBaseManager.JavDataBaseHelper
 
         public static bool HasScan(ScanURL s)
         {
-            var sql = @"SELECT * FROM ScanURL WHERE Url = @URL";
+            var sql = @"SELECT * FROM ScanURL WHERE Url = @URL AND IsDownload = 1";
 
             SqlParameter[] paras ={
                         new SqlParameter("@URL",SqlDbType.NVarChar,500),
@@ -161,6 +161,13 @@ namespace DataBaseManager.JavDataBaseHelper
             return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<AV>();
         }
 
+        public static bool HasCompany(string url)
+        {
+            var sql = @"SELECT * FROM Company WHERE URL = '" + url + "'";
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<Company>().Count > 0 ? true : false;
+        }
+
         public static int InsertCompany(Company c)
         {
             var sql = @"INSERT INTO Company (Name, URL, CreateTime) VALUES (@name, @url, @createTime)";
@@ -176,6 +183,13 @@ namespace DataBaseManager.JavDataBaseHelper
             paras[2].Value = DateTime.Now;
 
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql, paras);
+        }
+
+        public static bool HasDirector(string url)
+        {
+            var sql = @"SELECT * FROM Director WHERE URL = '" + url + "'";
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<Director>().Count > 0 ? true : false;
         }
 
         public static int InsertDirector(Director c)
@@ -195,6 +209,13 @@ namespace DataBaseManager.JavDataBaseHelper
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql, paras);
         }
 
+        public static bool HasPublisher(string url)
+        {
+            var sql = @"SELECT * FROM Publisher WHERE URL = '" + url + "'";
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<Publisher>().Count > 0 ? true : false;
+        }
+
         public static int InsertPublisher(Publisher c)
         {
             var sql = @"INSERT INTO Publisher (Name, URL, CreateTime) VALUES (@name, @url, @createTime)";
@@ -210,6 +231,13 @@ namespace DataBaseManager.JavDataBaseHelper
             paras[2].Value = DateTime.Now;
 
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql, paras);
+        }
+
+        public static bool HasActress(string url)
+        {
+            var sql = @"SELECT * FROM Actress WHERE URL = '" + url + "'";
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<Actress>().Count > 0 ? true : false;
         }
 
         public static int InsertActress(Actress c)

@@ -24,6 +24,8 @@ namespace SisDownload.DownloadHelper
         public static DateTime Start(StringBuilder sb)
         {
             var targets = SisDataBaseManager.GetScanThread().Where(x => x.IsDownloaded != 1).OrderBy(x => x.Channel);
+            int current = 1;
+            int total = targets.Count();
 
             sb.AppendLine(string.Format("SisDownload下载总共有{0}帖子", targets.Count()));
 
@@ -33,6 +35,8 @@ namespace SisDownload.DownloadHelper
             {
                 sb.AppendLine(string.Format("开始下载{0}", item.Url));
                 res = DoDownload(item, sb);
+                Console.WriteLine(string.Format("{0} / {1}", current, total));
+                current++;
             }
 
             return res;
@@ -76,7 +80,7 @@ namespace SisDownload.DownloadHelper
                         var attach = Prefix + DetailAttachPrefix + item.Groups[1].Value + "&clickDownload=1";
                         var path = RootFolder + subFolder + attachName;
 
-                        Console.WriteLine(string.Format("Download {0} to {1} and create folder {2} for picture", attach, path, innerSubFolder));
+                        //Console.WriteLine(string.Format("Download {0} to {1} and create folder {2} for picture", attach, path, innerSubFolder));
                         sb.AppendLine(string.Format("    Download {0} to {1} and create folder {2} for picture", attach, path, innerSubFolder));
 
                         if (!string.IsNullOrEmpty(Utils.DownloadHelper.DownloadFile(attach, path)))
@@ -93,18 +97,20 @@ namespace SisDownload.DownloadHelper
                             {
                                 var pic = p.Groups[1].Value;
                                 var picPath = RootFolder + innerSubFolder + index + ".jpg";
-                                Console.WriteLine(string.Format("Download Picture {0} to {1}", pic, picPath));
+                                //Console.WriteLine(string.Format("Download Picture {0} to {1}", pic, picPath));
                                 sb.AppendLine(string.Format("    Download Picture {0} to {1}", pic, picPath));
                                 if (string.IsNullOrEmpty(Utils.DownloadHelper.DownloadFile(pic, picPath)))
                                 {
                                     sb.AppendLine(string.Format("    下载图片失败"));
                                 }
+                                Console.Write(".");
                                 index++;
                             }
                         }
 
                         sb.AppendLine(string.Format("    更新{0}的下载状态", url));
                         SisDataBaseManager.UpdateDownload(url);
+                        Console.WriteLine();
                     }
                 }
             }

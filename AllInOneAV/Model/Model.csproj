@@ -61,6 +61,7 @@
     <Compile Include="JavModels\DropDownListModel.cs" />
     <Compile Include="JavModels\Publisher.cs" />
     <Compile Include="JavModels\RecurModel.cs" />
+    <Compile Include="JavModels\ReturnModel.cs" />
     <Compile Include="JavModels\RunType.cs" />
     <Compile Include="JavModels\ScanURL.cs" />
     <Compile Include="JavModels\SecondTry.cs" />

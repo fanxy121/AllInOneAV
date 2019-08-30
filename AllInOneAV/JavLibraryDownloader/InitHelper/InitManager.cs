@@ -33,7 +33,7 @@ namespace JavLibraryDownloader.InitHelper
 
             var data = new ChromeCookieReader().ReadCookies("javlibrary");
 
-            foreach (var item in data.Distinct())
+            foreach (var item in data.Where(x => !x.Value.Contains(",")).Distinct())
             {
                 Cookie c = new Cookie(item.Name, item.Value, "/", "www.javlibrary.com");
 
@@ -58,30 +58,40 @@ namespace JavLibraryDownloader.InitHelper
             return false;
         }
 
-        public static CookieContainer UpdateCookie(CookieContainer cc)
+        public static ReturnModel UpdateCookie(CookieContainer cc, string url)
         {
             if (cc == null)
             {
                 cc = new CookieContainer();
             }
 
-            var need = HtmlManager.NeedToUpdateCookie(categoryURL, "utf-8", true, cc);
+            var need = HtmlManager.NeedToUpdateCookie(url, "utf-8", true, cc);
 
-            while (need)
+            while (need.Need)
             {
                 cc = InitHelper.InitManager.GetCookie();
-                need = HtmlManager.NeedToUpdateCookie(categoryURL, "utf-8", true, cc);
+                need = HtmlManager.NeedToUpdateCookie(url, "utf-8", true, cc);
             }
 
-            return cc;
+            ReturnModel ret = new ReturnModel
+            {
+                Content = new Model.JavModels.HtmlResponse(),
+
+                CC = cc
+            };
+            ret.Content.Content = need.Content.Content;
+            ret.Content.Success = need.Content.Success;
+
+            return ret;
         }
 
         private static bool GetCategory(CookieContainer cc)
         {
             Console.WriteLine("Start to init catrgories...");
 
-            cc = UpdateCookie(cc);
-            var res = HtmlManager.GetHtmlContentViaUrl(categoryURL, "utf-8", true, cc);
+            var ret = UpdateCookie(cc, categoryURL);
+            cc = ret.CC;
+            var res = ret.Content;
 
             if (res.Success)
             {

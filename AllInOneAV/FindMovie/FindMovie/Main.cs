@@ -146,6 +146,7 @@ namespace FindMovie
 
         private void Main_Activated(object sender, EventArgs e)
         {
+            this.textBox1.Focus();
             this.textBox1.SelectAll();
         }
 
@@ -181,6 +182,11 @@ namespace FindMovie
             textBox1.AutoCompleteCustomSource = source;
             textBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             textBox1.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

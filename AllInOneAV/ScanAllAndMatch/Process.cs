@@ -16,17 +16,18 @@ namespace ScanAllAndMatch
         private static StringBuilder sb = new StringBuilder();
         private static List<string> formats = JavINIClass.IniReadValue("Scan", "Format").Split(',').ToList();
         private static List<string> excludes = JavINIClass.IniReadValue("Scan", "Exclude").Split(',').ToList();
+        private static List<string> folders = JavINIClass.IniReadValue("Scan", "Folder").Split(',').ToList();
 
         public static void Start()
         {
             try
             {
                 sb.AppendLine(string.Format("开始扫描 {0}", DateTime.Now.ToLongTimeString()));
-                var drivers = Environment.GetLogicalDrives().Skip(1).ToList();
+                //var drivers = Environment.GetLogicalDrives().Skip(1).ToList();
                 List<FileInfo> fi = new List<FileInfo>();
                 List<Match> temp = new List<Match>();
 
-                foreach (var driver in drivers.Take(9))
+                foreach (var driver in folders)
                 {
                     sb.AppendLine(string.Format("添加扫描驱动器: {0}", driver));
                     Console.WriteLine("Processing " + driver);
@@ -48,7 +49,7 @@ namespace ScanAllAndMatch
                 {
                     var scan = new Scan
                     {
-                        FileName = file.Name.Trim().ToLower(),
+                        FileName = file.Name.Trim().ToUpper(),
                         Location = file.DirectoryName.Trim().ToLower(),
                         Size = FileSize.GetAutoSizeString(file.Length, 2)
                     };
@@ -68,39 +69,9 @@ namespace ScanAllAndMatch
 
                 sb.AppendLine(string.Format("一共找到{0}个Match", temp.Count));
 
-                var currentMatchs = ScanDataBaseManager.GetAllMatch();
+                ScanDataBaseManager.ClearMatch();
 
-                foreach (var m in currentMatchs)
-                {
-                    m.AvID = m.AvID.Trim().ToLower();
-                    m.Location = m.Location.Trim().ToLower();
-                    m.Name = m.Name.Trim().ToLower();
-                    m.AvName = m.AvName.ToLower();
-                }
-
-                sb.AppendLine(string.Format("目前库中有{0}Match", currentMatchs.Count));
-
-                var shouldDelete = currentMatchs.Except(temp, new MatchComparer());
-                var shouldAdd = temp.Except(currentMatchs, new MatchComparer());
-
-                var cd = shouldDelete.Count();
-                var ca = shouldAdd.Count();
-
-                Console.WriteLine(cd + " should to be deleted");
-                Console.WriteLine(ca + " should to be inserted");
-
-                var test = temp.Where(x => x.AvID == "rki-481");
-
-                sb.AppendLine(string.Format("{0}需要被删除,{1}需要被添加", cd, ca));
-
-                foreach (var m in shouldDelete)
-                {
-                    Console.WriteLine("Delete " + m.Location);
-                    sb.AppendLine(string.Format("从库中删除Match -> {0}\\{1}", m.Location, m.Name));
-                    ScanDataBaseManager.DeleteMatch(m.Location, m.Name);
-                }
-
-                foreach (var m in shouldAdd)
+                foreach (var m in temp)
                 {
                     Console.WriteLine(string.Format("Insert {0}\\{1}", m.Location, m.Name));
                     sb.AppendLine(string.Format("在库中添加Match -> {0}", m.Location));
@@ -136,10 +107,10 @@ namespace ScanAllAndMatch
             {
                 sb.AppendLine(string.Format("扫描结束 {0}", DateTime.Now.ToLongTimeString()));
 
-                var root = "C:/AvLog/";
-                var file = "ScanAndMatch" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + "-log.txt";
-                LogHelper.WriteLog(file, sb.ToString());
-                EmailHelper.SendEmail("ScanAndMatchLog", "详情见附件", new[] { "cainqs@outlook.com" }, new[] { root + file });
+                //var root = "C:/AvLog/";
+                //var file = "ScanAndMatch" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + "-log.txt";
+                //LogHelper.WriteLog(file, sb.ToString());
+                //EmailHelper.SendEmail("ScanAndMatchLog", "详情见附件", new[] { "cainqs@outlook.com" }, new[] { root + file });
             }
         }
 
