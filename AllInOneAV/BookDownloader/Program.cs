@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace BookDownloader
                 var index = args[0];
                 var root = args[1];
                 var host = args[2];
+                List<PicToDownload> total = new List<PicToDownload>();
 
                 Console.WriteLine(string.Format("首页 -> {0}, 根目录 -> {1}, 主机 -> {2}", index, root, host));
 
@@ -30,7 +32,16 @@ namespace BookDownloader
 
                     foreach (var c in bookInfo.Chapters)
                     {
-                        Helper.DownloadChapter(host, root, c, bookInfo.Cookie);
+                        total.AddRange(Helper.DownloadChapter(host, root, c, bookInfo.Cookie));
+                    }
+
+                    var jsonFile = Helper.GenerateJsonFile(total, bookInfo, root);
+
+                    bool isContinue = true;
+
+                    while(isContinue)
+                    {
+                        isContinue = Helper.Download(jsonFile);
                     }
                 }
             }

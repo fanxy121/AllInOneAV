@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -78,20 +79,14 @@ namespace BookDownloader
             return ret;
         }
 
-        public static void DownloadChapter(string host, string root, Chapter chapter, CookieContainer cookie)
+        public static List<PicToDownload> DownloadChapter(string host, string root, Chapter chapter, CookieContainer cookie)
         {
-            Console.WriteLine("下载章节");
+            Console.WriteLine("处理章节 -> " + chapter.ChapterName);
 
-            List<string> pics = new List<string>();
+            List<PicToDownload> ret = new List<PicToDownload>();
+            int index = 1;
+
             var subRoot = root + "/" + chapter.ChapterName + "/";
-
-            if (Directory.Exists(subRoot))
-            {
-                Console.WriteLine("删除文件夹 -> " + subRoot);
-                Directory.Delete(subRoot,true);
-            }
-            Console.WriteLine("创建文件夹 -> " + subRoot);
-            Directory.CreateDirectory(subRoot);
 
             Console.WriteLine("获取详情");
             var content = Utils.HtmlManager.GetHtmlContentViaUrl(host + chapter.ChapterUrl);
@@ -107,16 +102,73 @@ namespace BookDownloader
 
                 foreach (var pic in picNodes)
                 {
-                    pics.Add(pic.Attributes["data-original"].Value);
-                    Console.WriteLine("解析图片 -> " + pic.Attributes["src"].Value);
+                    ret.Add(new PicToDownload {
+                        PicUrl = pic.Attributes["data-original"].Value,
+                        FilePath = subRoot + (index) + ".jpg",
+                        FolderPath = subRoot
+                    });
+                    Console.WriteLine("解析图片 -> " + pic.Attributes["data-original"].Value);
+                    index++;
                 }
             }
 
-            for (int i = 0; i < pics.Count; i++)
+            return ret;
+        }
+
+        public static string GenerateJsonFile(List<PicToDownload> total, BookInfo bookInfo, string root)
+        {
+            Console.WriteLine("处理Json文件");
+
+           var json = JsonConvert.SerializeObject(total);
+            var jsonFile = root + "/" + bookInfo.BookName + ".json";
+
+            if (File.Exists(jsonFile))
             {
-                Console.WriteLine("下载图片 -> 从" + pics[i] + " 到" + subRoot + (i + 1) + ".jpg");
-                Utils.DownloadHelper.DownloadFile(pics[i], subRoot + (i + 1) + ".jpg");
+                Console.WriteLine("删除Json文件");
+                File.Delete(jsonFile);
             }
+            else
+            {
+                Console.WriteLine("写入Json文件");
+                StreamWriter sw = new StreamWriter(jsonFile);
+                sw.WriteLine(json);
+                sw.Close();
+            }
+
+            return jsonFile;
+        }
+
+        public static bool Download(string jsonFile)
+        {
+            bool ret = false;
+            Console.WriteLine("下载图片");
+            StreamReader sr = new StreamReader(jsonFile);
+            var json = sr.ReadToEnd();
+            sr.Close();
+
+            List<PicToDownload> pics = JsonConvert.DeserializeObject<List<PicToDownload>>(json);
+
+            foreach (var pic in pics)
+            {
+                if (!Directory.Exists(pic.FolderPath))
+                {
+                    Console.WriteLine("创建文件夹 -> " + pic.FolderPath);
+                    Directory.CreateDirectory(pic.FolderPath);
+                }
+
+                if (!File.Exists(pic.FilePath))
+                {
+                    Console.WriteLine("下载图片 -> 从 " + pic.PicUrl + " 到 " + pic.FilePath);
+                    Utils.DownloadHelper.DownloadFile(pic.PicUrl, pic.FilePath);
+                    ret = true;
+                }
+                else
+                {
+                    Console.WriteLine("文件已存在 -> " + pic.FilePath);
+                }
+            }
+
+            return ret;
         }
     }
 }

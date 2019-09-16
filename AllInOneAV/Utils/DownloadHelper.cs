@@ -12,10 +12,10 @@ namespace Utils
     {
         public static string DownloadFile(string url, string path)
         {
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+
             try
             {
-                // 设置参数
-                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
                 request.Proxy = null;
                 ServicePointManager.DefaultConnectionLimit = 5;
                 ServicePointManager.Expect100Continue = false;
@@ -45,6 +45,13 @@ namespace Utils
                 var exception = "Download file " + url + " failed" + e.ToString();
                 Console.WriteLine(exception);
                 return exception;
+            }
+            finally
+            {
+                if (request != null)
+                {
+                    request.Abort();
+                }
             }
 
             return "";

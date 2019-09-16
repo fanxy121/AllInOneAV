@@ -23,4 +23,11 @@ namespace BookDownloader
         public string ChapterName { get; set; }
         public string ChapterUrl { get; set; }
     }
+
+    public class PicToDownload
+    {
+        public string PicUrl { get; set; }
+        public string FolderPath { get; set; }
+        public string FilePath { get; set; }
+    }
 }
