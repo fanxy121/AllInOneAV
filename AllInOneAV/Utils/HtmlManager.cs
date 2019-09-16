@@ -32,6 +32,32 @@ namespace Utils
             }
         }
 
+        public static CookieCollection GetCookies(string url, string end = "utf-8")
+        {
+            CookieCollection cc = new CookieCollection();
+            try
+            {
+                GC.Collect();
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Credentials = CredentialCache.DefaultCredentials;
+                request.Timeout = 90000;
+                request.UserAgent = string.Format(UserAgent, GetChromeVersion());
+                request.Method = "GET";
+
+                request.KeepAlive = false;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                cc = response.Cookies;
+                response.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return cc;
+        }
+
         public static HtmlResponse GetHtmlContentViaUrl(string url, string end = "utf-8",  bool isJav = false, CookieContainer cc = null)
         {
             HtmlResponse res = new HtmlResponse

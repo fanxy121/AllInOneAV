@@ -14,9 +14,11 @@ namespace Utils
         {
             try
             {
-                GC.Collect();
                 // 设置参数
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                request.Proxy = null;
+                ServicePointManager.DefaultConnectionLimit = 5;
+                ServicePointManager.Expect100Continue = false;
                 //发送请求并获取相应回应数据
                 //request.KeepAlive = false;
                 //request.Timeout = 10000;
