@@ -57,7 +57,7 @@ namespace BookDownloader
                         {
                             Chapter chapter = new Chapter
                             {
-                                ChapterName = c.InnerText.Trim(),
+                                ChapterName = c.InnerText.Trim().Substring(0, c.InnerText.Trim().LastIndexOf("话") + 1),
                                 ChapterUrl = c.ChildNodes["a"].Attributes["href"].Value
                             };
 
@@ -88,28 +88,36 @@ namespace BookDownloader
 
             var subRoot = root + "/" + chapter.ChapterName + "/";
 
-            Console.WriteLine("获取详情");
-            var content = Utils.HtmlManager.GetHtmlContentViaUrl(host + chapter.ChapterUrl);
-            if (content.Success)
+            try
             {
-                Console.WriteLine("获取详情成功");
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(content.Content);
-
-                Console.WriteLine("解析图片");
-                var picPath = "//img[@class=\"lazy\"]";
-                var picNodes = doc.DocumentNode.SelectNodes(picPath);
-
-                foreach (var pic in picNodes)
+                Console.WriteLine("获取详情");
+                var content = Utils.HtmlManager.GetHtmlContentViaUrl(host + chapter.ChapterUrl);
+                if (content.Success)
                 {
-                    ret.Add(new PicToDownload {
-                        PicUrl = pic.Attributes["data-original"].Value,
-                        FilePath = subRoot + (index) + ".jpg",
-                        FolderPath = subRoot
-                    });
-                    Console.WriteLine("解析图片 -> " + pic.Attributes["data-original"].Value);
-                    index++;
+                    Console.WriteLine("获取详情成功");
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(content.Content);
+
+                    Console.WriteLine("解析图片");
+                    var picPath = "//img[@class=\"lazy\"]";
+                    var picNodes = doc.DocumentNode.SelectNodes(picPath);
+
+                    foreach (var pic in picNodes)
+                    {
+                        ret.Add(new PicToDownload
+                        {
+                            PicUrl = pic.Attributes["data-original"].Value,
+                            FilePath = subRoot + (index) + ".jpg",
+                            FolderPath = subRoot
+                        });
+                        Console.WriteLine("解析图片 -> " + pic.Attributes["data-original"].Value);
+                        index++;
+                    }
                 }
+            }
+            catch (Exception ee)
+            {
+                Console.WriteLine(ee.ToString());
             }
 
             return ret;
@@ -119,7 +127,7 @@ namespace BookDownloader
         {
             Console.WriteLine("处理Json文件");
 
-           var json = JsonConvert.SerializeObject(total);
+            var json = JsonConvert.SerializeObject(total);
             var jsonFile = root + "/" + bookInfo.BookName + ".json";
 
             if (File.Exists(jsonFile))
@@ -142,29 +150,92 @@ namespace BookDownloader
         {
             bool ret = false;
             Console.WriteLine("下载图片");
-            StreamReader sr = new StreamReader(jsonFile);
-            var json = sr.ReadToEnd();
-            sr.Close();
 
-            List<PicToDownload> pics = JsonConvert.DeserializeObject<List<PicToDownload>>(json);
-
-            foreach (var pic in pics)
+            try
             {
-                if (!Directory.Exists(pic.FolderPath))
-                {
-                    Console.WriteLine("创建文件夹 -> " + pic.FolderPath);
-                    Directory.CreateDirectory(pic.FolderPath);
-                }
+                StreamReader sr = new StreamReader(jsonFile);
+                var json = sr.ReadToEnd();
+                sr.Close();
 
-                if (!File.Exists(pic.FilePath))
+                List<PicToDownload> pics = JsonConvert.DeserializeObject<List<PicToDownload>>(json);
+
+                foreach (var pic in pics)
                 {
-                    Console.WriteLine("下载图片 -> 从 " + pic.PicUrl + " 到 " + pic.FilePath);
-                    Utils.DownloadHelper.DownloadFile(pic.PicUrl, pic.FilePath);
-                    ret = true;
+                    if (!Directory.Exists(pic.FolderPath))
+                    {
+                        Console.WriteLine("创建文件夹 -> " + pic.FolderPath);
+                        Directory.CreateDirectory(pic.FolderPath);
+                    }
+
+                    if (!File.Exists(pic.FilePath))
+                    {
+                        Console.WriteLine("下载图片 -> 从 " + pic.PicUrl + " 到 " + pic.FilePath);
+                        Utils.DownloadHelper.DownloadFile(pic.PicUrl, pic.FilePath);
+                        ret = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("文件已存在 -> " + pic.FilePath);
+                    }
                 }
-                else
+            }
+            catch (Exception ee)
+            {
+                Console.WriteLine(ee.ToString());
+            }
+
+            return ret;
+        }
+
+        public static int GetTotalPages(string index)
+        {
+            var cc = new CookieContainer();
+            Console.WriteLine("获取Cookie");
+            var cookies = Utils.HtmlManager.GetCookies(index);
+
+            var total = 1;
+            var pageInfo = "?page=1";
+            Console.WriteLine("获取总页数");
+
+            var content = Utils.HtmlManager.GetHtmlContentViaUrl(index + pageInfo);
+            if (content.Success)
+            {
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(content.Content);
+
+                var totalPagePath = "//div[@class=\"pagination\"]";
+                var totalPageNode = doc.DocumentNode.SelectSingleNode(totalPagePath);
+                total = int.Parse(totalPageNode.ChildNodes[totalPageNode.ChildNodes.Count - 5].ChildNodes["a"].InnerText);
+            }
+
+            return total;
+        }
+
+        public static List<string> GetAllBookIndex(string index, string host, int page)
+        {
+            List<string> ret = new List<string>();
+            var cc = new CookieContainer();
+            Console.WriteLine("获取Cookie");
+            var cookies = Utils.HtmlManager.GetCookies(index);
+
+            var pageInfo = "?page=" + page;
+            Console.WriteLine("获取第" + page + "页");
+
+            var content = Utils.HtmlManager.GetHtmlContentViaUrl(index + pageInfo);
+            if (content.Success)
+            {
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(content.Content);
+
+                var listItemPath = "//div[@class=\"mh-item-detali\"]";
+                var listItemNode = doc.DocumentNode.SelectNodes(listItemPath);
+
+                foreach (var node in listItemNode)
                 {
-                    Console.WriteLine("文件已存在 -> " + pic.FilePath);
+                    var temp = node.ChildNodes[1].ChildNodes[1];
+
+                    Console.WriteLine("添加 -> " + host + temp.Attributes["href"].Value);
+                    ret.Add(host + temp.Attributes["href"].Value);
                 }
             }
 
