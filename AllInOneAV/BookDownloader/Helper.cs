@@ -20,16 +20,16 @@ namespace BookDownloader
 
             try
             {
-                var cc = new CookieContainer();
-                Console.WriteLine("获取Cookie");
-                var cookies = Utils.HtmlManager.GetCookies(index);
+                //var cc = new CookieContainer();
+                //Console.WriteLine("获取Cookie");
+                //var cookies = Utils.HtmlManager.GetCookies(index);
 
-                ret.Cookie = cc;
+                //ret.Cookie = cc;
 
-                for (int i = 0; i < cookies.Count; i++)
-                {
-                    cc.Add(cookies[i]);
-                }
+                //for (int i = 0; i < cookies.Count; i++)
+                //{
+                //    cc.Add(cookies[i]);
+                //}
 
                 Console.WriteLine("获取详情");
                 var content = Utils.HtmlManager.GetHtmlContentViaUrl(index);
@@ -79,14 +79,14 @@ namespace BookDownloader
             return ret;
         }
 
-        public static List<PicToDownload> DownloadChapter(string host, string root, Chapter chapter, CookieContainer cookie)
+        public static List<PicToDownload> DownloadChapter(string host, string root, string bookName, Chapter chapter)
         {
             Console.WriteLine("处理章节 -> " + chapter.ChapterName);
 
             List<PicToDownload> ret = new List<PicToDownload>();
             int index = 1;
 
-            var subRoot = root + "/" + chapter.ChapterName + "/";
+            var subRoot = root + "/" + bookName + "/" + chapter.ChapterName + "/";
 
             try
             {
@@ -151,15 +151,15 @@ namespace BookDownloader
             bool ret = false;
             Console.WriteLine("下载图片");
 
-            try
+            StreamReader sr = new StreamReader(jsonFile);
+            var json = sr.ReadToEnd();
+            sr.Close();
+
+            List<PicToDownload> pics = JsonConvert.DeserializeObject<List<PicToDownload>>(json);
+
+            foreach (var pic in pics)
             {
-                StreamReader sr = new StreamReader(jsonFile);
-                var json = sr.ReadToEnd();
-                sr.Close();
-
-                List<PicToDownload> pics = JsonConvert.DeserializeObject<List<PicToDownload>>(json);
-
-                foreach (var pic in pics)
+                try
                 {
                     if (!Directory.Exists(pic.FolderPath))
                     {
@@ -178,20 +178,20 @@ namespace BookDownloader
                         Console.WriteLine("文件已存在 -> " + pic.FilePath);
                     }
                 }
+                catch (Exception ee)
+                {
+                    Console.WriteLine(ee.ToString());
+                }
             }
-            catch (Exception ee)
-            {
-                Console.WriteLine(ee.ToString());
-            }
-
+           
             return ret;
         }
 
         public static int GetTotalPages(string index)
         {
-            var cc = new CookieContainer();
-            Console.WriteLine("获取Cookie");
-            var cookies = Utils.HtmlManager.GetCookies(index);
+            //var cc = new CookieContainer();
+            //Console.WriteLine("获取Cookie");
+            //var cookies = Utils.HtmlManager.GetCookies(index);
 
             var total = 1;
             var pageInfo = "?page=1";
@@ -214,9 +214,9 @@ namespace BookDownloader
         public static List<string> GetAllBookIndex(string index, string host, int page)
         {
             List<string> ret = new List<string>();
-            var cc = new CookieContainer();
-            Console.WriteLine("获取Cookie");
-            var cookies = Utils.HtmlManager.GetCookies(index);
+            //var cc = new CookieContainer();
+            //Console.WriteLine("获取Cookie");
+            //var cookies = Utils.HtmlManager.GetCookies(index);
 
             var pageInfo = "?page=" + page;
             Console.WriteLine("获取第" + page + "页");

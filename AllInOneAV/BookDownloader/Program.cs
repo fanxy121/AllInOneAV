@@ -41,7 +41,7 @@ namespace BookDownloader
 
                         foreach (var c in bookInfo.Chapters)
                         {
-                            total.AddRange(Helper.DownloadChapter(host, root, c, bookInfo.Cookie));
+                            total.AddRange(Helper.DownloadChapter(host, root, bookInfo.BookName, c));
                         }
 
                         var jsonFile = Helper.GenerateJsonFile(total, bookInfo, root);
@@ -78,7 +78,7 @@ namespace BookDownloader
 
                     foreach (var c in bookInfo.Chapters)
                     {
-                        total.AddRange(Helper.DownloadChapter(host, root, c, bookInfo.Cookie));
+                        total.AddRange(Helper.DownloadChapter(host, root, bookInfo.BookName, c));
                     }
 
                     var jsonFile = Helper.GenerateJsonFile(total, bookInfo, root);
