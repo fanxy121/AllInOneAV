@@ -108,7 +108,9 @@ namespace BookDownloader
                         {
                             PicUrl = pic.Attributes["data-original"].Value,
                             FilePath = subRoot + (index) + ".jpg",
-                            FolderPath = subRoot
+                            FolderPath = subRoot,
+                            Chapter = chapter.ChapterName,
+                            RootFolder = root + "/" + bookName + "/"
                         });
                         Console.WriteLine("解析图片 -> " + pic.Attributes["data-original"].Value);
                         index++;
@@ -151,11 +153,13 @@ namespace BookDownloader
             bool ret = false;
             Console.WriteLine("下载图片");
 
+            Dictionary<string, List<PicToDownload>> picsToCombine = new Dictionary<string, List<PicToDownload>>();
             StreamReader sr = new StreamReader(jsonFile);
             var json = sr.ReadToEnd();
             sr.Close();
 
             List<PicToDownload> pics = JsonConvert.DeserializeObject<List<PicToDownload>>(json);
+            picsToCombine = pics.GroupBy(x => x.Chapter).ToDictionary(x => x.Key, y => y.ToList());
 
             foreach (var pic in pics)
             {
@@ -183,7 +187,13 @@ namespace BookDownloader
                     Console.WriteLine(ee.ToString());
                 }
             }
-           
+
+            foreach (var com in picsToCombine)
+            {
+                var desc = com.Value.FirstOrDefault().RootFolder + com.Value.FirstOrDefault().Chapter + ".jpg";
+                Utils.ImageHelper.CombinePics(desc, com.Value.Select(x => x.FilePath).ToList(), true);
+            }
+
             return ret;
         }
 
@@ -240,6 +250,21 @@ namespace BookDownloader
             }
 
             return ret;
+        }
+
+        public static void Debug()
+        {
+            string path = "c:/setting/comic/养女/";
+
+            var folder = Directory.GetDirectories(path);
+            int index = 1;
+
+            foreach (var item in folder)
+            {
+                var files = Directory.GetFiles(item);
+                Utils.ImageHelper.CombinePics(path + index + ".jpg", files.ToList(), true);
+                index++;
+            }
         }
     }
 }

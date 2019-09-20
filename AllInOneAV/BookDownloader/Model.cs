@@ -29,5 +29,7 @@ namespace BookDownloader
         public string PicUrl { get; set; }
         public string FolderPath { get; set; }
         public string FilePath { get; set; }
+        public string Chapter { get; set; }
+        public string RootFolder { get; set; }
     }
 }

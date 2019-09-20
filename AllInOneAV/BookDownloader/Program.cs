@@ -91,6 +91,11 @@ namespace BookDownloader
                     }
                 }
             }
+
+            if (args.Length == 0)
+            {
+                Helper.Debug();
+            }
         }
     }
 }
