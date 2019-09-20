@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BookDownloader
 {
@@ -48,7 +47,7 @@ namespace BookDownloader
                     return;
                 }
 
-                Console.WriteLine("请输入默认保存漫画目录，默认:" + defaultRoot);
+                Console.WriteLine("请输入默认保存漫画目录，默认 " + defaultRoot);
                 var inputRoot = Console.ReadLine();
 
                 if (!string.IsNullOrEmpty(inputRoot))
@@ -67,7 +66,7 @@ namespace BookDownloader
             }
             else
             {
-                Console.WriteLine("请输入默认保存漫画目录，默认:" + defaultRoot);
+                Console.WriteLine("请输入默认保存漫画目录，默认 " + defaultRoot);
                 var inputRoot = Console.ReadLine();
 
                 if (!string.IsNullOrEmpty(inputRoot))
@@ -86,7 +85,7 @@ namespace BookDownloader
             }
         }
 
-        public static void DownloadSingle(string index, string root)
+        public static void DownloadSingle(string index, string root, bool keepOld = true)
         {
             var host = "http://www.ssmh.cc/";
             List<PicToDownload> total = new List<PicToDownload>();
@@ -113,12 +112,12 @@ namespace BookDownloader
 
                 while (isContinue)
                 {
-                    isContinue = Helper.Download(jsonFile);
+                    isContinue = Helper.Download(jsonFile, keepOld);
                 }
             }
         }
 
-        public static void DownoadAll(string root)
+        public static void DownoadAll(string root, bool keepOld = true)
         {
             var host = "http://www.ssmh.cc/";
             var bookList = "http://www.ssmh.cc/booklist/";
@@ -156,7 +155,7 @@ namespace BookDownloader
 
                     while (isContinue)
                     {
-                        isContinue = Helper.Download(jsonFile);
+                        isContinue = Helper.Download(jsonFile, keepOld);
                     }
                 }
 

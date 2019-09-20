@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BookDownloader
 {
@@ -148,7 +147,7 @@ namespace BookDownloader
             return jsonFile;
         }
 
-        public static bool Download(string jsonFile)
+        public static bool Download(string jsonFile, bool keepOld)
         {
             bool ret = false;
             Console.WriteLine("下载图片");
@@ -191,7 +190,7 @@ namespace BookDownloader
             foreach (var com in picsToCombine)
             {
                 var desc = com.Value.FirstOrDefault().RootFolder + com.Value.FirstOrDefault().Chapter + ".jpg";
-                Utils.ImageHelper.CombinePics(desc, com.Value.Select(x => x.FilePath).ToList(), true);
+                Utils.ImageHelper.CombinePics(desc, com.Value.Select(x => x.FilePath).ToList(), keepOld);
             }
 
             return ret;
