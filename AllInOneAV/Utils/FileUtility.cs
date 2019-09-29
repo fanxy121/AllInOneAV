@@ -206,5 +206,52 @@ namespace Utils
                 return "";
             }
         }
+
+        public static decimal GetCloseRation(string current, string target)
+        {
+            int len1 = current.Length;
+            var len2 = target.Length;
+
+            int[,] dif = new int[len1 + 1, len2 + 1];
+
+            for (int i = 0; i < len1; i++)
+            {
+                dif[i, 0] = i;
+            }
+
+            for (int i = 0; i < len2; i++)
+            {
+                dif[0, i] = i;
+            }
+
+            int temp;
+
+            for (int i = 1; i <= len1; i++)
+            {
+                for (int j = 1; j <= len2; j++)
+                {
+                    if (current[i - 1] == target[j - 1])
+                    {
+                        temp = 0;
+                    }
+                    else
+                    {
+                        temp = 1;
+                    }
+
+                    dif[i, j] = min(dif[i - 1, j - 1] + temp, dif[i, j - 1] + 1, dif[i - 1, j] + 1);
+                }
+            }
+
+            var diff = (decimal)dif[len1, len2] / Math.Max(current.Length, target.Length);
+            var similarity = (decimal)1 - diff;
+
+            return similarity;
+        }
+
+        private static int min(int a, int b, int c)
+        {
+            return Math.Min(Math.Min(a, b), c);
+        }
     }
 }

@@ -207,5 +207,10 @@ namespace PlayRecent
                 listView1.Items.Remove(current);
             }
         }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

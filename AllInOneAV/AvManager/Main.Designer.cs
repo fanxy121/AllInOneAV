@@ -131,20 +131,20 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1319, 744);
+            this.tabControl1.Size = new System.Drawing.Size(1319, 687);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage1.Size = new System.Drawing.Size(1311, 718);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage1.Size = new System.Drawing.Size(1311, 661);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "MoveFile";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -155,9 +155,9 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(2, 2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1307, 714);
+            this.panel1.Size = new System.Drawing.Size(1307, 657);
             this.panel1.TabIndex = 1;
             // 
             // panel3
@@ -165,10 +165,10 @@
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 78);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Location = new System.Drawing.Point(0, 72);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1307, 636);
+            this.panel3.Size = new System.Drawing.Size(1307, 585);
             this.panel3.TabIndex = 0;
             // 
             // panel5
@@ -176,9 +176,9 @@
             this.panel5.Controls.Add(this.tableLayoutPanel1);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
-            this.panel5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel5.Margin = new System.Windows.Forms.Padding(2);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1307, 591);
+            this.panel5.Size = new System.Drawing.Size(1307, 543);
             this.panel5.TabIndex = 2;
             // 
             // tableLayoutPanel1
@@ -190,11 +190,11 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1307, 591);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1307, 543);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox2
@@ -202,10 +202,10 @@
             this.groupBox2.Controls.Add(this.lvMoveDes);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(655, 2);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox2.Size = new System.Drawing.Size(650, 587);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Size = new System.Drawing.Size(650, 539);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Des";
@@ -216,10 +216,10 @@
             this.columnHeader3,
             this.columnHeader4});
             this.lvMoveDes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvMoveDes.Location = new System.Drawing.Point(2, 15);
-            this.lvMoveDes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvMoveDes.Location = new System.Drawing.Point(2, 16);
+            this.lvMoveDes.Margin = new System.Windows.Forms.Padding(2);
             this.lvMoveDes.Name = "lvMoveDes";
-            this.lvMoveDes.Size = new System.Drawing.Size(646, 570);
+            this.lvMoveDes.Size = new System.Drawing.Size(646, 521);
             this.lvMoveDes.TabIndex = 1;
             this.lvMoveDes.UseCompatibleStateImageBehavior = false;
             this.lvMoveDes.View = System.Windows.Forms.View.Details;
@@ -239,10 +239,10 @@
             this.groupBox1.Controls.Add(this.lvMoveSrc);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(2, 2);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox1.Size = new System.Drawing.Size(649, 587);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(649, 539);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Src";
@@ -253,10 +253,10 @@
             this.columnHeader1,
             this.columnHeader2});
             this.lvMoveSrc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvMoveSrc.Location = new System.Drawing.Point(2, 15);
-            this.lvMoveSrc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvMoveSrc.Location = new System.Drawing.Point(2, 16);
+            this.lvMoveSrc.Margin = new System.Windows.Forms.Padding(2);
             this.lvMoveSrc.Name = "lvMoveSrc";
-            this.lvMoveSrc.Size = new System.Drawing.Size(645, 570);
+            this.lvMoveSrc.Size = new System.Drawing.Size(645, 521);
             this.lvMoveSrc.TabIndex = 0;
             this.lvMoveSrc.UseCompatibleStateImageBehavior = false;
             this.lvMoveSrc.View = System.Windows.Forms.View.Details;
@@ -277,27 +277,27 @@
             this.panel4.Controls.Add(this.cbAutoReplace);
             this.panel4.Controls.Add(this.btnMoveMove);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 591);
-            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel4.Location = new System.Drawing.Point(0, 543);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1307, 45);
+            this.panel4.Size = new System.Drawing.Size(1307, 42);
             this.panel4.TabIndex = 1;
             // 
             // pbMove
             // 
             this.pbMove.Location = new System.Drawing.Point(6, 6);
-            this.pbMove.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbMove.Margin = new System.Windows.Forms.Padding(2);
             this.pbMove.Name = "pbMove";
-            this.pbMove.Size = new System.Drawing.Size(1048, 32);
+            this.pbMove.Size = new System.Drawing.Size(1048, 30);
             this.pbMove.TabIndex = 4;
             // 
             // cbAutoReplace
             // 
             this.cbAutoReplace.AutoSize = true;
-            this.cbAutoReplace.Location = new System.Drawing.Point(1075, 23);
-            this.cbAutoReplace.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbAutoReplace.Location = new System.Drawing.Point(1075, 21);
+            this.cbAutoReplace.Margin = new System.Windows.Forms.Padding(2);
             this.cbAutoReplace.Name = "cbAutoReplace";
-            this.cbAutoReplace.Size = new System.Drawing.Size(138, 17);
+            this.cbAutoReplace.Size = new System.Drawing.Size(156, 16);
             this.cbAutoReplace.TabIndex = 3;
             this.cbAutoReplace.Text = "AutoReplaceSmallerFile";
             this.cbAutoReplace.UseVisualStyleBackColor = true;
@@ -305,9 +305,9 @@
             // btnMoveMove
             // 
             this.btnMoveMove.Location = new System.Drawing.Point(1227, 6);
-            this.btnMoveMove.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMoveMove.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveMove.Name = "btnMoveMove";
-            this.btnMoveMove.Size = new System.Drawing.Size(76, 32);
+            this.btnMoveMove.Size = new System.Drawing.Size(76, 30);
             this.btnMoveMove.TabIndex = 1;
             this.btnMoveMove.Text = "Move";
             this.btnMoveMove.UseVisualStyleBackColor = true;
@@ -322,17 +322,17 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1307, 78);
+            this.panel2.Size = new System.Drawing.Size(1307, 72);
             this.panel2.TabIndex = 0;
             // 
             // btnMoveStart
             // 
-            this.btnMoveStart.Location = new System.Drawing.Point(676, 16);
-            this.btnMoveStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMoveStart.Location = new System.Drawing.Point(676, 15);
+            this.btnMoveStart.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveStart.Name = "btnMoveStart";
-            this.btnMoveStart.Size = new System.Drawing.Size(82, 48);
+            this.btnMoveStart.Size = new System.Drawing.Size(82, 44);
             this.btnMoveStart.TabIndex = 1;
             this.btnMoveStart.Text = "Start";
             this.btnMoveStart.UseVisualStyleBackColor = true;
@@ -340,41 +340,41 @@
             // 
             // txtMoveDes
             // 
-            this.txtMoveDes.Location = new System.Drawing.Point(35, 49);
-            this.txtMoveDes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtMoveDes.Location = new System.Drawing.Point(35, 45);
+            this.txtMoveDes.Margin = new System.Windows.Forms.Padding(2);
             this.txtMoveDes.Name = "txtMoveDes";
             this.txtMoveDes.ReadOnly = true;
-            this.txtMoveDes.Size = new System.Drawing.Size(617, 20);
+            this.txtMoveDes.Size = new System.Drawing.Size(617, 21);
             this.txtMoveDes.TabIndex = 2;
             this.txtMoveDes.Click += new System.EventHandler(this.txtMoveDes_Click);
             // 
             // txtMoveSrc
             // 
-            this.txtMoveSrc.Location = new System.Drawing.Point(35, 14);
-            this.txtMoveSrc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtMoveSrc.Location = new System.Drawing.Point(35, 13);
+            this.txtMoveSrc.Margin = new System.Windows.Forms.Padding(2);
             this.txtMoveSrc.Name = "txtMoveSrc";
             this.txtMoveSrc.ReadOnly = true;
-            this.txtMoveSrc.Size = new System.Drawing.Size(617, 20);
+            this.txtMoveSrc.Size = new System.Drawing.Size(617, 21);
             this.txtMoveSrc.TabIndex = 1;
             this.txtMoveSrc.Click += new System.EventHandler(this.txtMoveSrc_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 51);
+            this.label2.Location = new System.Drawing.Point(3, 47);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 13);
+            this.label2.Size = new System.Drawing.Size(23, 12);
             this.label2.TabIndex = 1;
             this.label2.Text = "Des";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 16);
+            this.label1.Location = new System.Drawing.Point(3, 15);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 13);
+            this.label1.Size = new System.Drawing.Size(23, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "Src";
             // 
@@ -382,10 +382,10 @@
             // 
             this.tabPage2.Controls.Add(this.panel6);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage2.Size = new System.Drawing.Size(1311, 718);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage2.Size = new System.Drawing.Size(1311, 661);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Rename";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -396,19 +396,19 @@
             this.panel6.Controls.Add(this.panel7);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(2, 2);
-            this.panel6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel6.Margin = new System.Windows.Forms.Padding(2);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1307, 714);
+            this.panel6.Size = new System.Drawing.Size(1307, 657);
             this.panel6.TabIndex = 0;
             // 
             // panel8
             // 
             this.panel8.Controls.Add(this.panel9);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(0, 44);
-            this.panel8.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel8.Location = new System.Drawing.Point(0, 41);
+            this.panel8.Margin = new System.Windows.Forms.Padding(2);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1307, 670);
+            this.panel8.Size = new System.Drawing.Size(1307, 616);
             this.panel8.TabIndex = 1;
             // 
             // panel9
@@ -417,9 +417,9 @@
             this.panel9.Controls.Add(this.panel11);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel9.Location = new System.Drawing.Point(0, 0);
-            this.panel9.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel9.Margin = new System.Windows.Forms.Padding(2);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(1307, 670);
+            this.panel9.Size = new System.Drawing.Size(1307, 616);
             this.panel9.TabIndex = 0;
             // 
             // panel10
@@ -437,20 +437,20 @@
             this.panel10.Controls.Add(this.txtRenameFinal);
             this.panel10.Controls.Add(this.label10);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(0, 443);
-            this.panel10.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel10.Location = new System.Drawing.Point(0, 409);
+            this.panel10.Margin = new System.Windows.Forms.Padding(2);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(1307, 227);
+            this.panel10.Size = new System.Drawing.Size(1307, 207);
             this.panel10.TabIndex = 1;
             // 
             // rbCensor
             // 
             this.rbCensor.AutoSize = true;
             this.rbCensor.Checked = true;
-            this.rbCensor.Location = new System.Drawing.Point(11, 129);
-            this.rbCensor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbCensor.Location = new System.Drawing.Point(11, 119);
+            this.rbCensor.Margin = new System.Windows.Forms.Padding(2);
             this.rbCensor.Name = "rbCensor";
-            this.rbCensor.Size = new System.Drawing.Size(58, 17);
+            this.rbCensor.Size = new System.Drawing.Size(59, 16);
             this.rbCensor.TabIndex = 14;
             this.rbCensor.TabStop = true;
             this.rbCensor.Text = "Censor";
@@ -460,10 +460,10 @@
             // rbNoteFound
             // 
             this.rbNoteFound.AutoSize = true;
-            this.rbNoteFound.Location = new System.Drawing.Point(271, 129);
-            this.rbNoteFound.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbNoteFound.Location = new System.Drawing.Point(271, 119);
+            this.rbNoteFound.Margin = new System.Windows.Forms.Padding(2);
             this.rbNoteFound.Name = "rbNoteFound";
-            this.rbNoteFound.Size = new System.Drawing.Size(72, 17);
+            this.rbNoteFound.Size = new System.Drawing.Size(71, 16);
             this.rbNoteFound.TabIndex = 13;
             this.rbNoteFound.Text = "NotFound";
             this.rbNoteFound.UseVisualStyleBackColor = true;
@@ -472,10 +472,10 @@
             // rbUncensor
             // 
             this.rbUncensor.AutoSize = true;
-            this.rbUncensor.Location = new System.Drawing.Point(177, 129);
-            this.rbUncensor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbUncensor.Location = new System.Drawing.Point(177, 119);
+            this.rbUncensor.Margin = new System.Windows.Forms.Padding(2);
             this.rbUncensor.Name = "rbUncensor";
-            this.rbUncensor.Size = new System.Drawing.Size(71, 17);
+            this.rbUncensor.Size = new System.Drawing.Size(71, 16);
             this.rbUncensor.TabIndex = 12;
             this.rbUncensor.Text = "Uncensor";
             this.rbUncensor.UseVisualStyleBackColor = true;
@@ -484,10 +484,10 @@
             // rbEnglish
             // 
             this.rbEnglish.AutoSize = true;
-            this.rbEnglish.Location = new System.Drawing.Point(89, 129);
-            this.rbEnglish.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbEnglish.Location = new System.Drawing.Point(89, 119);
+            this.rbEnglish.Margin = new System.Windows.Forms.Padding(2);
             this.rbEnglish.Name = "rbEnglish";
-            this.rbEnglish.Size = new System.Drawing.Size(59, 17);
+            this.rbEnglish.Size = new System.Drawing.Size(65, 16);
             this.rbEnglish.TabIndex = 11;
             this.rbEnglish.Text = "English";
             this.rbEnglish.UseVisualStyleBackColor = true;
@@ -495,10 +495,10 @@
             // 
             // btnRenameSearch
             // 
-            this.btnRenameSearch.Location = new System.Drawing.Point(474, 42);
-            this.btnRenameSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRenameSearch.Location = new System.Drawing.Point(474, 39);
+            this.btnRenameSearch.Margin = new System.Windows.Forms.Padding(2);
             this.btnRenameSearch.Name = "btnRenameSearch";
-            this.btnRenameSearch.Size = new System.Drawing.Size(50, 31);
+            this.btnRenameSearch.Size = new System.Drawing.Size(50, 29);
             this.btnRenameSearch.TabIndex = 10;
             this.btnRenameSearch.Text = "Search";
             this.btnRenameSearch.UseVisualStyleBackColor = true;
@@ -506,48 +506,48 @@
             // 
             // txtKeyword
             // 
-            this.txtKeyword.Location = new System.Drawing.Point(60, 49);
-            this.txtKeyword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtKeyword.Location = new System.Drawing.Point(60, 45);
+            this.txtKeyword.Margin = new System.Windows.Forms.Padding(2);
             this.txtKeyword.Name = "txtKeyword";
-            this.txtKeyword.Size = new System.Drawing.Size(396, 20);
+            this.txtKeyword.Size = new System.Drawing.Size(396, 21);
             this.txtKeyword.TabIndex = 9;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(8, 51);
+            this.label12.Location = new System.Drawing.Point(8, 47);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(51, 13);
+            this.label12.Size = new System.Drawing.Size(53, 12);
             this.label12.TabIndex = 8;
             this.label12.Text = "Keyword:";
             // 
             // txtRenameOri
             // 
-            this.txtRenameOri.Location = new System.Drawing.Point(60, 13);
-            this.txtRenameOri.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRenameOri.Location = new System.Drawing.Point(60, 12);
+            this.txtRenameOri.Margin = new System.Windows.Forms.Padding(2);
             this.txtRenameOri.Name = "txtRenameOri";
             this.txtRenameOri.ReadOnly = true;
-            this.txtRenameOri.Size = new System.Drawing.Size(592, 20);
+            this.txtRenameOri.Size = new System.Drawing.Size(592, 21);
             this.txtRenameOri.TabIndex = 6;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(8, 15);
+            this.label11.Location = new System.Drawing.Point(8, 14);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(39, 13);
+            this.label11.Size = new System.Drawing.Size(53, 12);
             this.label11.TabIndex = 5;
             this.label11.Text = "OriFile:";
             // 
             // btnConfirm
             // 
             this.btnConfirm.Enabled = false;
-            this.btnConfirm.Location = new System.Drawing.Point(6, 183);
-            this.btnConfirm.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConfirm.Location = new System.Drawing.Point(6, 169);
+            this.btnConfirm.Margin = new System.Windows.Forms.Padding(2);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(88, 38);
+            this.btnConfirm.Size = new System.Drawing.Size(88, 35);
             this.btnConfirm.TabIndex = 4;
             this.btnConfirm.Text = "Confirm";
             this.btnConfirm.UseVisualStyleBackColor = true;
@@ -555,19 +555,19 @@
             // 
             // txtRenameFinal
             // 
-            this.txtRenameFinal.Location = new System.Drawing.Point(60, 87);
-            this.txtRenameFinal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRenameFinal.Location = new System.Drawing.Point(60, 80);
+            this.txtRenameFinal.Margin = new System.Windows.Forms.Padding(2);
             this.txtRenameFinal.Name = "txtRenameFinal";
-            this.txtRenameFinal.Size = new System.Drawing.Size(592, 20);
+            this.txtRenameFinal.Size = new System.Drawing.Size(592, 21);
             this.txtRenameFinal.TabIndex = 1;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(8, 89);
+            this.label10.Location = new System.Drawing.Point(8, 82);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(48, 13);
+            this.label10.Size = new System.Drawing.Size(65, 12);
             this.label10.TabIndex = 0;
             this.label10.Text = "FinalFile:";
             // 
@@ -576,9 +576,9 @@
             this.panel11.Controls.Add(this.tableLayoutPanel2);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel11.Location = new System.Drawing.Point(0, 0);
-            this.panel11.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel11.Margin = new System.Windows.Forms.Padding(2);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(1307, 443);
+            this.panel11.Size = new System.Drawing.Size(1307, 409);
             this.panel11.TabIndex = 2;
             // 
             // tableLayoutPanel2
@@ -590,12 +590,12 @@
             this.tableLayoutPanel2.Controls.Add(this.groupBox4, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1307, 443);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1307, 409);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // groupBox3
@@ -605,10 +605,10 @@
             this.groupBox3.Controls.Add(this.pictureRename);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(2, 2);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox3.Size = new System.Drawing.Size(649, 439);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox3.Size = new System.Drawing.Size(649, 405);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Picture";
@@ -616,10 +616,10 @@
             // btRenameRight
             // 
             this.btRenameRight.Enabled = false;
-            this.btRenameRight.Location = new System.Drawing.Point(605, 405);
-            this.btRenameRight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btRenameRight.Location = new System.Drawing.Point(605, 374);
+            this.btRenameRight.Margin = new System.Windows.Forms.Padding(2);
             this.btRenameRight.Name = "btRenameRight";
-            this.btRenameRight.Size = new System.Drawing.Size(29, 29);
+            this.btRenameRight.Size = new System.Drawing.Size(29, 27);
             this.btRenameRight.TabIndex = 2;
             this.btRenameRight.Text = ">";
             this.btRenameRight.UseVisualStyleBackColor = true;
@@ -628,10 +628,10 @@
             // btRenameLeft
             // 
             this.btRenameLeft.Enabled = false;
-            this.btRenameLeft.Location = new System.Drawing.Point(572, 405);
-            this.btRenameLeft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btRenameLeft.Location = new System.Drawing.Point(572, 374);
+            this.btRenameLeft.Margin = new System.Windows.Forms.Padding(2);
             this.btRenameLeft.Name = "btRenameLeft";
-            this.btRenameLeft.Size = new System.Drawing.Size(29, 29);
+            this.btRenameLeft.Size = new System.Drawing.Size(29, 27);
             this.btRenameLeft.TabIndex = 1;
             this.btRenameLeft.Text = "<";
             this.btRenameLeft.UseVisualStyleBackColor = true;
@@ -640,13 +640,14 @@
             // pictureRename
             // 
             this.pictureRename.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureRename.Location = new System.Drawing.Point(2, 15);
-            this.pictureRename.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureRename.Location = new System.Drawing.Point(2, 16);
+            this.pictureRename.Margin = new System.Windows.Forms.Padding(2);
             this.pictureRename.Name = "pictureRename";
-            this.pictureRename.Size = new System.Drawing.Size(645, 422);
+            this.pictureRename.Size = new System.Drawing.Size(645, 387);
             this.pictureRename.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureRename.TabIndex = 0;
             this.pictureRename.TabStop = false;
+            this.pictureRename.Click += new System.EventHandler(this.pictureRename_Click);
             // 
             // groupBox4
             // 
@@ -670,20 +671,20 @@
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(655, 2);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox4.Size = new System.Drawing.Size(650, 439);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox4.Size = new System.Drawing.Size(650, 405);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Info";
             // 
             // btnRenamePlay
             // 
-            this.btnRenamePlay.Location = new System.Drawing.Point(4, 339);
-            this.btnRenamePlay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRenamePlay.Location = new System.Drawing.Point(4, 313);
+            this.btnRenamePlay.Margin = new System.Windows.Forms.Padding(2);
             this.btnRenamePlay.Name = "btnRenamePlay";
-            this.btnRenamePlay.Size = new System.Drawing.Size(69, 38);
+            this.btnRenamePlay.Size = new System.Drawing.Size(69, 35);
             this.btnRenamePlay.TabIndex = 15;
             this.btnRenamePlay.Text = "Play";
             this.btnRenamePlay.UseVisualStyleBackColor = true;
@@ -692,10 +693,10 @@
             // btnRenameNext
             // 
             this.btnRenameNext.Enabled = false;
-            this.btnRenameNext.Location = new System.Drawing.Point(615, 405);
-            this.btnRenameNext.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRenameNext.Location = new System.Drawing.Point(615, 374);
+            this.btnRenameNext.Margin = new System.Windows.Forms.Padding(2);
             this.btnRenameNext.Name = "btnRenameNext";
-            this.btnRenameNext.Size = new System.Drawing.Size(29, 29);
+            this.btnRenameNext.Size = new System.Drawing.Size(29, 27);
             this.btnRenameNext.TabIndex = 4;
             this.btnRenameNext.Text = ">";
             this.btnRenameNext.UseVisualStyleBackColor = true;
@@ -704,20 +705,20 @@
             // lbRenameTotal
             // 
             this.lbRenameTotal.AutoSize = true;
-            this.lbRenameTotal.Location = new System.Drawing.Point(4, 421);
+            this.lbRenameTotal.Location = new System.Drawing.Point(4, 389);
             this.lbRenameTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbRenameTotal.Name = "lbRenameTotal";
-            this.lbRenameTotal.Size = new System.Drawing.Size(24, 13);
+            this.lbRenameTotal.Size = new System.Drawing.Size(23, 12);
             this.lbRenameTotal.TabIndex = 15;
             this.lbRenameTotal.Text = "0/0";
             // 
             // btnRenamePre
             // 
             this.btnRenamePre.Enabled = false;
-            this.btnRenamePre.Location = new System.Drawing.Point(581, 405);
-            this.btnRenamePre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRenamePre.Location = new System.Drawing.Point(581, 374);
+            this.btnRenamePre.Margin = new System.Windows.Forms.Padding(2);
             this.btnRenamePre.Name = "btnRenamePre";
-            this.btnRenamePre.Size = new System.Drawing.Size(29, 29);
+            this.btnRenamePre.Size = new System.Drawing.Size(29, 27);
             this.btnRenamePre.TabIndex = 3;
             this.btnRenamePre.Text = "<";
             this.btnRenamePre.UseVisualStyleBackColor = true;
@@ -725,134 +726,134 @@
             // 
             // txtRenameYear
             // 
-            this.txtRenameYear.Location = new System.Drawing.Point(71, 245);
-            this.txtRenameYear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRenameYear.Location = new System.Drawing.Point(71, 226);
+            this.txtRenameYear.Margin = new System.Windows.Forms.Padding(2);
             this.txtRenameYear.Name = "txtRenameYear";
             this.txtRenameYear.ReadOnly = true;
-            this.txtRenameYear.Size = new System.Drawing.Size(569, 20);
+            this.txtRenameYear.Size = new System.Drawing.Size(569, 21);
             this.txtRenameYear.TabIndex = 14;
             // 
             // txtReanmeLength
             // 
-            this.txtReanmeLength.Location = new System.Drawing.Point(71, 205);
-            this.txtReanmeLength.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtReanmeLength.Location = new System.Drawing.Point(71, 189);
+            this.txtReanmeLength.Margin = new System.Windows.Forms.Padding(2);
             this.txtReanmeLength.Name = "txtReanmeLength";
             this.txtReanmeLength.ReadOnly = true;
-            this.txtReanmeLength.Size = new System.Drawing.Size(569, 20);
+            this.txtReanmeLength.Size = new System.Drawing.Size(569, 21);
             this.txtReanmeLength.TabIndex = 13;
             // 
             // txtRenameCategory
             // 
-            this.txtRenameCategory.Location = new System.Drawing.Point(71, 170);
-            this.txtRenameCategory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRenameCategory.Location = new System.Drawing.Point(71, 157);
+            this.txtRenameCategory.Margin = new System.Windows.Forms.Padding(2);
             this.txtRenameCategory.Name = "txtRenameCategory";
             this.txtRenameCategory.ReadOnly = true;
-            this.txtRenameCategory.Size = new System.Drawing.Size(569, 20);
+            this.txtRenameCategory.Size = new System.Drawing.Size(569, 21);
             this.txtRenameCategory.TabIndex = 12;
             // 
             // txtRenameActress
             // 
-            this.txtRenameActress.Location = new System.Drawing.Point(71, 129);
-            this.txtRenameActress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRenameActress.Location = new System.Drawing.Point(71, 119);
+            this.txtRenameActress.Margin = new System.Windows.Forms.Padding(2);
             this.txtRenameActress.Name = "txtRenameActress";
             this.txtRenameActress.ReadOnly = true;
-            this.txtRenameActress.Size = new System.Drawing.Size(569, 20);
+            this.txtRenameActress.Size = new System.Drawing.Size(569, 21);
             this.txtRenameActress.TabIndex = 11;
             // 
             // txtRenameCompany
             // 
-            this.txtRenameCompany.Location = new System.Drawing.Point(71, 94);
-            this.txtRenameCompany.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRenameCompany.Location = new System.Drawing.Point(71, 87);
+            this.txtRenameCompany.Margin = new System.Windows.Forms.Padding(2);
             this.txtRenameCompany.Name = "txtRenameCompany";
             this.txtRenameCompany.ReadOnly = true;
-            this.txtRenameCompany.Size = new System.Drawing.Size(569, 20);
+            this.txtRenameCompany.Size = new System.Drawing.Size(569, 21);
             this.txtRenameCompany.TabIndex = 10;
             // 
             // txtRenameTitle
             // 
-            this.txtRenameTitle.Location = new System.Drawing.Point(71, 59);
-            this.txtRenameTitle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRenameTitle.Location = new System.Drawing.Point(71, 54);
+            this.txtRenameTitle.Margin = new System.Windows.Forms.Padding(2);
             this.txtRenameTitle.Name = "txtRenameTitle";
             this.txtRenameTitle.ReadOnly = true;
-            this.txtRenameTitle.Size = new System.Drawing.Size(569, 20);
+            this.txtRenameTitle.Size = new System.Drawing.Size(569, 21);
             this.txtRenameTitle.TabIndex = 9;
             // 
             // txtRenameID
             // 
-            this.txtRenameID.Location = new System.Drawing.Point(71, 23);
-            this.txtRenameID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRenameID.Location = new System.Drawing.Point(71, 21);
+            this.txtRenameID.Margin = new System.Windows.Forms.Padding(2);
             this.txtRenameID.Name = "txtRenameID";
             this.txtRenameID.ReadOnly = true;
-            this.txtRenameID.Size = new System.Drawing.Size(569, 20);
+            this.txtRenameID.Size = new System.Drawing.Size(569, 21);
             this.txtRenameID.TabIndex = 8;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(4, 249);
+            this.label9.Location = new System.Drawing.Point(4, 230);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(32, 13);
+            this.label9.Size = new System.Drawing.Size(35, 12);
             this.label9.TabIndex = 7;
             this.label9.Text = "Year:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(4, 209);
+            this.label8.Location = new System.Drawing.Point(4, 193);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
+            this.label8.Size = new System.Drawing.Size(47, 12);
             this.label8.TabIndex = 6;
             this.label8.Text = "Length:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(4, 172);
+            this.label7.Location = new System.Drawing.Point(4, 159);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 13);
+            this.label7.Size = new System.Drawing.Size(59, 12);
             this.label7.TabIndex = 5;
             this.label7.Text = "Category:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 133);
+            this.label6.Location = new System.Drawing.Point(4, 123);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 13);
+            this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 4;
             this.label6.Text = "Actress:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 94);
+            this.label5.Location = new System.Drawing.Point(4, 87);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(51, 13);
+            this.label5.Size = new System.Drawing.Size(47, 12);
             this.label5.TabIndex = 3;
             this.label5.Text = "Company";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 59);
+            this.label4.Location = new System.Drawing.Point(4, 54);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 13);
+            this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 2;
             this.label4.Text = "Title:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 27);
+            this.label3.Location = new System.Drawing.Point(4, 25);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(21, 13);
+            this.label3.Size = new System.Drawing.Size(23, 12);
             this.label3.TabIndex = 1;
             this.label3.Text = "ID:";
             // 
@@ -864,25 +865,25 @@
             this.panel7.Controls.Add(this.txtRename);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 0);
-            this.panel7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel7.Margin = new System.Windows.Forms.Padding(2);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1307, 44);
+            this.panel7.Size = new System.Drawing.Size(1307, 41);
             this.panel7.TabIndex = 0;
             // 
             // pbRename
             // 
-            this.pbRename.Location = new System.Drawing.Point(734, 7);
-            this.pbRename.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbRename.Location = new System.Drawing.Point(734, 6);
+            this.pbRename.Margin = new System.Windows.Forms.Padding(2);
             this.pbRename.Name = "pbRename";
-            this.pbRename.Size = new System.Drawing.Size(561, 27);
+            this.pbRename.Size = new System.Drawing.Size(561, 25);
             this.pbRename.TabIndex = 3;
             // 
             // btRenameStart
             // 
             this.btRenameStart.Location = new System.Drawing.Point(641, 5);
-            this.btRenameStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btRenameStart.Margin = new System.Windows.Forms.Padding(2);
             this.btRenameStart.Name = "btRenameStart";
-            this.btRenameStart.Size = new System.Drawing.Size(75, 32);
+            this.btRenameStart.Size = new System.Drawing.Size(75, 30);
             this.btRenameStart.TabIndex = 2;
             this.btRenameStart.Text = "Start";
             this.btRenameStart.UseVisualStyleBackColor = true;
@@ -891,32 +892,32 @@
             // cbRenameAuto
             // 
             this.cbRenameAuto.AutoSize = true;
-            this.cbRenameAuto.Location = new System.Drawing.Point(574, 14);
-            this.cbRenameAuto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbRenameAuto.Location = new System.Drawing.Point(574, 13);
+            this.cbRenameAuto.Margin = new System.Windows.Forms.Padding(2);
             this.cbRenameAuto.Name = "cbRenameAuto";
-            this.cbRenameAuto.Size = new System.Drawing.Size(48, 17);
+            this.cbRenameAuto.Size = new System.Drawing.Size(48, 16);
             this.cbRenameAuto.TabIndex = 1;
             this.cbRenameAuto.Text = "Auto";
             this.cbRenameAuto.UseVisualStyleBackColor = true;
             // 
             // txtRename
             // 
-            this.txtRename.Location = new System.Drawing.Point(11, 13);
-            this.txtRename.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRename.Location = new System.Drawing.Point(11, 12);
+            this.txtRename.Margin = new System.Windows.Forms.Padding(2);
             this.txtRename.Name = "txtRename";
             this.txtRename.ReadOnly = true;
-            this.txtRename.Size = new System.Drawing.Size(542, 20);
+            this.txtRename.Size = new System.Drawing.Size(542, 21);
             this.txtRename.TabIndex = 0;
             this.txtRename.Click += new System.EventHandler(this.txtRename_Click);
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1319, 744);
+            this.ClientSize = new System.Drawing.Size(1319, 687);
             this.Controls.Add(this.tabControl1);
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";

@@ -637,5 +637,10 @@ namespace AvManager
             }
         }
         #endregion
+
+        private void pictureRename_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

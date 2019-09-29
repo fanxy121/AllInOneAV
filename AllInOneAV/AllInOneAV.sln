@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIleChangeMonitor", "FIleCh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookDownloader", "BookDownloader\BookDownloader.csproj", "{BA5A4EB7-DDC0-4BFB-B2F5-45AF95DC6406}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvReName", "AvReName\AvReName.csproj", "{D06B46D2-CF18-4766-B23A-2A92D26C76B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{BA5A4EB7-DDC0-4BFB-B2F5-45AF95DC6406}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA5A4EB7-DDC0-4BFB-B2F5-45AF95DC6406}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA5A4EB7-DDC0-4BFB-B2F5-45AF95DC6406}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D06B46D2-CF18-4766-B23A-2A92D26C76B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06B46D2-CF18-4766-B23A-2A92D26C76B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D06B46D2-CF18-4766-B23A-2A92D26C76B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D06B46D2-CF18-4766-B23A-2A92D26C76B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
