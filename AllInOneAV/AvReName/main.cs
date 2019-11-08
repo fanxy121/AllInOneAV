@@ -36,41 +36,49 @@ namespace AvReName
         private void cbChinese_CheckedChanged(object sender, EventArgs e)
         {
             AppendPostfix();
+            ConfirmMethod();
         }
 
         private void rb0_CheckedChanged(object sender, EventArgs e)
         {
             AppendPostfix();
+            ConfirmMethod();
         }
 
         private void rb1_CheckedChanged(object sender, EventArgs e)
         {
             AppendPostfix();
+            ConfirmMethod();
         }
 
         private void rb2_CheckedChanged(object sender, EventArgs e)
         {
             AppendPostfix();
+            ConfirmMethod();
         }
 
         private void rb3_CheckedChanged(object sender, EventArgs e)
         {
             AppendPostfix();
+            ConfirmMethod();
         }
 
         private void rb4_CheckedChanged(object sender, EventArgs e)
         {
             AppendPostfix();
+            ConfirmMethod();
         }
 
         private void rb5_CheckedChanged(object sender, EventArgs e)
         {
             AppendPostfix();
+            ConfirmMethod();
         }
 
         private void rb6_CheckedChanged(object sender, EventArgs e)
         {
             AppendPostfix();
+            ConfirmMethod();
         }
 
         private void textBox1_Click(object sender, EventArgs e)
@@ -429,7 +437,9 @@ namespace AvReName
                     File.Delete(currentFi.FullName);
                 }
 
-                ResetInfos();
+                int next = RemoveCurrentItem();
+
+                UpdateHighlight(next);
             }
         }
 
@@ -491,10 +501,12 @@ namespace AvReName
         {
             var currentItem = listViewAvs.SelectedItems[0];
 
-            int ret = currentItem.Index;
+            int ret = 0;
 
             if (currentItem != null)
             {
+                ret = currentItem.Index;
+
                 listViewAvs.Items.Remove(currentItem);
 
                 ResetInfos();
@@ -530,8 +542,7 @@ namespace AvReName
                 int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
 
-                listViewAvs.Items[next].Selected = true;
-                listViewAvs.Select();
+                UpdateHighlight(next);
             }
         }
 
@@ -542,8 +553,7 @@ namespace AvReName
                 int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
 
-                listViewAvs.Items[next].Selected = true;
-                listViewAvs.Select();
+                UpdateHighlight(next);
             }
         }
 
@@ -554,8 +564,7 @@ namespace AvReName
                 int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
 
-                listViewAvs.Items[next].Selected = true;
-                listViewAvs.Select();
+                UpdateHighlight(next);
             }
         }
 
@@ -566,8 +575,7 @@ namespace AvReName
                 int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
 
-                listViewAvs.Items[next].Selected = true;
-                listViewAvs.Select();
+                UpdateHighlight(next);
             }
         }
 
@@ -576,8 +584,7 @@ namespace AvReName
             int next = RemoveCurrentItem();
             UpdateLabelCount(listViewAvs.Items.Count);
 
-            listViewAvs.Items[next].Selected = true;
-            listViewAvs.Select();
+            UpdateHighlight(next);
         }
 
         private void ConfirmMethod()
@@ -587,8 +594,7 @@ namespace AvReName
                 int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
 
-                listViewAvs.Items[next].Selected = true;
-                listViewAvs.Select();
+                UpdateHighlight(next);
             }
         }
 
@@ -615,6 +621,23 @@ namespace AvReName
             av.Panel.BackColor = Color.Blue;
 
             SetName(av.AvName, av.AvId);
+        }
+
+        private void UpdateHighlight(int next)
+        {
+            try
+            {
+                if (listViewAvs.Items[next] != null)
+                {
+                    listViewAvs.HideSelection = false;
+                    listViewAvs.Items[next].Selected = true;
+                    listViewAvs.Select();
+                }
+            }
+            catch (Exception ee)
+            {
+
+            }
         }
         #endregion
     }
