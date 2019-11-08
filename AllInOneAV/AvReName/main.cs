@@ -21,13 +21,13 @@ namespace AvReName
         private List<string> allPrefix = new List<string>();
         private FileInfo currentFi = null;
 
+        #region 行为
         public Form1()
-        {          
+        {
             Control.CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
         }
 
-        #region 行为
         private void Form1_Load(object sender, EventArgs e)
         {
             RefreshCache();
@@ -177,49 +177,6 @@ namespace AvReName
                     Play(listViewAvs.SelectedItems[0]);
                 }
             }
-
-            //if (e.KeyData == (Keys.LShiftKey | Keys.D))
-            //{
-            //    DeleteCurrent();
-            //}
-
-            //if (e.KeyData == (Keys.LShiftKey | Keys.E))
-            //{
-            //    EuMethod();
-            //}
-
-            //if (e.KeyData == (Keys.LShiftKey | Keys.U))
-            //{
-            //    UnMethod();
-            //}
-
-            //if (e.KeyData == (Keys.LShiftKey | Keys.R))
-            //{
-            //    RealMethod();
-            //}
-
-            //if (e.KeyData == (Keys.LShiftKey | Keys.C))
-            //{
-            //    CnMethod();
-            //}
-
-            //if (e.KeyData == (Keys.LShiftKey | Keys.M))
-            //{
-            //    if (!string.IsNullOrEmpty(targetText.Text))
-            //    {
-            //        FindAv(targetText.Text);
-            //    }
-            //}
-
-            //if (e.KeyData == (Keys.LShiftKey | Keys.Z))
-            //{
-            //    ConfirmMethod();
-            //}
-
-            //if (e.KeyData == (Keys.LShiftKey | Keys.S))
-            //{
-            //    SkipMethod();
-            //}
         }
 
         private void fetchBtn_Click(object sender, EventArgs e)
@@ -234,7 +191,6 @@ namespace AvReName
             }
         }
         #endregion
-
 
         #region 方法
         private void InitListViewAv(string[] files)
@@ -499,7 +455,7 @@ namespace AvReName
                     Directory.CreateDirectory(targetFolder);
                 }
 
-                var result = MessageBox.Show("确定要移动 -> " + currentFi.FullName + " " + Utils.FileSize.GetAutoSizeString(currentFi.Length, 1) + " 到 " + targetFolder + fileName + "?", "警告", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show("确定要移动 -> " + currentFi.FullName + " " + Utils.FileSize.GetAutoSizeString(currentFi.Length, 1) + " 到 " + targetFolder + "/" + fileName + "?", "警告", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
                 {
@@ -507,7 +463,7 @@ namespace AvReName
 
                     if (isExist != null)
                     {
-                        var reult = MessageBox.Show("是否要替换 -> " + isExist.FullName + " Size -> " + Utils.FileSize.GetAutoSizeString(isExist.Length, 2), "警告", MessageBoxButtons.YesNo);
+                        var reult = MessageBox.Show("是否要替换 -> " + Utils.FileSize.GetAutoSizeString(currentFi.Length, 2) + " *** " + isExist.FullName + " Size -> " + Utils.FileSize.GetAutoSizeString(isExist.Length, 2), "警告", MessageBoxButtons.YesNo);
 
                         if (result == DialogResult.Yes)
                         {
@@ -573,6 +529,9 @@ namespace AvReName
             {
                 int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
+
+                listViewAvs.Items[next].Selected = true;
+                listViewAvs.Select();
             }
         }
 
@@ -582,6 +541,9 @@ namespace AvReName
             {
                 int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
+
+                listViewAvs.Items[next].Selected = true;
+                listViewAvs.Select();
             }
         }
 
@@ -591,6 +553,9 @@ namespace AvReName
             {
                 int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
+
+                listViewAvs.Items[next].Selected = true;
+                listViewAvs.Select();
             }
         }
 
@@ -600,6 +565,9 @@ namespace AvReName
             {
                 int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
+
+                listViewAvs.Items[next].Selected = true;
+                listViewAvs.Select();
             }
         }
 
@@ -636,7 +604,6 @@ namespace AvReName
 
             allPrefix = allPrefix.OrderByDescending(x => x.Length).ToList();
         }
-        #endregion
 
         private void AvItemClick(object sender)
         {
@@ -649,5 +616,6 @@ namespace AvReName
 
             SetName(av.AvName, av.AvId);
         }
+        #endregion
     }
 }
