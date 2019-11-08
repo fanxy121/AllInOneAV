@@ -33,6 +33,7 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.fetchBtn = new System.Windows.Forms.Button();
             this.findBtn = new System.Windows.Forms.Button();
             this.rb6 = new System.Windows.Forms.RadioButton();
             this.rb0 = new System.Windows.Forms.RadioButton();
@@ -120,6 +121,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.fetchBtn);
             this.groupBox3.Controls.Add(this.findBtn);
             this.groupBox3.Controls.Add(this.rb6);
             this.groupBox3.Controls.Add(this.rb0);
@@ -141,6 +143,17 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "信息展示";
             // 
+            // fetchBtn
+            // 
+            this.fetchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.fetchBtn.Location = new System.Drawing.Point(709, 76);
+            this.fetchBtn.Name = "fetchBtn";
+            this.fetchBtn.Size = new System.Drawing.Size(75, 23);
+            this.fetchBtn.TabIndex = 12;
+            this.fetchBtn.Text = "获取(&F)";
+            this.fetchBtn.UseVisualStyleBackColor = true;
+            this.fetchBtn.Click += new System.EventHandler(this.fetchBtn_Click);
+            // 
             // findBtn
             // 
             this.findBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -148,7 +161,7 @@
             this.findBtn.Name = "findBtn";
             this.findBtn.Size = new System.Drawing.Size(75, 23);
             this.findBtn.TabIndex = 1;
-            this.findBtn.Text = "匹配(M)";
+            this.findBtn.Text = "匹配(&M)";
             this.findBtn.UseVisualStyleBackColor = true;
             this.findBtn.Click += new System.EventHandler(this.findBtn_Click);
             // 
@@ -161,6 +174,7 @@
             this.rb6.TabIndex = 11;
             this.rb6.Text = "6";
             this.rb6.UseVisualStyleBackColor = true;
+            this.rb6.CheckedChanged += new System.EventHandler(this.rb6_CheckedChanged);
             // 
             // rb0
             // 
@@ -173,6 +187,7 @@
             this.rb0.TabStop = true;
             this.rb0.Text = "0";
             this.rb0.UseVisualStyleBackColor = true;
+            this.rb0.CheckedChanged += new System.EventHandler(this.rb0_CheckedChanged);
             // 
             // rb5
             // 
@@ -183,6 +198,7 @@
             this.rb5.TabIndex = 10;
             this.rb5.Text = "5";
             this.rb5.UseVisualStyleBackColor = true;
+            this.rb5.CheckedChanged += new System.EventHandler(this.rb5_CheckedChanged);
             // 
             // cbChinese
             // 
@@ -193,6 +209,7 @@
             this.cbChinese.TabIndex = 4;
             this.cbChinese.Text = "中文";
             this.cbChinese.UseVisualStyleBackColor = true;
+            this.cbChinese.CheckedChanged += new System.EventHandler(this.cbChinese_CheckedChanged);
             // 
             // rb4
             // 
@@ -203,6 +220,7 @@
             this.rb4.TabIndex = 9;
             this.rb4.Text = "4";
             this.rb4.UseVisualStyleBackColor = true;
+            this.rb4.CheckedChanged += new System.EventHandler(this.rb4_CheckedChanged);
             // 
             // targetText
             // 
@@ -222,6 +240,7 @@
             this.rb3.TabIndex = 8;
             this.rb3.Text = "3";
             this.rb3.UseVisualStyleBackColor = true;
+            this.rb3.CheckedChanged += new System.EventHandler(this.rb3_CheckedChanged);
             // 
             // oriText
             // 
@@ -241,6 +260,7 @@
             this.rb2.TabIndex = 7;
             this.rb2.Text = "2";
             this.rb2.UseVisualStyleBackColor = true;
+            this.rb2.CheckedChanged += new System.EventHandler(this.rb2_CheckedChanged);
             // 
             // label2
             // 
@@ -260,6 +280,7 @@
             this.rb1.TabIndex = 6;
             this.rb1.Text = "1";
             this.rb1.UseVisualStyleBackColor = true;
+            this.rb1.CheckedChanged += new System.EventHandler(this.rb1_CheckedChanged);
             // 
             // label1
             // 
@@ -322,7 +343,7 @@
             this.otherBtn.Name = "otherBtn";
             this.otherBtn.Size = new System.Drawing.Size(121, 32);
             this.otherBtn.TabIndex = 9;
-            this.otherBtn.Text = "跳过(S)";
+            this.otherBtn.Text = "跳过(&S)";
             this.otherBtn.UseVisualStyleBackColor = true;
             this.otherBtn.Click += new System.EventHandler(this.otherBtn_Click);
             // 
@@ -333,7 +354,7 @@
             this.confirmBtn.Name = "confirmBtn";
             this.confirmBtn.Size = new System.Drawing.Size(117, 32);
             this.confirmBtn.TabIndex = 8;
-            this.confirmBtn.Text = "新名(Z)";
+            this.confirmBtn.Text = "新名(&Z)";
             this.confirmBtn.UseVisualStyleBackColor = true;
             this.confirmBtn.Click += new System.EventHandler(this.confirmBtn_Click);
             // 
@@ -344,7 +365,7 @@
             this.cnBtn.Name = "cnBtn";
             this.cnBtn.Size = new System.Drawing.Size(117, 32);
             this.cnBtn.TabIndex = 7;
-            this.cnBtn.Text = "国产(C)";
+            this.cnBtn.Text = "国产(&C)";
             this.cnBtn.UseVisualStyleBackColor = true;
             this.cnBtn.Click += new System.EventHandler(this.cnBtn_Click);
             // 
@@ -355,7 +376,7 @@
             this.realBtn.Name = "realBtn";
             this.realBtn.Size = new System.Drawing.Size(117, 32);
             this.realBtn.TabIndex = 6;
-            this.realBtn.Text = "素人(R)";
+            this.realBtn.Text = "素人(&R)";
             this.realBtn.UseVisualStyleBackColor = true;
             this.realBtn.Click += new System.EventHandler(this.realBtn_Click);
             // 
@@ -366,7 +387,7 @@
             this.UsBtn.Name = "UsBtn";
             this.UsBtn.Size = new System.Drawing.Size(117, 32);
             this.UsBtn.TabIndex = 5;
-            this.UsBtn.Text = "欧美(E)";
+            this.UsBtn.Text = "欧美(&E)";
             this.UsBtn.UseVisualStyleBackColor = true;
             this.UsBtn.Click += new System.EventHandler(this.UsBtn_Click);
             // 
@@ -377,7 +398,7 @@
             this.UnBtn.Name = "UnBtn";
             this.UnBtn.Size = new System.Drawing.Size(117, 32);
             this.UnBtn.TabIndex = 4;
-            this.UnBtn.Text = "无码(U)";
+            this.UnBtn.Text = "无码(&U)";
             this.UnBtn.UseVisualStyleBackColor = true;
             this.UnBtn.Click += new System.EventHandler(this.UnBtn_Click);
             // 
@@ -388,7 +409,7 @@
             this.deleteBtn.Name = "deleteBtn";
             this.deleteBtn.Size = new System.Drawing.Size(117, 32);
             this.deleteBtn.TabIndex = 3;
-            this.deleteBtn.Text = "删除(D)";
+            this.deleteBtn.Text = "删除(&D)";
             this.deleteBtn.UseVisualStyleBackColor = true;
             this.deleteBtn.Click += new System.EventHandler(this.deleteBtn_Click);
             // 
@@ -555,6 +576,7 @@
         private System.Windows.Forms.RadioButton rb1;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Button findBtn;
+        private System.Windows.Forms.Button fetchBtn;
     }
 }
 

@@ -30,15 +30,47 @@ namespace AvReName
         #region 行为
         private void Form1_Load(object sender, EventArgs e)
         {
-            foreach (var name in JavDataBaseManager.GetAllAV().Select(x => x.ID).ToList())
-            {
-                if (!allPrefix.Contains(name.Split('-')[0]))
-                {
-                    allPrefix.Add(name.Split('-')[0]);
-                }
-            }
+            RefreshCache();
+        }
 
-            allPrefix = allPrefix.OrderByDescending(x => x.Length).ToList();
+        private void cbChinese_CheckedChanged(object sender, EventArgs e)
+        {
+            AppendPostfix();
+        }
+
+        private void rb0_CheckedChanged(object sender, EventArgs e)
+        {
+            AppendPostfix();
+        }
+
+        private void rb1_CheckedChanged(object sender, EventArgs e)
+        {
+            AppendPostfix();
+        }
+
+        private void rb2_CheckedChanged(object sender, EventArgs e)
+        {
+            AppendPostfix();
+        }
+
+        private void rb3_CheckedChanged(object sender, EventArgs e)
+        {
+            AppendPostfix();
+        }
+
+        private void rb4_CheckedChanged(object sender, EventArgs e)
+        {
+            AppendPostfix();
+        }
+
+        private void rb5_CheckedChanged(object sender, EventArgs e)
+        {
+            AppendPostfix();
+        }
+
+        private void rb6_CheckedChanged(object sender, EventArgs e)
+        {
+            AppendPostfix();
         }
 
         private void textBox1_Click(object sender, EventArgs e)
@@ -93,14 +125,7 @@ namespace AvReName
 
         private void avItemClicked(object sender, EventArgs e)
         {
-            ResetPanel8();
-
-            PictureBox pb = (PictureBox)sender;
-            AvItem av = (AvItem)pb.Parent.Parent;
-
-            av.Panel.BackColor = Color.Blue;
-
-            SetName(av.AvName, av.AvId);
+            AvItemClick(sender);
         }
 
         private void deleteBtn_Click(object sender, EventArgs e)
@@ -153,50 +178,61 @@ namespace AvReName
                 }
             }
 
-            if (e.KeyCode == Keys.D)
-            {
-                DeleteCurrent();
-            }
+            //if (e.KeyData == (Keys.LShiftKey | Keys.D))
+            //{
+            //    DeleteCurrent();
+            //}
 
-            if (e.KeyCode == Keys.E)
-            {
-                EuMethod();
-            }
+            //if (e.KeyData == (Keys.LShiftKey | Keys.E))
+            //{
+            //    EuMethod();
+            //}
 
-            if (e.KeyCode == Keys.U)
-            {
-                UnMethod();
-            }
+            //if (e.KeyData == (Keys.LShiftKey | Keys.U))
+            //{
+            //    UnMethod();
+            //}
 
-            if (e.KeyCode == Keys.R)
-            {
-                RealMethod();
-            }
+            //if (e.KeyData == (Keys.LShiftKey | Keys.R))
+            //{
+            //    RealMethod();
+            //}
 
-            if (e.KeyCode == Keys.C)
-            {
-                CnMethod();
-            }
+            //if (e.KeyData == (Keys.LShiftKey | Keys.C))
+            //{
+            //    CnMethod();
+            //}
 
-            if (e.KeyCode == Keys.M)
-            {
-                if (!string.IsNullOrEmpty(targetText.Text))
-                {
-                    FindAv(targetText.Text);
-                }
-            }
+            //if (e.KeyData == (Keys.LShiftKey | Keys.M))
+            //{
+            //    if (!string.IsNullOrEmpty(targetText.Text))
+            //    {
+            //        FindAv(targetText.Text);
+            //    }
+            //}
 
-            if (e.KeyCode == Keys.Z)
-            {
-                ConfirmMethod();
-            }
+            //if (e.KeyData == (Keys.LShiftKey | Keys.Z))
+            //{
+            //    ConfirmMethod();
+            //}
 
-            if (e.KeyCode == Keys.S)
-            {
-                SkipMethod();
-            }
+            //if (e.KeyData == (Keys.LShiftKey | Keys.S))
+            //{
+            //    SkipMethod();
+            //}
         }
 
+        private void fetchBtn_Click(object sender, EventArgs e)
+        {
+            Fetch f = new Fetch();
+
+            var result = f.ShowDialog();
+
+            if (result == DialogResult.Yes)
+            {
+                RefreshCache();
+            }
+        }
         #endregion
 
 
@@ -333,6 +369,12 @@ namespace AvReName
 
                 avs = avs.Skip(3).ToList();
             }
+
+            if (panel8.Controls.Count > 0)
+            {
+                AvItemClick(panel8.Controls[0].Controls[1].Controls[0]);
+                ConfirmMethod();
+            }
         }
 
         private void ResetPanel8()
@@ -354,59 +396,84 @@ namespace AvReName
             sb.Append(id);
             sb.Append("-" + avName);
 
-            if (cbChinese.Checked)
-            {
-                sb.Append("-C");
-            }
-
-            if (rb0.Checked)
-            {
-                sb.Append("");
-            }
-
-            if (rb1.Checked)
-            {
-                sb.Append("-1");
-            }
-
-            if (rb2.Checked)
-            {
-                sb.Append("-2");
-            }
-
-            if (rb3.Checked)
-            {
-                sb.Append("-3");
-            }
-
-            if (rb4.Checked)
-            {
-                sb.Append("-4");
-            }
-
-            if (rb5.Checked)
-            {
-                sb.Append("-5");
-            }
-
-            if (rb6.Checked)
-            {
-                sb.Append("-6");
-            }
-
             targetText.Text = sb.ToString();
+        }
+
+        private void AppendPostfix()
+        {
+            AvItem item = null;
+
+            foreach (var control in panel8.Controls)
+            {
+                AvItem temp = (AvItem)control;
+                if (temp.Panel.BackColor == Color.Blue)
+                {
+                    item = temp;
+                }
+            }
+
+            if (item != null)
+            {
+                AvItemClick(item.Controls[1].Controls[0]);
+
+                StringBuilder sb = new StringBuilder();
+
+                if (cbChinese.Checked)
+                {
+                    sb.Append("-C");
+                }
+
+                if (rb0.Checked)
+                {
+                    sb.Append("");
+                }
+
+                if (rb1.Checked)
+                {
+                    sb.Append("-1");
+                }
+
+                if (rb2.Checked)
+                {
+                    sb.Append("-2");
+                }
+
+                if (rb3.Checked)
+                {
+                    sb.Append("-3");
+                }
+
+                if (rb4.Checked)
+                {
+                    sb.Append("-4");
+                }
+
+                if (rb5.Checked)
+                {
+                    sb.Append("-5");
+                }
+
+                if (rb6.Checked)
+                {
+                    sb.Append("-6");
+                }
+
+                targetText.Text = targetText.Text + sb.ToString();
+            }
         }
 
         private void DeleteCurrent()
         {
             if (currentFi != null)
             {
-                var result = MessageBox.Show("确定要删除 -> " + currentFi.FullName + " ?", "警告", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show("确定要删除 -> " + currentFi.FullName + " ? " + Utils.FileSize.GetAutoSizeString(currentFi.Length, 1), "警告", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
                 {
                     File.Delete(currentFi.FullName);
                 }
+
+                ResetInfos();
             }
         }
 
@@ -432,7 +499,7 @@ namespace AvReName
                     Directory.CreateDirectory(targetFolder);
                 }
 
-                var result = MessageBox.Show("确定要移动 -> " + currentFi.FullName + " ?", "警告", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show("确定要移动 -> " + currentFi.FullName + " " + Utils.FileSize.GetAutoSizeString(currentFi.Length, 1) + " 到 " + targetFolder + fileName + "?", "警告", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
                 {
@@ -444,6 +511,7 @@ namespace AvReName
 
                         if (result == DialogResult.Yes)
                         {
+                            MoveFile(isExist, isExist.FullName + ".bak" + DateTime.Now.ToString("yyyyMMddhhmmss"));
                             MoveFile(currentFi, targetFolder + "/" + fileName);
                         }
                     }
@@ -463,14 +531,20 @@ namespace AvReName
             return false;
         }
 
-        private void RemoveCurrentItem()
+        private int RemoveCurrentItem()
         {
             var currentItem = listViewAvs.SelectedItems[0];
+
+            int ret = currentItem.Index;
 
             if (currentItem != null)
             {
                 listViewAvs.Items.Remove(currentItem);
+
+                ResetInfos();
             }
+
+            return ret;
         }
 
         private FileInfo IsFileExistInDesc(string filePath)
@@ -497,7 +571,7 @@ namespace AvReName
         {
             if(MoveTo("无码"))
             {
-                RemoveCurrentItem();
+                int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
             }
         }
@@ -506,7 +580,7 @@ namespace AvReName
         {
             if(MoveTo("欧美"))
             {
-                RemoveCurrentItem();
+                int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
             }
         }
@@ -515,7 +589,7 @@ namespace AvReName
         {
             if (MoveTo("素人"))
             {
-                RemoveCurrentItem();
+                int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
             }
         }
@@ -523,26 +597,57 @@ namespace AvReName
         private void CnMethod()
         {
             if (MoveTo("国产"))
-            {       
-                RemoveCurrentItem();
+            {
+                int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
             }
         }
 
         private void SkipMethod()
         {
-            RemoveCurrentItem();
+            int next = RemoveCurrentItem();
             UpdateLabelCount(listViewAvs.Items.Count);
+
+            listViewAvs.Items[next].Selected = true;
+            listViewAvs.Select();
         }
 
         private void ConfirmMethod()
         {
             if (MoveTo("Fin", true))
             {
-                RemoveCurrentItem();
+                int next = RemoveCurrentItem();
                 UpdateLabelCount(listViewAvs.Items.Count);
+
+                listViewAvs.Items[next].Selected = true;
+                listViewAvs.Select();
             }
         }
+
+        private void RefreshCache()
+        {
+            foreach (var name in JavDataBaseManager.GetAllAV().Select(x => x.ID).ToList())
+            {
+                if (!allPrefix.Contains(name.Split('-')[0]))
+                {
+                    allPrefix.Add(name.Split('-')[0]);
+                }
+            }
+
+            allPrefix = allPrefix.OrderByDescending(x => x.Length).ToList();
+        }
         #endregion
+
+        private void AvItemClick(object sender)
+        {
+            ResetPanel8();
+
+            PictureBox pb = (PictureBox)sender;
+            AvItem av = (AvItem)pb.Parent.Parent;
+
+            av.Panel.BackColor = Color.Blue;
+
+            SetName(av.AvName, av.AvId);
+        }
     }
 }

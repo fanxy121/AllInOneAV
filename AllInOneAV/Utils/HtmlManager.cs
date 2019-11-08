@@ -118,6 +118,7 @@ namespace Utils
                 GC.Collect();
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Credentials = CredentialCache.DefaultCredentials;
+                request.Proxy = null;
                 request.Timeout = 90000;
                 request.UserAgent = string.Format(UserAgent, GetChromeVersion());
                 request.Method = "GET";
