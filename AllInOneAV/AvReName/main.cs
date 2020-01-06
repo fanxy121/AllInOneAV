@@ -42,7 +42,6 @@ namespace AvReName
         private void rb0_CheckedChanged(object sender, EventArgs e)
         {
             AppendPostfix();
-            ConfirmMethod();
         }
 
         private void rb1_CheckedChanged(object sender, EventArgs e)

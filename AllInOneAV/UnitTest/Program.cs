@@ -38,61 +38,90 @@ namespace UnitTest
 
         static void Main(string[] args)
         {
-            var fileFolder = "D:/New folder/";
-            var allAvName = JavDataBaseManager.GetAllAV().Select(x => x.ID).ToList();
-            List<string> allPrefix = new List<string>();
-            var files = Directory.GetFiles(fileFolder);
-            List<TempReuslt> list = new List<TempReuslt>();
-            Dictionary<string, List<TempReuslt>> dic = new Dictionary<string, List<TempReuslt>>();
-            FileInfo file = null;
-            TempReuslt temp = null;
-
-            foreach (var name in allAvName)
-            {
-                if (!allPrefix.Contains(name.Split('-')[0]))
-                {
-                    allPrefix.Add(name.Split('-')[0]);
-                }
-            }
-
-            allPrefix = allPrefix.OrderByDescending(x => x.Length).ToList();
-
-            foreach (var f in files.OrderBy(x=>x.Length).Take(50))
-            {
-                file = new FileInfo(f);
-                var fName = file.Name.Replace(file.Extension, "");
-
-                foreach (var p in allPrefix)
-                {
-                    if (fName.Contains(p))
-                    {
-                        var pattern = p + "{1}-?\\d{1,5}";
-                        var match = Regex.Match(fName, pattern);
-                    }
-                }
-            }
-
-            dic = list.GroupBy(x => x.Current).ToDictionary(x => x.Key, x => x.OrderBy(y=>y.Similarity).Take(3).ToList());
-
-            foreach (var d in dic)
-            {
-                foreach (var s in dic.Values)
-                {
-                    foreach (var ss in s)
-                    {
-                        Console.WriteLine("与" + d.Key + " 最接近的为 " + ss.Target);
-                    }
-                }
-            }
+            DownloadFile("https://images5.alphacoders.com/998/998345.jpg", "c:/setting/saber.jpg");
 
             Console.ReadKey();
         }
-    }
 
-    public class TempReuslt
-    {
-        public string Current { get; set; }
-        public string Target { get; set; }
-        public decimal Similarity { get; set; }
+        private static void DownloadFile(string file, string desc)
+        {
+            Utils.DownloadHelper.DownloadFile(file, desc);
+        }
+
+        private static void GetAVFromIdAndName()
+        {
+            var folder = "E:\\New folder\\Fin";
+
+            var files = Directory.GetFiles(folder);
+
+            int total = files.Length;
+            int match = 0;
+            List<string> unmatched = new List<string>();
+
+            foreach (var file in files)
+            {
+                FileInfo fi = new FileInfo(file);
+                var split = fi.Name.Split('-');
+
+                if (split.Length >= 3)
+                {
+                    var id = split[0] + "-" + split[1];
+                    var nameAfter = fi.Name.Replace(id, "").Split('-');
+                    string name = "";
+
+                    if (nameAfter.Length == 0)
+                    {
+                        name = fi.Name.Replace(id, "").Replace(fi.Extension, "");
+                    }
+                    else
+                    {
+                        name = nameAfter[0];
+
+                        foreach (var slice in nameAfter)
+                        {
+                            if (slice.Length > 1)
+                            {
+                                name += "-" + slice;
+                            }
+                        }
+                    }
+
+                    var avs = JavDataBaseManager.GetAllAV(id, name);
+
+                    if (avs != null && avs.Count == 1)
+                    {
+                        match++;
+                    }
+                    else
+                    {
+                        unmatched.Add(fi.FullName);
+                    }
+                }
+            }
+
+            foreach (var unmatch in unmatched)
+            {
+                Console.WriteLine(unmatch);
+            }
+
+            Console.WriteLine("Total: " + total + "  Matched: " + match);
+        }
+
+        private static void CheckDuplicate()
+        {
+            var folder = "E:/New folder/Fin";
+            var files = Directory.GetFiles(folder);
+            List<FileInfo> fis = new List<FileInfo>();
+
+            foreach (var f in files)
+            {
+                fis.Add(new FileInfo(f));
+            }
+
+            foreach (var fi in fis)
+            {
+
+            }
+        }
     }
 }

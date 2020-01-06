@@ -154,6 +154,13 @@ namespace DataBaseManager.JavDataBaseHelper
             return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<AV>();
         }
 
+        public static List<AV> GetAllAV(string id, string name)
+        {
+            var sql = @"SELECT * FROM AV WHERE ID = '" + id + "' AND Name = N'" + name + "'";
+
+            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<AV>();
+        }
+
         public static List<AV> GetAllAV(List<string> ids)
         {
             var sql = @"SELECT * FROM AV WHERE ID in ('" + string.Join("','", ids) + "')";

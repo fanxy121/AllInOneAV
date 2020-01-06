@@ -31,7 +31,7 @@ namespace AvReName
         {
             InitializeComponent();
             avItemLabel.Text = name;
-            //picBox.Image = Image.FromFile(img);
+            picBox.Image = Image.FromFile(img);
 
             AvName = name;
             ImageStr = img;
