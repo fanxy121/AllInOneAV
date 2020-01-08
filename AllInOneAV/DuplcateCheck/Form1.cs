@@ -112,17 +112,17 @@ namespace DuplcateCheck
 
                         if (File.Exists(pic1str))
                         {
-                            //pic1.Image = Image.FromFile(pic1str);
+                            pic1.Image = Image.FromFile(pic1str);
                         }
 
                         if (File.Exists(pic2str))
                         {
-                            //pic2.Image = Image.FromFile(pic2str);
+                            pic2.Image = Image.FromFile(pic2str);
                         }
 
                         if (File.Exists(pic3str))
                         {
-                            //pic3.Image = Image.FromFile(pic3str);
+                            pic3.Image = Image.FromFile(pic3str);
                         }
 
                         txtRename.Text = fi.Name;
@@ -179,12 +179,12 @@ namespace DuplcateCheck
         private void btnExe_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
-            var folder = "c:/setting/checkLog/";
+            var folder = "c:\\setting\\checkLog\\";
             string logFile = folder + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + "log.txt";
             long emptySpace = 0;
             int updateCount = 0;
             int deleteCount = 0;
-            string rootFolder = txtSource.Text + "/";
+            string rootFolder = txtSource.Text + "\\";
 
             if (!Directory.Exists(folder))
             {
