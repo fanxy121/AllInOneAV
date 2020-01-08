@@ -389,5 +389,19 @@ namespace DataBaseManager.JavDataBaseHelper
 
             return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
         }
+
+        public static int DeleteInvalid(AV av)
+        {
+            var sql = @"DELETE FROM AV WHERE AVID = " + av.AvId;
+
+            return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
+        }
+
+        public static int UpdateInvalid(AV av)
+        {
+            var sql = @"UPDATE AV SET Name = '" + av.Name + "' WHERE AVID = " + av.AvId;
+
+            return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
+        }
     }
 }

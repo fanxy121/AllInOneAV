@@ -2,9 +2,11 @@
 using Model.ScanModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Utils
@@ -191,6 +193,223 @@ namespace Utils
         public static string ReplaceInvalidChar(string str)
         {
             return str.Replace("'","''").Replace("?","").Replace(":","").Replace("*","").Replace("|","").Replace("\\","").Replace("/", "").Replace("<", "").Replace(">", "");
+        }
+
+        public static string SecondToHour(double time)
+        {
+            string str = "";
+            int hour = 0;
+            int minute = 0;
+            int second = 0;
+            second = Convert.ToInt32(time);
+
+            if (second > 60)
+            {
+                minute = second / 60;
+                second = second % 60;
+            }
+            if (minute > 60)
+            {
+                hour = minute / 60;
+                minute = minute % 60;
+            }
+            return (hour + "小时" + minute + "分钟"
+                + second + "秒");
+        }
+
+            public static List<string> GetInvalidChar()
+        {
+            List<string> ret = new List<string>();
+
+            ret.Add("'");
+            ret.Add("?");
+            ret.Add(":");
+            ret.Add("*");
+            ret.Add("|");
+            ret.Add("\\");
+            ret.Add("/");
+            ret.Add("<");
+            ret.Add(">");
+
+            return ret;
+        }
+
+        public static void ExcuteProcess(string exe, string arg, DataReceivedEventHandler output)
+        {
+            using (var p = new Process())
+            {
+                p.StartInfo.FileName = exe;
+                p.StartInfo.Arguments = arg;
+
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.RedirectStandardOutput = true;
+
+                p.OutputDataReceived += output;
+                p.ErrorDataReceived += output;
+
+                p.Start();
+                p.BeginOutputReadLine();
+                p.BeginErrorReadLine();
+                p.WaitForExit();
+            }
+        }
+
+        public static string GetFileName(string fullName, bool extension)
+        {
+            FileInfo f = new FileInfo(fullName);
+            if (extension)
+            {
+                return f.Name;
+            }
+            else
+            {
+                return f.Name.Replace(f.Extension, "").ToLower();
+            }
+        }
+
+        public static string GetDuration(string fName, string ffmpegLocation)
+        {
+            string duration = "";
+
+            try
+            {
+                string fullName = fName;
+                string fileName = GetFileName(fName, false);
+                string command_line = " -i \"" + fullName + "\"";
+
+                ExcuteProcess(ffmpegLocation, command_line, (s, t) => duration += (t.Data));
+
+                duration = duration.Substring(duration.IndexOf("Duration") + 10);
+                duration = duration.Substring(0, duration.IndexOf(","));
+
+                var hour = int.Parse(duration.Split(':')[0]);
+                var min = int.Parse(duration.Split(':')[1]);
+                var sec = int.Parse(duration.Split(':')[2].Substring(0, duration.Split(':')[2].IndexOf(".")));
+
+                
+            }
+            catch (Exception)
+            {
+                return "-";
+            }
+            return duration;
+        }
+
+        public static int GetThumbnails(string fName, string ffmpegLocation, string whereToSave, string subFolder, int howManyPictures, bool size, int width = 320, int height = 240)
+        {
+            int result = 0;
+
+            try
+            {
+                string fullName = fName;
+                string fileName = GetFileName(fName, false);
+                string command_line = " -i \"" + fullName + "\"";
+                string duration = "";
+
+                if (!Directory.Exists(whereToSave))
+                {
+                    Directory.CreateDirectory(whereToSave);
+                }
+
+                ExcuteProcess(ffmpegLocation, command_line, (s, t) => duration += (t.Data));
+
+                duration = duration.Substring(duration.IndexOf("Duration") + 10);
+                duration = duration.Substring(0, duration.IndexOf(","));
+
+                var hour = int.Parse(duration.Split(':')[0]);
+                var min = int.Parse(duration.Split(':')[1]);
+                var sec = int.Parse(duration.Split(':')[2].Substring(0, duration.Split(':')[2].IndexOf(".")));
+
+                var totalSec = hour * 3600 + min * 60 + sec;
+
+                var diff = totalSec / (howManyPictures + 1);
+
+                List<int> frame = new List<int>();
+
+                for (int i = 1; i <= howManyPictures; i++)
+                {
+                    frame.Add(diff * i);
+                }
+
+                int currentIndex = 1;
+
+                foreach (var item in frame)
+                {
+                    if (File.Exists(whereToSave + subFolder + "-" + currentIndex + ".jpg"))
+                    {
+                        File.Delete(whereToSave + subFolder + "-" + currentIndex + ".jpg");
+                    }
+
+                    string screenLine = "";
+
+                    if (size)
+                    {
+                        screenLine = "-ss " + item + " -i \"" + fullName + "\" -s " + width + "x" + height + " -vframes 1 \"" + whereToSave + subFolder + "-" + currentIndex + ".jpg\"";
+                    }
+                    else
+                    {
+                        screenLine = "-ss " + item + " -i \"" + fullName + "\" -vframes 1 \"" + whereToSave + subFolder + "-" + currentIndex + ".jpg\"";
+                    }
+
+                    result++;
+                    currentIndex++;
+
+                    ExcuteProcess(ffmpegLocation, screenLine, (s, t) => duration = (t.Data));
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+            return result;
+        }
+
+        public static Dictionary<string, List<FileInfo>> GetCheckDuplicatedData(string folder)
+        {
+            Dictionary<string, List<FileInfo>> res = new Dictionary<string, List<FileInfo>>();
+
+            if (Directory.Exists(folder))
+            {
+                var files = Directory.GetFiles(folder);
+
+                foreach (var file in files)
+                {
+                    var split = file.Split('-');
+                    if (split.Length >= 3)
+                    {
+                        var key = split[0] + "-" + split[1];
+
+                        if (res.ContainsKey(key))
+                        {
+                            res[key].Add(new FileInfo(file));
+                        }
+                        else
+                        {
+                            res.Add(key, new List<FileInfo> { new FileInfo(file) });
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
+        public static double GetVideoDuration(string file)
+        {
+            MediaPlayer.MediaPlayer media = new MediaPlayer.MediaPlayer();
+            media.Open(file);
+
+            Thread.Sleep(600);
+
+            var duration = media.Duration;
+
+            return duration;
+        }
+
+        public static void PlayVideo(string file)
+        {
+            System.Diagnostics.Process.Start(@"" + file);
         }
 
         public static string GetImageFile(string folder, AV av)

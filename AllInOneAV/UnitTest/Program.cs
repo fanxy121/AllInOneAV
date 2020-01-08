@@ -4,6 +4,7 @@ using DataBaseManager.SisDataBaseHelper;
 using Microsoft.Win32;
 using Model.Common;
 using Model.FindModels;
+using Model.JavModels;
 using Model.ScanModels;
 using Model.SisModels;
 using Newtonsoft.Json;
@@ -38,8 +39,90 @@ namespace UnitTest
 
         static void Main(string[] args)
         {
-            DownloadFile("https://images5.alphacoders.com/998/998345.jpg", "c:/setting/saber.jpg");
+            var ffmpeg = "C:\\Setting\\ffmpeg.exe";
+            var file = "D:\\Fin\\ABG-001-金粉奴隷スナイパー 森沢かな.mp4";
 
+            FileUtility.GetThumbnails(file, ffmpeg, "c:/setting/thumnail/", "1", 5, false);
+
+            //Console.ReadKey();
+        }
+
+        
+
+        private static void RemoveDuplicate()
+        {
+            List<AV> needToFixIds = new List<AV>();
+            int invalidCount = 0;
+            int tureInvalidCount = 0;
+            var invalids = FileUtility.GetInvalidChar();
+            var avs = JavDataBaseManager.GetAllAV();
+
+            foreach (var av in avs)
+            {
+                foreach (var invalid in invalids)
+                {
+                    if (av.Name.Contains(invalid))
+                    {
+                        needToFixIds.Add(av);
+                    }
+                }
+            }
+
+            foreach (var id in needToFixIds)
+            {
+                invalidCount++;
+                var effectedRows = avs.Where(x => x.ID == id.ID && x.Company == id.Company && x.Directory == id.Directory).ToList();
+
+                if (effectedRows.Count == 1)
+                {
+                    tureInvalidCount++;
+                    var target = effectedRows.FirstOrDefault();
+                    target.Name = FileUtility.ReplaceInvalidChar(target.Name);
+
+                    JavDataBaseManager.UpdateInvalid(target);
+                }
+                else if (effectedRows.Count > 1)
+                {
+                    tureInvalidCount++;
+                    int needToFixCount = 0;
+                    List<AV> toBeDeleted = new List<AV>();
+
+                    foreach (var item in effectedRows)
+                    {
+                        foreach (var invalid in invalids)
+                        {
+                            if (item.Name.Contains(invalid))
+                            {
+                                needToFixCount++;
+                                toBeDeleted.Add(item);
+                            }
+                        }
+                    }
+
+                    if (needToFixCount == effectedRows.Count)
+                    {
+                        var orderedList = toBeDeleted.OrderBy(x => x.AvId).ToList();
+                        var keep = orderedList.FirstOrDefault();
+                        keep.Name = FileUtility.ReplaceInvalidChar(keep.Name);
+
+                        JavDataBaseManager.UpdateInvalid(keep);
+
+                        foreach (var delete in toBeDeleted.Skip(1))
+                        {
+                            JavDataBaseManager.DeleteInvalid(delete);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var delete in toBeDeleted)
+                        {
+                            JavDataBaseManager.DeleteInvalid(delete);
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("Has --> " + invalidCount + " invalid.... trueInvalidCount " + tureInvalidCount);
             Console.ReadKey();
         }
 
