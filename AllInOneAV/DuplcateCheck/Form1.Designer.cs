@@ -31,6 +31,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnRe = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnRename = new System.Windows.Forms.Button();
             this.txtRename = new System.Windows.Forms.TextBox();
@@ -44,11 +45,10 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnExe = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSource = new System.Windows.Forms.TextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnExe = new System.Windows.Forms.Button();
-            this.btnRe = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -93,6 +93,16 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1317, 251);
             this.panel5.TabIndex = 1;
+            // 
+            // btnRe
+            // 
+            this.btnRe.Location = new System.Drawing.Point(1217, 163);
+            this.btnRe.Name = "btnRe";
+            this.btnRe.Size = new System.Drawing.Size(88, 30);
+            this.btnRe.TabIndex = 7;
+            this.btnRe.Text = "恢复";
+            this.btnRe.UseVisualStyleBackColor = true;
+            this.btnRe.Click += new System.EventHandler(this.btnRe_Click);
             // 
             // btnDelete
             // 
@@ -171,6 +181,7 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
             // columnHeader1
             // 
@@ -203,6 +214,16 @@
             this.panel2.Size = new System.Drawing.Size(1317, 46);
             this.panel2.TabIndex = 0;
             // 
+            // btnExe
+            // 
+            this.btnExe.Location = new System.Drawing.Point(1245, 6);
+            this.btnExe.Name = "btnExe";
+            this.btnExe.Size = new System.Drawing.Size(60, 30);
+            this.btnExe.TabIndex = 2;
+            this.btnExe.Text = "执行";
+            this.btnExe.UseVisualStyleBackColor = true;
+            this.btnExe.Click += new System.EventHandler(this.btnExe_Click);
+            // 
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(1166, 6);
@@ -222,32 +243,13 @@
             this.txtSource.Click += new System.EventHandler(this.txtSource_Click);
             this.txtSource.TextChanged += new System.EventHandler(this.txtSource_TextChanged);
             // 
-            // btnExe
-            // 
-            this.btnExe.Location = new System.Drawing.Point(1245, 6);
-            this.btnExe.Name = "btnExe";
-            this.btnExe.Size = new System.Drawing.Size(60, 30);
-            this.btnExe.TabIndex = 2;
-            this.btnExe.Text = "执行";
-            this.btnExe.UseVisualStyleBackColor = true;
-            this.btnExe.Click += new System.EventHandler(this.btnExe_Click);
-            // 
-            // btnRe
-            // 
-            this.btnRe.Location = new System.Drawing.Point(1217, 163);
-            this.btnRe.Name = "btnRe";
-            this.btnRe.Size = new System.Drawing.Size(88, 30);
-            this.btnRe.TabIndex = 7;
-            this.btnRe.Text = "恢复";
-            this.btnRe.UseVisualStyleBackColor = true;
-            this.btnRe.Click += new System.EventHandler(this.btnRe_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1317, 708);
             this.Controls.Add(this.panel1);
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DuplicateCheck";

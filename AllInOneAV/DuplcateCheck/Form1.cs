@@ -223,5 +223,19 @@ namespace DuplcateCheck
                 sw.Close();
             }
         }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            ListView.SelectedIndexCollection indexes = listView1.SelectedIndices;
+
+            if (indexes.Count > 0)
+            {
+                var index = indexes[0];
+
+                FileInfo fi = (FileInfo)listView1.Items[index].Tag;
+
+                FileUtility.PlayVideo(fi.FullName);
+            }
+        }
     }
 }
