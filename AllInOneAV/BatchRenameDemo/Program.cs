@@ -170,8 +170,8 @@ namespace BatchRenameDemo
 
                     if (File.Exists(moveFolder + tempFileName))
                     {
-                        logSb.AppendLine("-------移动 --> " + moveFolder + tempFileName + " 到 --> " + moveFolder + item.Value.FirstOrDefault().ID + "-" + item.Value.FirstOrDefault().Name + "-1" + item.Key.Extension);
-                        File.Move(moveFolder + tempFileName, moveFolder + item.Value.FirstOrDefault().ID + "-" + item.Value.FirstOrDefault().Name + "-1" + item.Key.Extension);
+                        //logSb.AppendLine("-------移动 --> " + moveFolder + tempFileName + " 到 --> " + moveFolder + item.Value.FirstOrDefault().ID + "-" + item.Value.FirstOrDefault().Name + "-1" + item.Key.Extension);
+                        //File.Move(moveFolder + tempFileName, moveFolder + item.Value.FirstOrDefault().ID + "-" + item.Value.FirstOrDefault().Name + "-1" + item.Key.Extension);
 
                         tempFileName = item.Value.FirstOrDefault().ID + "-" + item.Value.FirstOrDefault().Name + "-" + moveReocrd[tempFileName] + item.Key.Extension;
 

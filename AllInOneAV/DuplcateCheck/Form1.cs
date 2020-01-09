@@ -199,8 +199,6 @@ namespace DuplcateCheck
                 {
                     sb.AppendLine("----重命名从 " + rootFolder + fi.Name + " 到 " + rootFolder + listView1.Items[i].SubItems[0].Text);
                     updateCount++;
-
-                    //File.Move(rootFolder + fi.Name, rootFolder + listView1.Items[i].SubItems[0].Text);
                 }
 
                 if (listView1.Items[i].BackColor == Color.Red)
@@ -208,8 +206,6 @@ namespace DuplcateCheck
                     sb.AppendLine("****删除 " + rootFolder + fi.Name);
                     emptySpace += fi.Length;
                     deleteCount++;
-
-                    //File.Delete(rootFolder + fi.Name);
                 }
             }
 
@@ -217,6 +213,21 @@ namespace DuplcateCheck
 
             if (res == DialogResult.OK || res == DialogResult.Yes)
             {
+                for (int i = 0; i < listView1.Items.Count; i++)
+                {
+                    FileInfo fi = (FileInfo)listView1.Items[i].Tag;
+
+                    if (listView1.Items[i].BackColor == Color.Yellow)
+                    {
+                        File.Move(rootFolder + fi.Name, rootFolder + listView1.Items[i].SubItems[0].Text);
+                    }
+
+                    if (listView1.Items[i].BackColor == Color.Red)
+                    {
+                        File.Delete(rootFolder + fi.Name);
+                    }
+                }
+
                 File.Create(logFile).Close();
                 StreamWriter sw = new StreamWriter(logFile);
                 sw.WriteLine(sb.ToString());
