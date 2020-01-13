@@ -13,7 +13,7 @@ namespace Model.JavModels
             Name = "";
             Company = "";
             Publisher = "";
-            Directory = "";
+            Director = "";
             Category = "";
             Actress = "";
             PictureURL = "";
@@ -24,7 +24,7 @@ namespace Model.JavModels
         public string Name { get; set; }
         public string Company { get; set; }
         public string Publisher { get; set; }
-        public string Directory { get; set; }
+        public string Director{ get; set; }
         public string Category { get; set; }
         public string Actress { get; set; }
         public DateTime ReleaseDate { get; set; }

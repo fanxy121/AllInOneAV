@@ -126,9 +126,10 @@
             // 
             // txtRename
             // 
-            this.txtRename.Location = new System.Drawing.Point(981, 49);
+            this.txtRename.Location = new System.Drawing.Point(985, 49);
+            this.txtRename.Multiline = true;
             this.txtRename.Name = "txtRename";
-            this.txtRename.Size = new System.Drawing.Size(226, 21);
+            this.txtRename.Size = new System.Drawing.Size(226, 144);
             this.txtRename.TabIndex = 4;
             // 
             // pic3

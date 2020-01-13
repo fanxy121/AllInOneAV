@@ -116,7 +116,7 @@ namespace JavLibraryDownloader.DownloadHelper
                         var u = item.Groups[1].Value;
                         var data = item.Groups[2].Value;
                         Console.WriteLine(string.Format("Get AV {0}, Director -> {1}", url, data));
-                        av.Directory += data + ",";
+                        av.Director += data + ",";
                         Director d = new Director
                         {
                             CreateTime = DateTime.Now,

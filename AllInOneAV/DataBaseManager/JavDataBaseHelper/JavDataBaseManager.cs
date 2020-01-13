@@ -120,7 +120,7 @@ namespace DataBaseManager.JavDataBaseHelper
             paras[0].Value = av.ID;
             paras[1].Value = av.Name;
             paras[2].Value = av.Company;
-            paras[3].Value = av.Directory;
+            paras[3].Value = av.Director;
             paras[4].Value = av.Publisher;
             paras[5].Value = av.Category;
             paras[6].Value = av.Actress;

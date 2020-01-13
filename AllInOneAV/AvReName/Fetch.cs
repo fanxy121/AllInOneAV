@@ -79,7 +79,7 @@ namespace AvReName
             {
                 pictureBox1.Image = Image.FromStream(WebRequest.Create(av.PictureURL).GetResponse().GetResponseStream());
                 nameLabel.Text = av.Name;
-                directorLabel.Text = av.Directory;
+                directorLabel.Text = av.Director;
                 publisherLabel.Text = av.Publisher;
                 categoryLabel.Text = av.Category;
                 dateLabel.Text = av.ReleaseDate.ToString("yyyy-MM-dd");
@@ -152,7 +152,7 @@ namespace AvReName
                 {
                     var u = item.Groups[1].Value;
                     var data = item.Groups[2].Value;
-                    av.Directory += data + ",";
+                    av.Director += data + ",";
                 }
 
                 m = Regex.Matches(res.Content, detailCompanyPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -188,6 +188,11 @@ namespace AvReName
 
                 av.URL = url;
             }
+        }
+
+        private void Fetch_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

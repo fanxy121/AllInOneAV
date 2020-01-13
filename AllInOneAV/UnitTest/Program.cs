@@ -1,6 +1,7 @@
 ﻿using DataBaseManager.FindDataBaseHelper;
 using DataBaseManager.JavDataBaseHelper;
 using DataBaseManager.SisDataBaseHelper;
+using JavLibraryDownloader.InitHelper;
 using Microsoft.Win32;
 using Model.Common;
 using Model.FindModels;
@@ -39,14 +40,19 @@ namespace UnitTest
 
         static void Main(string[] args)
         {
-            var ffmpeg = "C:\\Setting\\ffmpeg.exe";
-            var file = "D:\\Fin\\ABG-001-金粉奴隷スナイパー 森沢かな.mp4";
+            var fan = "這是一串繁體字";
 
-            FileUtility.GetThumbnails(file, ffmpeg, "c:/setting/thumnail/", "1", 5, false);
+            Console.WriteLine(FileUtility.GetJianTiStr(fan));
 
-            //Console.ReadKey();
+            Console.ReadKey();
         }
 
+        private static void TestJavLibrarySearch(string id)
+        {
+            var cc = InitManager.UpdateCookie(null, "http://www.javlibrary.com/cn").CC;
+
+            var res = HtmlManager.GetHtmlContentViaUrl("http://www.javlibrary.com/cn/vl_searchbyid.php?keyword=" + id, "utf-8", true, cc);
+        }
         
 
         private static void RemoveDuplicate()
@@ -71,7 +77,7 @@ namespace UnitTest
             foreach (var id in needToFixIds)
             {
                 invalidCount++;
-                var effectedRows = avs.Where(x => x.ID == id.ID && x.Company == id.Company && x.Directory == id.Directory).ToList();
+                var effectedRows = avs.Where(x => x.ID == id.ID && x.Company == id.Company && x.Director == id.Director).ToList();
 
                 if (effectedRows.Count == 1)
                 {

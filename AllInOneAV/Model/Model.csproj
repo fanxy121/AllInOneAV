@@ -44,9 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AvManager\MoveLog.cs" />
+    <Compile Include="Common\CheckDuplcateModel.cs" />
     <Compile Include="Common\ConfigType.cs" />
     <Compile Include="Common\Email.cs" />
     <Compile Include="Common\PageModel.cs" />
+    <Compile Include="Common\ReportModel.cs" />
     <Compile Include="FindModels\AVViewModel.cs" />
     <Compile Include="FindModels\Movie.cs" />
     <Compile Include="FindModels\SearchHistory.cs" />

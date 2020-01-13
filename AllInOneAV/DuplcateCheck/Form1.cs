@@ -67,6 +67,8 @@ namespace DuplcateCheck
                 }
             }
 
+            files = files.OrderByDescending(x => x.Name).ToList();
+
             listView1.BeginUpdate();
             foreach (var file in files)
             {
@@ -85,6 +87,7 @@ namespace DuplcateCheck
 
                 listView1.Items.Add(lvi);
             }
+
             listView1.EndUpdate();
         }
 
@@ -210,21 +213,38 @@ namespace DuplcateCheck
             }
 
             var res = MessageBox.Show("你将重命名 " + updateCount + " 个文件" + "\r" + "删除 " + deleteCount + " 个文件" + "\r" + "共腾出空间 " + FileSize.GetAutoSizeString(emptySpace, 2), "警告");
+            StringBuilder sbError = new StringBuilder();
+
 
             if (res == DialogResult.OK || res == DialogResult.Yes)
-            {
+            {        
                 for (int i = 0; i < listView1.Items.Count; i++)
                 {
-                    FileInfo fi = (FileInfo)listView1.Items[i].Tag;
-
-                    if (listView1.Items[i].BackColor == Color.Yellow)
+                    try
                     {
-                        File.Move(rootFolder + fi.Name, rootFolder + listView1.Items[i].SubItems[0].Text);
+                        FileInfo fi = (FileInfo)listView1.Items[i].Tag;
+
+                        if (listView1.Items[i].BackColor == Color.Yellow)
+                        {
+                            if (File.Exists(rootFolder + listView1.Items[i].SubItems[0].Text))
+                            {
+                                sbError.AppendLine("--------" + listView1.Items[i].SubItems[0].Text);
+                                File.Move(rootFolder + fi.Name, rootFolder + "--------" + listView1.Items[i].SubItems[0].Text);
+                            }
+                            else
+                            {
+                                File.Move(rootFolder + fi.Name, rootFolder + listView1.Items[i].SubItems[0].Text);
+                            }
+                        }
+
+                        if (listView1.Items[i].BackColor == Color.Red)
+                        {
+                            File.Delete(rootFolder + fi.Name);
+                        }
                     }
-
-                    if (listView1.Items[i].BackColor == Color.Red)
+                    catch (Exception ee)
                     {
-                        File.Delete(rootFolder + fi.Name);
+                        sbError.AppendLine(ee.ToString());
                     }
                 }
 
@@ -232,7 +252,12 @@ namespace DuplcateCheck
                 StreamWriter sw = new StreamWriter(logFile);
                 sw.WriteLine(sb.ToString());
                 sw.Close();
+
+                listView1.Items.Clear();
+                ResetUi();
             }
+
+            MessageBox.Show(sbError.ToString());
         }
 
         private void listView1_DoubleClick(object sender, EventArgs e)
