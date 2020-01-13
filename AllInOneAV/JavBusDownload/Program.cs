@@ -10,6 +10,7 @@ namespace JavBusDownload
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
